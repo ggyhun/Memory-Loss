@@ -10,6 +10,7 @@ public class MapManager : MonoBehaviour
     public int FloorSizeX = -1;
     public int FloorSizeY = -1;
     public int[,] FloorData;
+    private int[,] RemapedFD;
     [SerializeField] private TileBase[] tiles;
     public Tilemap tilemap;
     void Start()
@@ -42,7 +43,6 @@ public class MapManager : MonoBehaviour
         FloorSizeX = FileData[0];
         FloorSizeY = FileData[1];
         int[,] result = new int[FloorSizeY, FloorSizeX];
-        //Debug.Log(FileData[1].ToString() + ", " + FileData[0].ToString());
         for (int i = 0; i + 2 < FileData.Count; i++) // 리스트를 2차원 배열로 변환
         {
             result[(i - i % FileData[0]) / FileData[0], i % FileData[0]] = FileData[i + 2];
@@ -50,26 +50,75 @@ public class MapManager : MonoBehaviour
         FloorData = result;
         return;
     }
-
-    private void FloorMapUpdate()
+    private void FloorDataRemap() //대각선 뷰를 위한 예외 처리용 함수
     {
-        for (int y = 0; y < FloorSizeY; y++)
+        RemapedFD = new int[FloorSizeY, FloorSizeX];
+        for (int x = 0; x < FloorSizeX; x++)
         {
-            for (int x = 0; x < FloorSizeX; x++)
+            int LayerTrigger = 0;
+            for (int y = 0; y < FloorSizeY; y++)
             {
-                /* Rule Tile 사용 테스트
                 if (FloorData[y, x] == 1)
                 {
-                    tilemap.SetTile(new Vector3Int(x, y, 0), tiles[12]);
+                    if (LayerTrigger == 0)
+                    {
+                        if (y != FloorSizeY - 1)
+                        {
+                            RemapedFD[y, x] = 1;
+                        }
+                        else
+                        {
+                            RemapedFD[y, x] = -1;
+                        }
+                    }
+                    else if (LayerTrigger == 1)
+                    {
+                        RemapedFD[y, x] = -1;
+                        LayerTrigger = 2;
+                    }
+                    else
+                    {
+                        RemapedFD[y, x] = -2;
+                    }
                 }
                 else
                 {
-                    tilemap.SetTile(new Vector3Int(x, y, 0), tiles[0]);
+                    if (LayerTrigger == 0 && y != 0)
+                    {
+                        RemapedFD[y - 1, x] = -3;
+                    }
+                    RemapedFD[y, x] = FloorData[y, x];
+                    LayerTrigger = 1;
                 }
-                */
+
+            }
+        }
+        return;
+    }
+    private void FloorMapUpdate()
+    {
+        FloorDataRemap();
+        for (int x = 0; x < FloorSizeX; x++)
+        {
+            for (int y = 0; y < FloorSizeY; y++)
+            {
                 int tiletype = 0;
                 int tilerotation = 0;
-                if (FloorData[y, x] == 1) // 벽일 경우 타일 적용 - 벽이 아닌 경우는 기본값인 바닥(0)
+                if (RemapedFD[y, x] == -1) // 대각선 뷰 처리 1
+                {
+                    tiletype = 13;
+                    tilerotation = 2;
+                }
+                else if (RemapedFD[y, x] == -2) // 대각선 뷰 처리 2
+                {
+                    tiletype = 11;
+                }
+                else if (RemapedFD[y, x] == -3) // 대각선 뷰 처리 3
+                {
+                    tiletype = 12;
+                    tilerotation = 2;
+                }
+                else if (RemapedFD[y, x] == 1) // 벽일 경우 타일 적용 - 벽이 아닌 경우는 기본값인 바닥(0)
                 {
                     int[,] neighbor = new int[3, 3]; // 맵 경계 벽으로 간주하는 인접 타일 배열
                     for (int i = 0; i < 3; i++)
@@ -81,7 +130,7 @@ public class MapManager : MonoBehaviour
                             {
                                 neighbor[i, j] = 1;
                             }
-                            else if (FloorData[y + (i - 1), x + (j - 1)] == 1)
+                            else if (RemapedFD[y + (i - 1), x + (j - 1)] == 1)
                             {
                                 neighbor[i, j] = 1;
                             }

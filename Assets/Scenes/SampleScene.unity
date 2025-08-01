@@ -163,7 +163,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: db9db85ef683cb84496f5b54a7f80685, type: 2}
   - {fileID: 11400000, guid: 2c82c7fe7fbfb014897efa55854a1180, type: 2}
   - {fileID: 11400000, guid: 817efabe4eec86f48826995df7cf2e6e, type: 2}
-  - {fileID: 11400000, guid: e91663420f733e64c951c3c9d4f4e053, type: 2}
+  - {fileID: 11400000, guid: 8b15175e8d059eb41934a7019a225939, type: 2}
+  - {fileID: 11400000, guid: 24233b49b6c6f054191067a644babbe4, type: 2}
   tilemap: {fileID: 1691804939}
 --- !u!4 &57507178
 Transform:
