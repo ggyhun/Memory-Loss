@@ -98,7 +98,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1374802447055170653}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 938392c2036aa58458a964cf4f58be92, type: 3}
+  m_Script: {fileID: 11500000, guid: 2bab6891c576eb446ac2b0cdbaba9345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 2084009085541206460}
