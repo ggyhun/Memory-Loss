@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      InvisibleBlockTile_0: 1259720697332564782
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

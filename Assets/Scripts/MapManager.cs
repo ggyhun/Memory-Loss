@@ -7,16 +7,21 @@ using System.Linq;
 
 public class MapManager : MonoBehaviour
 {
+    public int CurrentFloorLevel = 0;
+    public int[] TotalEnemyCount = new int[10]{5, 5, 5, 10, 10, 10, 15, 15, 15, 20}; // 층별 적 수(현재 임의 설정)
     public int FloorSizeX = -1;
     public int FloorSizeY = -1;
     public int[,] FloorData;
     private int[,] RemapedFD;
     [SerializeField] private TileBase[] tiles;
     public Tilemap tilemap;
+    public bool isExitActive = false;
+    public int[] ExitXY = new int[2];
     void Start()
     {
-        LoadFloorData("Testmap.txt"); // 테스트용 맵 불러오고 적용
+        LoadFloorData("1F_test.txt"); // 1층 테스트 맵 불러오고 적용
         FloorMapUpdate();
+        GameObject.Find("EnemyManager").GetComponent<EnemyManager>().SpawnEnemy(); // 적 생성 테스트
     }
 
     private void LoadFloorData(string name)
@@ -37,7 +42,8 @@ public class MapManager : MonoBehaviour
             }
             else
             {
-                Debug.LogWarning("Invaild Floor Data File");
+                Debug.LogError("Invaild Floor Data File");
+                return;
             }
         }
         FloorSizeX = FileData[0];
@@ -68,6 +74,7 @@ public class MapManager : MonoBehaviour
                         }
                         else
                         {
+                            RemapedFD[y - 1, x] = -3;
                             RemapedFD[y, x] = -1;
                         }
                     }
@@ -104,6 +111,12 @@ public class MapManager : MonoBehaviour
             {
                 int tiletype = 0;
                 int tilerotation = 0;
+                if (RemapedFD[y, x] == 3) // 출구 처리
+                {
+                    tiletype = 14;
+                    ExitXY[0] = x;
+                    ExitXY[1] = y;
+                }
                 if (RemapedFD[y, x] == -1) // 대각선 뷰 처리 1
                 {
                     tiletype = 13;
@@ -249,6 +262,33 @@ public class MapManager : MonoBehaviour
             }
         }
         return;
+    }
+    public List<TileData> FloorToTileData(int type) // FloorData 기반으로 TileData 리스트 반환
+    {
+        List<TileData> result = new List<TileData>();
+        for (int y = 0; y < FloorSizeY; y++)
+        {
+            for (int x = 0; x < FloorSizeX; x++)
+            {
+                int currenttile = FloorData[y, x];
+                if (currenttile == type) // type => 0:바닥, 1:벽(구멍), 2:플레이어 스폰, 3:출구, 4:적 스폰, 5:아이템 스폰
+                {
+                    var data = new TileData
+                    {
+                        position = new Vector3Int((int)tilemap.transform.position.x + x, (int)tilemap.transform.position.y - y, (int)tilemap.transform.position.z),
+                        isWalkable = (type == 1) ? false : true,
+                        isExit = (type == 3) ? true : false
+                    };
+                    result.Add(data);
+                }
+            }
+        }
+        return result;
+    }
+    public void ActivateExit()
+    {
+        isExitActive = true;
+        tilemap.SetTile(new Vector3Int(ExitXY[1], ExitXY[0], 0), tiles[15]);
     }
     void Update()
     {
