@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
-using System;
 
 public class EnemyManager : MonoBehaviour
 {
-    [SerializeField] private List<Enemy> enemies = new List<Enemy>();
+    private List<Enemy> enemies = new List<Enemy>();
     private int finishedCount = 0;
 
     public void RegisterEnemy(Enemy enemy) => enemies.Add(enemy);
@@ -24,7 +23,8 @@ public class EnemyManager : MonoBehaviour
         }
         foreach (TileData data in SelectedEnemySpawnPoint)
         {
-            Instantiate(DefaultEnemy, new Vector3(data.position.x + 0.5f, data.position.y - 0.5f, data.position.z - 1), new quaternion());
+            // Todo: ? DefaultEnemy와 Enemy의 차이점이 무엇인지 확인 필요
+            // Instantiate(DefaultEnemy, new Vector3(data.position.x + 0.5f, data.position.y - 0.5f, data.position.z - 1), new quaternion());
         }
     }
     
