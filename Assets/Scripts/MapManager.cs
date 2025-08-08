@@ -15,12 +15,14 @@ public class MapManager : MonoBehaviour
     private int[,] RemapedFD;
     [SerializeField] private TileBase[] tiles;
     public Tilemap tilemap;
+    private Dictionary<Vector3Int, TileData> TileDataDict = new Dictionary<Vector3Int, TileData>();
     public bool isExitActive = false;
     public int[] ExitXY = new int[2];
-    void Start()
+    void Awake()
     {
         LoadFloorData("1F_test.txt"); // 1층 테스트 맵 불러오고 적용
-        FloorMapUpdate();
+        GenerateTileDataDict(); // TileDataDict에 딕셔너리 형태로 맵 데이터 저장
+        FloorMapUpdate(); // FloorData 기반으로 타일맵에 타일 배치
         GameObject.Find("EnemyManager").GetComponent<EnemyManager>().SpawnEnemy(); // 적 생성 테스트
     }
 
@@ -284,6 +286,26 @@ public class MapManager : MonoBehaviour
             }
         }
         return result;
+    }
+    private void GenerateTileDataDict() // TileDataDict에 딕셔너리 형태로 맵 데이터 저장
+    {
+        TileDataDict.Clear(); // 기존에 저장된 맵 데이터 초기화
+        for (int y = 0; y < FloorSizeY; y++)
+        {
+            for (int x = 0; x < FloorSizeX; x++)
+            {
+                int currenttile = FloorData[y, x]; // 1:벽(구멍), 3:출구
+                Vector3Int pos = new Vector3Int((int)tilemap.transform.position.x + x, (int)tilemap.transform.position.y - y, (int)tilemap.transform.position.z);
+                var data = new TileData
+                {
+                    position = pos,
+                    isWalkable = (currenttile == 1) ? false : true,
+                    isExit = (currenttile == 3) ? true : false
+                };
+                TileDataDict[pos] = data;
+            }
+        }
+        return;
     }
     public void ActivateExit()
     {
