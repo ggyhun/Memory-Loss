@@ -5,12 +5,11 @@ using System;
 
 public class EnemyManager : MonoBehaviour
 {
-    public GameObject DefaultEnemy;
-    public List<GameObject> EnemyList = new List<GameObject>();
-    void Start()
-    {
-        
-    }
+    [SerializeField] private List<Enemy> enemies = new List<Enemy>();
+    private int finishedCount = 0;
+
+    public void RegisterEnemy(Enemy enemy) => enemies.Add(enemy);
+    public void UnregisterEnemy(Enemy enemy) => enemies.Remove(enemy);
 
     public void SpawnEnemy()
     {
@@ -28,19 +27,30 @@ public class EnemyManager : MonoBehaviour
             Instantiate(DefaultEnemy, new Vector3(data.position.x + 0.5f, data.position.y - 0.5f, data.position.z - 1), new quaternion());
         }
     }
-
-    public void RegisterEnemy(GameObject Enemy)
+    
+    public void StartEnemyTurn()
     {
-        EnemyList.Add(Enemy);
+        finishedCount = 0;
+
+        if (enemies.Count == 0)
+        {
+            // 적이 없으면 바로 플레이어 턴
+            TurnManager.Instance.StartPlayerTurn();
+            return;
+        }
+
+        foreach (var enemy in enemies)
+        {
+            enemy.StartTurnAction();
+        }
     }
-
-    public void UnregisterEnemy(GameObject Enemy)
+    
+    public void ReportEnemyDone()
     {
-        EnemyList.Remove(Enemy);
-    }
-
-    void Update()
-    {
-        
+        finishedCount++;
+        if (finishedCount >= enemies.Count)
+        {
+            TurnManager.Instance.StartPlayerTurn();
+        }
     }
 }
