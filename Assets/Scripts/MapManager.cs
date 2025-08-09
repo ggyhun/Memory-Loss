@@ -277,7 +277,7 @@ public class MapManager : MonoBehaviour
                 {
                     var data = new TileData
                     {
-                        position = new Vector3Int((int)tilemap.transform.position.x + x, (int)tilemap.transform.position.y - y, (int)tilemap.transform.position.z),
+                        // position = new Vector3Int((int)tilemap.transform.position.x + x, (int)tilemap.transform.position.y - y, (int)tilemap.transform.position.z),
                         isWalkable = (type == 1) ? false : true,
                         isExit = (type == 3) ? true : false
                     };
@@ -298,7 +298,7 @@ public class MapManager : MonoBehaviour
                 Vector3Int pos = new Vector3Int((int)tilemap.transform.position.x + x, (int)tilemap.transform.position.y - y, (int)tilemap.transform.position.z);
                 var data = new TileData
                 {
-                    position = pos,
+                    // position = pos,
                     isWalkable = (currenttile == 1) ? false : true,
                     isExit = (currenttile == 3) ? true : false
                 };
@@ -311,9 +311,5 @@ public class MapManager : MonoBehaviour
     {
         isExitActive = true;
         tilemap.SetTile(new Vector3Int(ExitXY[1], ExitXY[0], 0), tiles[15]);
-    }
-    void Update()
-    {
-        
     }
 }

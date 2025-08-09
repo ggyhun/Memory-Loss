@@ -6,7 +6,7 @@ public class HighlightManager : MonoBehaviour
 {
     public GameObject highlightPrefab;     // SpriteRenderer 프리팹
     public Tilemap tilemap;
-    public TileManager tileManager;
+    public GridManager gridManager;
 
     public int poolSize = 8;
 
@@ -53,7 +53,7 @@ public class HighlightManager : MonoBehaviour
         foreach (var dir in directions)
         {
             Vector3Int target = playerPos + dir;
-            TileData data = tileManager.GetTileData(target);
+            TileData data = gridManager.GetTileData(target);
 
             if (data != null && data.isWalkable && data.occupant == null)
             {

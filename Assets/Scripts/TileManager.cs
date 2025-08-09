@@ -2,28 +2,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-public class TileData
-{
-    public Vector3Int position;
 
-    // 논리 상태
-    public bool isWalkable = true;
-    public bool isTrap = false;
-    public GameObject occupant = null;
-    public bool isExit = false;
-
-    // 시각 레이어 정보 (optional)
-    // public TileBase backgroundTile;
-    // public TileBase obstacleTile;
-    // public TileBase decorativeTile;
-}
-
-
+/*
 public class TileManager : MonoBehaviour
 {
     public Tilemap backgroundMap;
     public Tilemap obstacleMap;
-    public Tilemap decorativeMap;
 
     private Dictionary<Vector3Int, TileData> tileDictionary = new Dictionary<Vector3Int, TileData>();
 
@@ -43,10 +27,6 @@ public class TileManager : MonoBehaviour
 
             var data = new TileData
             {
-                position = pos,
-                // backgroundTile = backgroundMap.GetTile(pos),
-                // obstacleTile = obstacleMap.HasTile(pos) ? obstacleMap.GetTile(pos) : null,
-                // decorativeTile = decorativeMap.HasTile(pos) ? decorativeMap.GetTile(pos) : null,
                 isWalkable = !obstacleMap.HasTile(pos) // 충돌 타일이 없으면 이동 가능
             };
 
@@ -80,7 +60,6 @@ public class TileManager : MonoBehaviour
         return Vector3Int.zero;
     }
     
-    
     // 타일의 점유자를 설정하거나 제거하는 메서드
     
     public void SetOccupantAt(Vector3Int pos, GameObject unit)
@@ -95,3 +74,4 @@ public class TileManager : MonoBehaviour
             tileData.occupant = null;
     }
 }
+*/

@@ -4,8 +4,8 @@ using UnityEngine.Tilemaps;
 public class PlayerController : MonoBehaviour
 {
     [Header("References")]
-    public Tilemap tilemap;              // 이동 기준이 되는 Tilemap (Background)
-    public TileManager tileManager;      // 타일 논리 정보 관리
+    public Tilemap tilemap; // 이동 기준이 되는 Tilemap (Background)
+    public GridManager gridManager; // 타일 논리 정보 관리
     public HighlightManager highlightManager; // 하이라이트 표시 및 클릭 관리
 
     [Header("Turn Control")]
@@ -29,8 +29,8 @@ public class PlayerController : MonoBehaviour
         if (!isPlayerTurn) return;
 
         Vector3Int currentCell = tilemap.WorldToCell(transform.position);
-        tileManager.ClearOccupantAt(currentCell);
-        tileManager.SetOccupantAt(targetCell, gameObject);
+        gridManager.ClearOccupantAt(currentCell);
+        gridManager.SetOccupantAt(targetCell, gameObject);
         transform.position = tilemap.GetCellCenterWorld(targetCell);
 
         // 턴 종료
