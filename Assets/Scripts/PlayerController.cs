@@ -10,6 +10,18 @@ public class PlayerController : MonoBehaviour
 
     [Header("Turn Control")]
     public bool isPlayerTurn = true;
+    
+    private Vector2Int PlayerPos => Vector2Int.RoundToInt(transform.position);
+    [SerializeField] private SpellInventory spellInventory;
+
+    // 플레이어의 현재 클릭 상태 (이동 또는 공격), 주문서 클릭시 공격으로 변경
+    private enum ClickState
+    {
+        Move,
+        Attack
+    };
+    private ClickState currentClickState = ClickState.Move;
+    
 
     void Start()
     {
@@ -26,13 +38,24 @@ public class PlayerController : MonoBehaviour
 
     void OnHighlightClick(Vector3Int targetCell)
     {
+        // 플레이어 턴이 아닐 때는 아무 동작도 하지 않음
         if (!isPlayerTurn) return;
-
-        Vector3Int currentCell = tilemap.WorldToCell(transform.position);
-        gridManager.ClearOccupantAt(currentCell);
-        gridManager.SetOccupantAt(targetCell, gameObject);
-        transform.position = tilemap.GetCellCenterWorld(targetCell);
-
+        
+        if (currentClickState == ClickState.Move)
+        {
+            // Player 위치 이동
+            Vector3Int currentCell = tilemap.WorldToCell(transform.position);
+            gridManager.ClearOccupantAt(currentCell);
+            gridManager.SetOccupantAt(targetCell, gameObject);
+            transform.position = tilemap.GetCellCenterWorld(targetCell);
+        }
+        
+        if (currentClickState == ClickState.Attack)
+        {
+            // 공격 로직 추가 (예: 적과 충돌 처리)
+            Debug.Log("공격 로직은 아직 구현되지 않았습니다.");
+        }
+        
         // 턴 종료
         isPlayerTurn = false;
         hasShownHighlightThisTurn = false;
@@ -50,11 +73,42 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        // 1번 키를 눌렀을 때 첫 번째 스펠 사용
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            spellInventory.UseSpell(0, PlayerPos);
+        }
+        
         // 턴이 시작됐는데 아직 하이라이트를 안 보여줬다면 표시
         if (isPlayerTurn && !hasShownHighlightThisTurn)
         {
             ShowMoveHighlights();
             hasShownHighlightThisTurn = true;
         }
+    }
+    
+    private void HighlightClickConverter(Vector3Int targetCell)
+    {
+        if (!isPlayerTurn) return;
+
+        Vector3Int currentCell = tilemap.WorldToCell(transform.position);
+        TileData data = gridManager.GetTileData(targetCell);
+
+        if (data != null && data.isWalkable && data.occupant == null)
+        {
+            gridManager.ClearOccupantAt(currentCell);
+            gridManager.SetOccupantAt(targetCell, gameObject);
+            transform.position = tilemap.GetCellCenterWorld(targetCell);
+            isPlayerTurn = false;
+            hasShownHighlightThisTurn = false;
+            highlightManager.ClearHighlights();
+        }
+    }
+
+    
+    // 주문서 습득 시 호출
+    public void PickUpSpell(SpellData spell)
+    {
+        spellInventory.AddSpell(spell);
     }
 }
