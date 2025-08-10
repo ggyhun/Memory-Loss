@@ -46,10 +46,13 @@ public class HighlightManager : MonoBehaviour
         return newGo;
     }
 
+    // PlayerController -> ShowHighlights(Vector3Int playerPos, System.Action<Vector3Int> onClick)
     public void ShowHighlights(Vector3Int playerPos, System.Action<Vector3Int> onClick)
     {
+        // 하이라이트를 표시하기 전에 기존 하이라이트를 모두 제거
         ClearHighlights();
 
+        // 플레이어의 상하좌우 방향
         foreach (var dir in directions)
         {
             Vector3Int target = playerPos + dir;

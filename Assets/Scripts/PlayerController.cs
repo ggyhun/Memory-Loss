@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
         
         if (currentClickState == ClickState.Attack)
         {
-            // 공격 로직 추가 (예: 적과 충돌 처리)
+            // Todo: 공격 로직 추가 (예: 적과 충돌 처리)
             Debug.Log("공격 로직은 아직 구현되지 않았습니다.");
         }
         
