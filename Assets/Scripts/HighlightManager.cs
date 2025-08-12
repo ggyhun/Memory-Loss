@@ -4,80 +4,102 @@ using System.Collections.Generic;
 
 public class HighlightManager : MonoBehaviour
 {
-    public GameObject highlightPrefab;     // SpriteRenderer 프리팹
-    public Tilemap tilemap;
-    public GridManager gridManager;
-
-    public int poolSize = 8;
-
-    private List<GameObject> pool = new List<GameObject>();
-    private List<GameObject> activeHighlights = new List<GameObject>();
-
-    private Vector3Int[] directions = {
-        Vector3Int.up, Vector3Int.down, Vector3Int.left, Vector3Int.right
-    };
-
-    void Awake()
+    public GameObject player;
+    public GridManager gridManager; // GridManager 스크립트 참조
+    
+    public List<GameObject> MoveHighlighters; // 이동 가능한 타일을 표시할 하이라이터 오브젝트들
+    public GameObject moveHighlighterPrefab; // 이동 하이라이터 프리팹
+    
+    private void Awake()
     {
-        InitializePool();
-    }
-
-    void InitializePool()
-    {
-        for (int i = 0; i < poolSize; i++)
+        // 기본적으로 4개 생성후 리스트에 추가
+        for (int i = 0; i < 4; i++)
         {
-            GameObject go = Instantiate(highlightPrefab, Vector3.zero, Quaternion.identity, transform);
-            go.SetActive(false);
-            pool.Add(go);
+            GameObject highlighter = Instantiate(moveHighlighterPrefab);
+            highlighter.SetActive(false); // 초기에는 비활성화
+            MoveHighlighters.Add(highlighter);
         }
     }
 
-    GameObject GetFromPool()
+    private void Start()
     {
-        foreach (var go in pool)
-        {
-            if (!go.activeInHierarchy)
-                return go;
-        }
-
-        GameObject newGo = Instantiate(highlightPrefab, Vector3.zero, Quaternion.identity, transform);
-        newGo.SetActive(false);
-        pool.Add(newGo);
-        return newGo;
+        // 플레이어의 위치에 따라 하이라이터 업데이트
+        UpdateMoveHighlighter();
     }
-
-    // PlayerController -> ShowHighlights(Vector3Int playerPos, System.Action<Vector3Int> onClick)
-    public void ShowHighlights(Vector3Int playerPos, System.Action<Vector3Int> onClick)
+    
+    public void HandleMoveHighlighterClick(Vector3 position)
     {
-        // 하이라이트를 표시하기 전에 기존 하이라이트를 모두 제거
-        ClearHighlights();
+        // 클릭된 위치의 타일 데이터 가져오기
+        TileData targetTile = gridManager.GetTileData(position);
 
-        // 플레이어의 상하좌우 방향
-        foreach (var dir in directions)
+        // 이동 가능 여부 확인
+        if (targetTile.isWalkable && targetTile.occupant == null) {
+            TileData playerTile = gridManager.GetTileData(player.transform.position);
+            
+            // 점유자 변경
+            targetTile.occupant = playerTile.occupant;
+            playerTile.occupant = null;
+            
+            // 플레이어를 새로운 위치로 이동
+            player.transform.position = targetTile.worldPosition;
+        }
+        else
         {
-            Vector3Int target = playerPos + dir;
-            TileData data = gridManager.GetTileData(target);
+            Debug.Log("이동 불가능 / 하이라이트 점검 필요 : " + position);
+        }
+        
+        UpdateMoveHighlighter();
+    }
+    
+    public void UpdateMoveHighlighter()
+    {
+        // 플레이어의 현재 위치를 기준으로 하이라이터 위치 업데이트
+        TileData playerTile = gridManager.GetTileData(player.transform.position);
+        // 예외 처리
+        if (playerTile == null || !playerTile.isWalkable)
+        {
+            Debug.LogWarning("플레이어가 있는 타일이 유효하지 않거나 이동 불가능합니다.");
+            return;
+        }
+        
+        Vector3 playerPos;
+        Vector3Int[] directions = {
+            Vector3Int.up,
+            Vector3Int.down,
+            Vector3Int.left,
+            Vector3Int.right
+        };
 
-            if (data != null && data.isWalkable && data.occupant == null)
-            {
-                GameObject go = GetFromPool();
-                go.transform.position = tilemap.GetCellCenterWorld(target);
-                go.SetActive(true);
+        ClearMoveHighlighters();
 
-                HighlightTile tile = go.GetComponent<HighlightTile>();
-                tile.Setup(target, onClick);
+        int i = 0;
+        foreach (Vector3Int direction in directions) {
+            playerPos = player.transform.position;
+            Vector3 targetPos = playerPos + direction;
+            Vector3Int targetCellPos = gridManager.backgroundMap.WorldToCell(targetPos);
 
-                activeHighlights.Add(go);
+            // 타일 데이터 가져오기
+            TileData targetTile = gridManager.GetTileData(targetCellPos);
+
+            // 예외 처리
+            if (targetTile == null || !targetTile.isWalkable || targetTile.occupant) {
+                Debug.LogWarning("이동 불가능한 타일: " + targetPos);
+                continue;
             }
+            
+            // 하이라이터 위치 업데이트
+            MoveHighlighters[i].SetActive(true);
+            MoveHighlighters[i].transform.position = targetPos;
+            i++;
         }
     }
-
-    public void ClearHighlights()
+    
+    private void ClearMoveHighlighters()
     {
-        foreach (var go in activeHighlights)
+        // 모든 하이라이터 비활성화
+        foreach (GameObject highlighter in MoveHighlighters)
         {
-            go.SetActive(false);
+            highlighter.SetActive(false);
         }
-        activeHighlights.Clear();
     }
 }

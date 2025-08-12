@@ -2,14 +2,11 @@
 
 public class TileData
 {
+    public Vector3Int cellPosition; // 타일의 셀 상대 위치
+    public Vector3 worldPosition; // 타일의 월드 위치 : Vector3로 사용
+    
     // 논리 상태
     public bool isWalkable = true;
-    public bool isTrap = false;
     public GameObject occupant = null;
     public bool isExit = false;
-
-    // 시각 레이어 정보 (optional)
-    // public TileBase backgroundTile;
-    // public TileBase obstacleTile;
-    // public TileBase decorativeTile;
 }
