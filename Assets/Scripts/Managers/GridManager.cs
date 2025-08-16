@@ -4,9 +4,10 @@ using UnityEngine.Tilemaps;
 
 public class GridManager : MonoBehaviour
 {
-    [Header("Tilemaps")] public Tilemap backgroundMap;
+    [Header("Tilemaps")]
+    public Tilemap backgroundMap;
     public Tilemap obstacleMap;
-    public Tilemap overlayMap; // Overlay Tilemap (적 스폰 위치 등)
+    public Tilemap overlayMap;
     
     private Dictionary<Vector3Int, TileData> tileDictionary = new Dictionary<Vector3Int, TileData>();
 
@@ -67,6 +68,7 @@ public class GridManager : MonoBehaviour
     {
         if (tileDictionary.TryGetValue(pos, out TileData tileData)) {
             tileData.occupant = occupant;
+            tileData.isWalkable = false;
         } else {
             Debug.LogWarning($"타일 데이터가 존재하지 않습니다: {pos}");
         }
@@ -76,8 +78,72 @@ public class GridManager : MonoBehaviour
     {
         if (tileDictionary.TryGetValue(pos, out TileData tileData)) {
             tileData.occupant = null;
+            tileData.isWalkable = true;
         } else {
             Debug.LogWarning($"타일 데이터가 존재하지 않습니다: {pos}");
         }
     }
+
+    public void MoveTo(GameObject occupant, Vector3 targetPosition)
+    {
+        Vector3Int startCell = backgroundMap.WorldToCell(occupant.transform.position);
+        
+        Vector3Int targetCell = backgroundMap.WorldToCell(targetPosition);
+        TileData targetTile = GetTileData(targetCell);
+        
+        if (targetTile != null && targetTile.isWalkable && targetTile.occupant == null) {
+            // 현재 위치에서 타겟 위치로 이동
+            occupant.transform.position = targetTile.worldPosition;
+            
+            // 점유자 정보 업데이트
+            ClearOccupant(startCell);
+            SetOccupant(targetCell, occupant);
+        } else {
+            Debug.LogWarning("이동 불가능한 위치입니다: " + targetPosition);
+        }
+    }
+    
+    public List<TileData> GetWalkableNeighbors(Vector3Int cellPos)
+    {
+        var neighbors = new List<TileData>();
+        Vector3Int[] directions = {
+            Vector3Int.up,
+            Vector3Int.down,
+            Vector3Int.left,
+            Vector3Int.right
+        };
+
+        foreach (var dir in directions)
+        {
+            Vector3Int neighborPos = cellPos + dir;
+            if (tileDictionary.TryGetValue(neighborPos, out TileData tile) && tile.isWalkable && tile.occupant == null)
+            {
+                neighbors.Add(tile);
+            }
+        }
+        return neighbors;
+    }
+    
+    public List<TileData> GetTilesInRange(Vector3Int center, int range)
+    {
+        var result = new List<TileData>();
+        foreach (var pos in tileDictionary.Keys)
+        {
+            if (Vector3Int.Distance(center, pos) <= range)
+            {
+                result.Add(tileDictionary[pos]);
+            }
+        }
+        return result;
+    }
+    
+    public GameObject GetOccupant(Vector3Int pos)
+    {
+        if (tileDictionary.TryGetValue(pos, out TileData tile))
+            return tile.occupant;
+        return null;
+    }
+    
+    public Vector3Int WorldToCell(Vector3 worldPos) => backgroundMap.WorldToCell(worldPos);
+    public Vector3 CellToWorld(Vector3Int cellPos) => backgroundMap.GetCellCenterWorld(cellPos);
 }

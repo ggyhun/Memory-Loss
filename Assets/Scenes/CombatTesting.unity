@@ -350,8 +350,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 642531866}
   gridManager: {fileID: 358071004}
-  MoveHighlighters: []
+  moveHighlighters: []
   moveHighlighterPrefab: {fileID: 5951805236649006774, guid: 889c837ea129b094a96639e63f544465, type: 3}
+  castHighlighters: []
+  castHighlighterPrefab: {fileID: 5046815808455119461, guid: 70ae912dc0efc0141ad1e3019bff93a0, type: 3}
 --- !u!4 &413124390
 Transform:
   m_ObjectHideFlags: 0
@@ -2870,6 +2872,51 @@ Transform:
   - {fileID: 1765369863}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1566618176
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1566618178}
+  - component: {fileID: 1566618177}
+  m_Layer: 0
+  m_Name: TurnManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1566618177
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1566618176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23d54a25aac945246a67c11ed1f81e7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyManager: {fileID: 1682628284}
+--- !u!4 &1566618178
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1566618176}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1669029456
 GameObject:
   m_ObjectHideFlags: 0
@@ -3946,6 +3993,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1682628282}
   - component: {fileID: 1682628283}
+  - component: {fileID: 1682628284}
   m_Layer: 0
   m_Name: EnemyManager
   m_TagString: Untagged
@@ -3984,6 +4032,18 @@ MonoBehaviour:
   enemySpawnTile: {fileID: 11400000, guid: 81ea48314bb8cc447bdd5572c6e097cb, type: 2}
   enemyPrefab: {fileID: 5441253103644555324, guid: c368810063fc00744829dd34baf9bd63, type: 3}
   enemyCount: 3
+--- !u!114 &1682628284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682628281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53fb4f579a1282c4c8ffb07126c328d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1765369862
 GameObject:
   m_ObjectHideFlags: 0
@@ -4215,3 +4275,4 @@ SceneRoots:
   - {fileID: 413124390}
   - {fileID: 642531865}
   - {fileID: 1682628282}
+  - {fileID: 1566618178}

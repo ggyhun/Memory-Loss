@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class TurnManager : MonoBehaviour
 {
@@ -7,14 +8,42 @@ public class TurnManager : MonoBehaviour
     public enum TurnState { PlayerTurn, SystemTurn }
     public TurnState CurrentTurn { get; private set; }
 
+    private int _totalPlayerActors;
+    private int _finishedPlayerActorCount;
+
     [SerializeField] private EnemyManager enemyManager;
 
+    public void RegisterActor() => _totalPlayerActors++;
+    public void UnregisterActor() => _totalPlayerActors--;
+    
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;
         CurrentTurn = TurnState.PlayerTurn;
+        
+        _totalPlayerActors = 0;
+        _finishedPlayerActorCount = 0;
+        
+        if (enemyManager == null)
+        {
+            enemyManager = FindFirstObjectByType<EnemyManager>();
+            if (enemyManager == null)
+            {
+                Debug.LogError("EnemyManager not found in the scene.");
+            }
+        }
     }
 
+    public bool IsPlayerTurn()
+    {
+        return CurrentTurn == TurnState.PlayerTurn;
+    }
+    
     // PlayerController에서 호출
     public void EndPlayerTurn()
     {
@@ -25,7 +54,18 @@ public class TurnManager : MonoBehaviour
     public void StartPlayerTurn()
     {
         CurrentTurn = TurnState.PlayerTurn;
-        // Todo: 플레이어 턴 시작 로직 추가
-        // UI 활성화, 플레이어 입력 허용
+        FindFirstObjectByType<PlayerController>().ReduceCooldowns();
+        
+        _finishedPlayerActorCount = 0;
+    }
+
+    public void PlayerReportDone()
+    {
+        _finishedPlayerActorCount++;
+        if (_finishedPlayerActorCount >= _totalPlayerActors)
+        {
+            Debug.Log("플레이어 턴 종료");
+            EndPlayerTurn();
+        }
     }
 }

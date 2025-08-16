@@ -23,7 +23,7 @@ public class MapManager : MonoBehaviour
         LoadFloorData("1F_test.txt"); // 1층 테스트 맵 불러오고 적용
         GenerateTileDataDict(); // TileDataDict에 딕셔너리 형태로 맵 데이터 저장
         FloorMapUpdate(); // FloorData 기반으로 타일맵에 타일 배치
-        GameObject.Find("EnemyManager").GetComponent<EnemyManager>().SpawnEnemy(); // 적 생성 테스트
+        // GameObject.Find("EnemyManager").GetComponent<EnemyManager>().SpawnEnemy(); // 적 생성 테스트
     }
 
     private void LoadFloorData(string name)

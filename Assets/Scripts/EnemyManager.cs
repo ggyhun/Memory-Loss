@@ -9,24 +9,6 @@ public class EnemyManager : MonoBehaviour
 
     public void RegisterEnemy(Enemy enemy) => enemies.Add(enemy);
     public void UnregisterEnemy(Enemy enemy) => enemies.Remove(enemy);
-
-    public void SpawnEnemy()
-    {
-        MapManager mapManager = GameObject.Find("MapManager").GetComponent<MapManager>();
-        List<TileData> EnemySpawnPoint = mapManager.FloorToTileData(4);
-        List<TileData> SelectedEnemySpawnPoint = new List<TileData>();
-        for (int i = 0; i < mapManager.TotalEnemyCount[mapManager.CurrentFloorLevel]; i++)
-        {
-            int pick = UnityEngine.Random.Range(0, EnemySpawnPoint.Count);
-            SelectedEnemySpawnPoint.Add(EnemySpawnPoint[pick]);
-            EnemySpawnPoint.RemoveAt(pick);
-        }
-        foreach (TileData data in SelectedEnemySpawnPoint)
-        {
-            // Todo: ? DefaultEnemy와 Enemy의 차이점이 무엇인지 확인 필요
-            // Instantiate(DefaultEnemy, new Vector3(data.position.x + 0.5f, data.position.y - 0.5f, data.position.z - 1), new quaternion());
-        }
-    }
     
     public void StartEnemyTurn()
     {

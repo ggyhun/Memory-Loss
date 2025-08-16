@@ -26,7 +26,6 @@ public class MoveHighlighter : MonoBehaviour
     // 하이라이트 투명도 조정
     void OnMouseEnter()
     {
-        Debug.Log("하이라이트 활성화 : " + transform.position);
         spriteRenderer.color = offsetColor;
     }
 
@@ -38,7 +37,6 @@ public class MoveHighlighter : MonoBehaviour
 
     void OnMouseDown()
     {
-        Debug.Log("하이라이트 클릭 : " + transform.position);
         highlightManager.HandleMoveHighlighterClick(transform.position);
     }
 }

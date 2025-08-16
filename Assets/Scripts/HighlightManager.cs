@@ -7,8 +7,25 @@ public class HighlightManager : MonoBehaviour
     public GameObject player;
     public GridManager gridManager; // GridManager 스크립트 참조
     
-    public List<GameObject> MoveHighlighters; // 이동 가능한 타일을 표시할 하이라이터 오브젝트들
+    public List<GameObject> moveHighlighters; // 이동 가능한 타일을 표시할 하이라이터 오브젝트들
     public GameObject moveHighlighterPrefab; // 이동 하이라이터 프리팹
+
+    public List<GameObject> castHighlighters; // 시전 가능한 타일을 표시할 하이라이터 오브젝트들
+    public GameObject castHighlighterPrefab;
+
+    private readonly Vector3Int[] _castHighlightDirections =
+    {
+        Vector3Int.zero,
+        Vector3Int.up + Vector3Int.left,
+        Vector3Int.up,
+        Vector3Int.up + Vector3Int.right,
+        Vector3Int.left,
+        Vector3Int.zero,
+        Vector3Int.right,
+        Vector3Int.down + Vector3Int.left,
+        Vector3Int.down,
+        Vector3Int.down + Vector3Int.right
+    };
     
     private void Awake()
     {
@@ -17,38 +34,33 @@ public class HighlightManager : MonoBehaviour
         {
             GameObject highlighter = Instantiate(moveHighlighterPrefab);
             highlighter.SetActive(false); // 초기에는 비활성화
-            MoveHighlighters.Add(highlighter);
+            moveHighlighters.Add(highlighter);
+        }
+
+        for (int i = 1; i <= 9; i++)
+        {
+            if (i == 5) continue; // 중앙은 제외
+            GameObject highlighter = Instantiate(castHighlighterPrefab);
+            highlighter.transform.position = player.transform.position + _castHighlightDirections[i];
+            highlighter.SetActive(false); // 초기에는 비활성화
+            castHighlighters.Add(highlighter);
         }
     }
 
     private void Start()
     {
+        TurnManager.Instance.RegisterActor();
+        
         // 플레이어의 위치에 따라 하이라이터 업데이트
         UpdateMoveHighlighter();
     }
     
     public void HandleMoveHighlighterClick(Vector3 position)
     {
-        // 클릭된 위치의 타일 데이터 가져오기
-        TileData targetTile = gridManager.GetTileData(position);
-
-        // 이동 가능 여부 확인
-        if (targetTile.isWalkable && targetTile.occupant == null) {
-            TileData playerTile = gridManager.GetTileData(player.transform.position);
-            
-            // 점유자 변경
-            targetTile.occupant = playerTile.occupant;
-            playerTile.occupant = null;
-            
-            // 플레이어를 새로운 위치로 이동
-            player.transform.position = targetTile.worldPosition;
-        }
-        else
-        {
-            Debug.Log("이동 불가능 / 하이라이트 점검 필요 : " + position);
-        }
+        gridManager.MoveTo(player, position);
+        ClearMoveHighlighters();
         
-        UpdateMoveHighlighter();
+        TurnManager.Instance.PlayerReportDone();
     }
     
     public void UpdateMoveHighlighter()
@@ -83,13 +95,12 @@ public class HighlightManager : MonoBehaviour
 
             // 예외 처리
             if (targetTile == null || !targetTile.isWalkable || targetTile.occupant) {
-                Debug.LogWarning("이동 불가능한 타일: " + targetPos);
                 continue;
             }
             
             // 하이라이터 위치 업데이트
-            MoveHighlighters[i].SetActive(true);
-            MoveHighlighters[i].transform.position = targetPos;
+            moveHighlighters[i].SetActive(true);
+            moveHighlighters[i].transform.position = targetPos;
             i++;
         }
     }
@@ -97,7 +108,7 @@ public class HighlightManager : MonoBehaviour
     private void ClearMoveHighlighters()
     {
         // 모든 하이라이터 비활성화
-        foreach (GameObject highlighter in MoveHighlighters)
+        foreach (GameObject highlighter in moveHighlighters)
         {
             highlighter.SetActive(false);
         }
