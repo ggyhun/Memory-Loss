@@ -102,6 +102,23 @@ public class GridManager : MonoBehaviour
             Debug.LogWarning("이동 불가능한 위치입니다: " + targetPosition);
         }
     }
+
+    public void MoveTo(GameObject occupant, Vector3Int targetCell)
+    {
+        TileData targetTile = GetTileData(targetCell);
+        
+        if (targetTile != null && targetTile.isWalkable && targetTile.occupant == null) {
+            // 현재 위치에서 타겟 위치로 이동
+            occupant.transform.position = targetTile.worldPosition;
+            
+            // 점유자 정보 업데이트
+            Vector3Int startCell = backgroundMap.WorldToCell(occupant.transform.position);
+            ClearOccupant(startCell);
+            SetOccupant(targetCell, occupant);
+        } else {
+            Debug.LogWarning("이동 불가능한 위치입니다: " + targetCell);
+        }
+    }
     
     public List<TileData> GetWalkableNeighbors(Vector3Int cellPos)
     {

@@ -32,6 +32,7 @@ public class EnemyManager : MonoBehaviour
         finishedCount++;
         if (finishedCount >= enemies.Count)
         {
+            Debug.Log("모든 적의 턴이 끝났습니다. 플레이어 턴 시작.");
             TurnManager.Instance.StartPlayerTurn();
         }
     }

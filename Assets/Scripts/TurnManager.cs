@@ -50,16 +50,17 @@ public class TurnManager : MonoBehaviour
         CurrentTurn = TurnState.SystemTurn;
         enemyManager.StartEnemyTurn();
     }
-
+    
     public void StartPlayerTurn()
     {
         CurrentTurn = TurnState.PlayerTurn;
-        FindFirstObjectByType<PlayerController>().ReduceCooldowns();
+        
+        FindFirstObjectByType<PlayerController>().StartTurn();
         
         _finishedPlayerActorCount = 0;
     }
 
-    public void PlayerReportDone()
+    public void PlayerActorReportDone()
     {
         _finishedPlayerActorCount++;
         if (_finishedPlayerActorCount >= _totalPlayerActors)

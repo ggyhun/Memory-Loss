@@ -1,35 +1,26 @@
-﻿using UnityEngine;
-
-[System.Serializable]
-public class SpellInstance
+﻿public class SpellInstance
 {
     public SpellData data;
-    public int currentCooldown;
+    private int cooldown;
+    private int currentCooldown;
 
     public SpellInstance(SpellData data)
     {
         this.data = data;
+        cooldown = 3; // 예시값
         currentCooldown = 0;
     }
 
-    public bool CanCast() => currentCooldown <= 0;
-
-    public void Cast()
-    {
-        if (!CanCast())
-        {
-            Debug.Log($"{data.spellName} is on cooldown ({currentCooldown} turns left).");
-            return;
-        }
-
-        Debug.Log($"Casting {data.spellName}, Damage: {data.damage}");
-
-        currentCooldown = data.cooldown;
-    }
+    public bool IsReady() => currentCooldown <= 0;
 
     public void TickCooldown()
     {
         if (currentCooldown > 0)
             currentCooldown--;
+    }
+
+    public void PutOnCooldown()
+    {
+        currentCooldown = cooldown;
     }
 }

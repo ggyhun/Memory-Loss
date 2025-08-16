@@ -69,12 +69,13 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Spell selection cancelled.");
             isSpellSelected = false;
+            highlightManager.ShowMoveHighlighters();
         }
         else
         {
             isSpellSelected = true;
             Debug.Log($"{spell.data.spellName} selected.");
-            spell.Cast();
+            highlightManager.ShowCastHighlighters(spell);
         }
     }
 
@@ -90,5 +91,15 @@ public class PlayerController : MonoBehaviour
         {
             spell.TickCooldown();
         }
+    }
+
+    public void StartTurn()
+    {
+        Debug.Log("Player's turn started.");
+        isSpellSelected = false;
+        highlightManager.ShowMoveHighlighters();
+        
+        // 플레이어가 턴을 시작할 때 모든 스킬의 쿨타운을 감소시킴
+        ReduceCooldowns();
     }
 }
