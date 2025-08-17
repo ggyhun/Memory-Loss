@@ -7,15 +7,61 @@ public class GridManager : MonoBehaviour
     [Header("Tilemaps")]
     public Tilemap backgroundMap;
     public Tilemap obstacleMap;
-    public Tilemap overlayMap;
+    public Tilemap overlayMap; // Start 타일이 들어간 Tilemap
+    
+    [Header("Start Tile")]
+    public TileBase startTile; // StartTile Asset (Editor에서 할당)
     
     private Dictionary<Vector3Int, TileData> tileDictionary = new Dictionary<Vector3Int, TileData>();
 
-    void Awake()
+    private void Awake()
     {
-        InitializeTileData();
+        if (backgroundMap != null) RebuildTileData();
     }
 
+    public void RebuildTileData()
+    {
+        tileDictionary.Clear();
+        if (!backgroundMap)
+        {
+            Debug.LogError("GridManager: backgroundMap is null");
+            return;
+        }
+
+        BoundsInt bounds = backgroundMap.cellBounds;
+        foreach (Vector3Int pos in bounds.allPositionsWithin)
+        {
+            if (!backgroundMap.HasTile(pos)) continue;
+
+            var data = new TileData {
+                cellPosition = pos,
+                worldPosition = backgroundMap.GetCellCenterWorld(pos),
+                isWalkable = (obstacleMap == null || !obstacleMap.HasTile(pos))
+            };
+            tileDictionary[pos] = data;
+        }
+    }
+    
+    private void OnEnable()
+    {
+        if (MapGenerator.Instance != null)
+            MapGenerator.Instance.OnMapChanged += OnMapChanged;
+    }
+
+    private void OnDisable()
+    {
+        if (MapGenerator.Instance != null)
+            MapGenerator.Instance.OnMapChanged -= OnMapChanged;
+    }
+
+    private void OnMapChanged(MapContext ctx)
+    {
+        backgroundMap  = ctx.background;
+        obstacleMap    = ctx.obstacle;
+        overlayMap     = ctx.overlay; // 없을 수도 있음
+
+        RebuildTileData();
+    }
 
     void InitializeTileData()
     {
@@ -47,20 +93,22 @@ public class GridManager : MonoBehaviour
         return GetTileData(intPos);
     }
 
-    public Tilemap overlayTilemap; // Start 타일이 들어간 Tilemap
-    public TileBase startTile; // StartTile Asset (Editor에서 할당)
-
     // 시작 타일의 위치를 찾아 반환
     public Vector3Int FindStartTilePosition()
     {
-        BoundsInt bounds = overlayTilemap.cellBounds;
-        foreach (var pos in bounds.allPositionsWithin) {
-            if (overlayTilemap.GetTile(pos) == startTile) {
-                return pos;
-            }
+        if (!overlayMap || !startTile)
+        {
+            Debug.LogError("overlayTilemap or startTile missing");
+            return Vector3Int.zero;
         }
 
-        Debug.LogError("시작 지점을 찾을 수 없습니다!");
+        BoundsInt bounds = overlayMap.cellBounds;
+        foreach (var pos in bounds.allPositionsWithin)
+        {
+            if (overlayMap.GetTile(pos) == startTile)
+                return pos;
+        }
+        Debug.LogError("Start tile not found!");
         return Vector3Int.zero;
     }
     

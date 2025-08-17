@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class PlayerController : MonoBehaviour
 {
     [Header("References")]
-    public Tilemap backgroundTilemap;
+    private Tilemap backgroundTilemap;
     public GridManager gridManager;
     public HighlightManager highlightManager;
 
@@ -15,20 +15,7 @@ public class PlayerController : MonoBehaviour
     public SpellData normalAttackSpell;
 
     private bool isSpellSelected;
-
-    private void Awake()
-    {
-        if (gridManager == null) gridManager = FindFirstObjectByType<GridManager>();
-        if (highlightManager == null) highlightManager = FindFirstObjectByType<HighlightManager>();
-
-        Vector3Int startTilePosition = gridManager.FindStartTilePosition();
-        transform.position = backgroundTilemap.GetCellCenterWorld(startTilePosition);
-
-        isSpellSelected = false;
-        
-        LearnSpell(normalAttackSpell);
-    }
-
+    
     private Dictionary<KeyCode, int> spellKeyMap = new Dictionary<KeyCode, int>
     {
         { KeyCode.Alpha1, 0 },
@@ -41,6 +28,64 @@ public class PlayerController : MonoBehaviour
         { KeyCode.Alpha8, 7 },
         { KeyCode.Alpha9, 8 },
     };
+
+    private void Start()
+    {
+        if (gridManager == null) gridManager = FindFirstObjectByType<GridManager>();
+        if (backgroundTilemap == null)
+        {
+            backgroundTilemap = gridManager.backgroundMap;
+            if (backgroundTilemap == null)
+            {
+                Debug.LogError("Background Tilemap not found in GridManager.");
+            }
+        }
+        if (highlightManager == null) highlightManager = FindFirstObjectByType<HighlightManager>();
+
+        Vector3Int startTilePosition = gridManager.FindStartTilePosition();
+        transform.position = backgroundTilemap.GetCellCenterWorld(startTilePosition);
+
+        isSpellSelected = false;
+        
+        highlightManager.ShowMoveHighlighters();
+        LearnSpell(normalAttackSpell);
+    }
+    
+    // PlayerController.cs (추가된 부분만)
+    private void OnEnable()
+    {
+        if (MapGenerator.Instance != null)
+            MapGenerator.Instance.OnMapChanged += OnMapChanged;
+    }
+
+    private void OnDisable()
+    {
+        if (MapGenerator.Instance != null)
+            MapGenerator.Instance.OnMapChanged -= OnMapChanged;
+    }
+
+    private void OnMapChanged(MapContext ctx)
+    {
+        // 참조 갱신
+        backgroundTilemap = ctx.background;
+
+        // GridManager는 이미 MapGenerator가 주입+리빌드를 끝냄
+        if (gridManager == null) gridManager = FindFirstObjectByType<GridManager>();
+
+        // 시작 위치 이동 (overlay/startTile이 있을 때)
+        if (gridManager.overlayMap && gridManager.startTile)
+        {
+            var startCell = gridManager.FindStartTilePosition();
+            transform.position = gridManager.CellToWorld(startCell);
+        }
+
+        // 하이라이트 초기화 등
+        if (highlightManager == null) highlightManager = FindFirstObjectByType<HighlightManager>();
+        highlightManager?.Init(gameObject, gridManager);
+
+        // 필요시 플레이어 턴 시작
+        TurnManager.Instance?.StartPlayerTurn();
+    }
 
     private void Update()
     {

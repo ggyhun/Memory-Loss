@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 686ee66b56db63044bc5492a402732bc
+guid: 7f307e1bbb0ad0645879a92f39ad6e5c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8040541054940431777
-    second: NormalAttack_Highlight_0
+      213: -6971473424459805201
+    second: Editor_ScrollSpawnMarkerTile_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 1
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: NormalAttack_Highlight_0
+      name: Editor_ScrollSpawnMarkerTile_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 7
-        width: 7
-        height: 7
+        y: 0
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,74 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1a54ba52d7db59f60800000000000000
-      internalID: 8040541054940431777
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: NormalAttack_Highlight_1
-      rect:
-        serializedVersion: 2
-        x: 7
-        y: 7
-        width: 7
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9ebe84cf744e001409378de06d3b495f
-      internalID: -1143622940
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: NormalAttack_Highlight_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 7
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ec3896c26be351544ad7d9a2f8ca203d
-      internalID: 1640459163
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: NormalAttack_Highlight_3
-      rect:
-        serializedVersion: 2
-        x: 7
-        y: 0
-        width: 7
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 47ac9fcd5537b6a4cb04e094cb769aa0
-      internalID: -1147851535
+      spriteID: fed4ffd5bd9504f90800000000000000
+      internalID: -6971473424459805201
       vertices: []
       indices: 
       edges: []
@@ -217,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 0ea2ef2aca72750468f662e0b5fae224
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -226,11 +160,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      NormalAttack_Highlight_0: 8040541054940431777
-      NormalAttack_Highlight_1: -1143622940
-      NormalAttack_Highlight_2: 1640459163
-      NormalAttack_Highlight_3: -1147851535
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

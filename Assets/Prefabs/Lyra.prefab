@@ -132,8 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e90db2d0b0e7a14d98ab80514a0e2e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  backgroundTilemap: {fileID: 0}
   gridManager: {fileID: 0}
   highlightManager: {fileID: 0}
   spells: []
-  normalAttackSpell: {fileID: 11400000, guid: 22d43b87adeb89a4ca752e4b77712414, type: 2}
+  normalAttackSpell: {fileID: 11400000, guid: 65a56ea8839421d49ad0d4d3ad8540af, type: 2}

@@ -49,13 +49,24 @@ public class HighlightManager : MonoBehaviour
             moveHighlighter.SetActive(false);
             moveHighlighters.Add(moveHighlighter);
         }
-        
-        ShowMoveHighlighters();
+    }
+    
+    
+    private void OnDisable()
+    {
+        TurnManager.UnregisterActor();
+        MapGenerator.Instance.OnMapChanged -= OnMapChanged;
     }
 
-    private void OnEnable()
+    private void Start()
     {
         TurnManager.RegisterActor();
+        MapGenerator.Instance.OnMapChanged += OnMapChanged;
+        
+        if (gridManager == null)
+        {
+            gridManager = FindFirstObjectByType<GridManager>();
+        }
     }
 
     private void ClearMoveHighlighters()
@@ -152,5 +163,16 @@ public class HighlightManager : MonoBehaviour
             Destroy(s.gameObject);
         }
         spellHighlighters.Clear();
+    }
+
+    private void OnMapChanged(MapContext ctx)
+    {
+        // 맵이 변경되면 하이라이트 모두 제거
+        ClearCastHighlighters();
+        ClearSpellHighlights();
+        ClearMoveHighlighters();
+        
+        // 플레이어 위치에 맞춰 이동 하이라이트 다시 표시
+        ShowMoveHighlighters();
     }
 }

@@ -746,6 +746,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9148545302669063567}
   - component: {fileID: 2971268621484009993}
+  - component: {fileID: 8683111347787503354}
   m_Layer: 0
   m_Name: Floor_Editor_SmallSize_6
   m_TagString: Untagged
@@ -784,6 +785,21 @@ Grid:
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 0
   m_CellSwizzle: 0
+--- !u!114 &8683111347787503354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3907377048625156574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70e8ef61dbfce77459e78901de2a39bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  background: {fileID: 5951510602315175406}
+  obstacle: {fileID: 2105499307030344004}
+  overlay: {fileID: 8462970171909944774}
 --- !u!1 &6098988771363354351
 GameObject:
   m_ObjectHideFlags: 0

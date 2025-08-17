@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &405232183756116515
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8229807226031435297}
+  - component: {fileID: 7892729368132557778}
+  m_Layer: 0
+  m_Name: MapGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8229807226031435297
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405232183756116515}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7892729368132557778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405232183756116515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76b8b261a78d1754fad76a21d324b6d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapPrefabs:
+  - {fileID: 6875916368947539581, guid: e1d0d5d30840fb949a7b27c2a0fdc50a, type: 3}
+  - {fileID: 7715254248583864824, guid: b93deb8bba4afd844a3e9f438931f49f, type: 3}
+  - {fileID: 1453765796332940334, guid: 0ac76ef2ccc5acb4696671f060fd4a3a, type: 3}
+  - {fileID: 4430389724194747224, guid: 9b767a7461e80ae46a74d755f7684239, type: 3}
+  - {fileID: 2221273635527524712, guid: b597a1c69832c084599ced77b3151ca0, type: 3}
+  - {fileID: 3907377048625156574, guid: 0d9098712e2154d44a1406df867e1b51, type: 3}
+  - {fileID: 6789076363798415371, guid: 74ffb56911c6a654997b4c58e8ef899f, type: 3}
+  - {fileID: 6789076363798415371, guid: 74ffb56911c6a654997b4c58e8ef899f, type: 3}
+  - {fileID: 6905846414499493462, guid: 6616110c51c36c545b62f70588d5b5d7, type: 3}
+  - {fileID: 8877365098275030806, guid: a390fd8f2eef2d24bbe6e0df5db9e3ef, type: 3}
+  - {fileID: 8617080961315015463, guid: b078ce196d061844c84ff221f4512154, type: 3}
+  mapInstance: {fileID: 0}
+  gridManagerPrefab: {fileID: 6295389440773565797, guid: 8952e0bef2b55714cb1496ff54fc0d03, type: 3}
