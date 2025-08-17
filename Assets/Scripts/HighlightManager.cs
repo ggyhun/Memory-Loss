@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
 
 public class HighlightManager : MonoBehaviour
 {
     public GridManager gridManager;
+    public TurnManager TurnManager;
 
     [Header("Prefabs")]
     public GameObject castHighlighterPrefab;
@@ -35,6 +37,11 @@ public class HighlightManager : MonoBehaviour
             gridManager = FindFirstObjectByType<GridManager>();
         }
         
+        if (TurnManager == null)
+        {
+            TurnManager = FindFirstObjectByType<TurnManager>();
+        }
+        
         for (int i = 0; i < 4; i++)
         {
             GameObject moveHighlighter = Instantiate(moveHighlighterPrefab);
@@ -42,11 +49,15 @@ public class HighlightManager : MonoBehaviour
             moveHighlighter.SetActive(false);
             moveHighlighters.Add(moveHighlighter);
         }
-        TurnManager.Instance.RegisterActor();
         
         ShowMoveHighlighters();
     }
-    
+
+    private void OnEnable()
+    {
+        TurnManager.RegisterActor();
+    }
+
     private void ClearMoveHighlighters()
     {
         foreach (var highlighter in moveHighlighters)
@@ -90,7 +101,9 @@ public class HighlightManager : MonoBehaviour
         currentSpell = spell;
 
         Vector3Int playerCell = gridManager.backgroundMap.WorldToCell(player.transform.position);
-        var castPositions = spell.data.GetCastPositions(playerCell);
+        var castPositions = SpellPatterns.GetCastPositions(spell.data,
+            gridManager.backgroundMap.WorldToCell(player.transform.position));
+
 
         foreach (var cell in castPositions)
         {
@@ -109,7 +122,10 @@ public class HighlightManager : MonoBehaviour
     {
         ClearSpellHighlights();
 
-        var areaCells = currentSpell.data.GetSpellArea(castCell);
+        var areaCells = SpellPatterns.GetAreaPositions(currentSpell.data,
+            gridManager.backgroundMap.WorldToCell(player.transform.position),
+            castCell);
+
         foreach (var cell in areaCells)
         {
             Vector3 worldPos = gridManager.backgroundMap.GetCellCenterWorld(cell);
