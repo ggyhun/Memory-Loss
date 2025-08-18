@@ -4,6 +4,8 @@ using UnityEngine.Tilemaps;
 
 public class GridManager : MonoBehaviour
 {
+    public static GridManager Instance { get; private set; }
+    
     [Header("Tilemaps")]
     public Tilemap backgroundMap;
     public Tilemap obstacleMap;
@@ -13,9 +15,15 @@ public class GridManager : MonoBehaviour
     public TileBase startTile; // StartTile Asset (Editor에서 할당)
     
     private Dictionary<Vector3Int, TileData> tileDictionary = new Dictionary<Vector3Int, TileData>();
-
+    
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
         if (backgroundMap != null) RebuildTileData();
     }
 

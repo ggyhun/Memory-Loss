@@ -20,7 +20,15 @@ public class Stats : MonoBehaviour
     public int burningDefaultTurns = 3;
     public int wetDefaultTurns     = 3;
     public int burningDotDamage    = 5;
-
+    
+    [Header("Status Enhancements")]
+    public int frozenEnhancementTurns  = 0; // 빙결 지속시간 증가
+    public int burningEnhancementTurns = 0; // 화염 지속시간 증가
+    public int wetEnhancementTurns     = 0; // 젖음 지속시간 증가
+    public int frozenEnhancementAmount = 100; // 빙결 강화 효과 (% 단위)
+    public int burningEnhancementAmount= 100; // 화염 강화 효과 (% 단위)
+    public int wetEnhancementAmount    = 100; // 젖음 강화 효과 (% 단위)
+    
     public bool IsFrozen  => frozenTurns  > 0;
     public bool IsBurning => burningTurns > 0;
     public bool IsWet     => wetTurns     > 0;

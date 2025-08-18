@@ -118,6 +118,12 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            if (!spell.CanCast())
+            {
+                Debug.Log($"{spell.data.spellName} is on cooldown ({spell.currentCooldown} turns left).");
+                return;
+            }
+            
             isSpellSelected = true;
             Debug.Log($"{spell.data.spellName} selected.");
             highlightManager.ShowCastHighlighters(spell);

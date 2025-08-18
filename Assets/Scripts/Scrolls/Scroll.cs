@@ -17,13 +17,6 @@ public class Scroll : MonoBehaviour
             Debug.LogWarning($"{name}: spellData가 비어있습니다. 스크롤 효과가 없을 수 있습니다.");
         SetIcon();
     }
-    
-    /*// ---- 2D 물리용 ----
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        Debug.Log($"OnTriggerEnter: {other.gameObject.name}");
-        TryPickup(other.gameObject);
-    }*/
 
     public void TryPickup(GameObject other)
     {

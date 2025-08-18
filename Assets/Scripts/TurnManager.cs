@@ -47,6 +47,7 @@ public class TurnManager : MonoBehaviour
     // PlayerController에서 호출
     public void EndPlayerTurn()
     {
+        _finishedPlayerActorCount = 0;
         CurrentTurn = TurnState.SystemTurn;
         enemyManager.StartEnemyTurn();
     }

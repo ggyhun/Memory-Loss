@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 [System.Serializable]
 public class SpellInstance
@@ -14,17 +15,57 @@ public class SpellInstance
 
     public bool CanCast() => currentCooldown <= 0;
 
-    public void Cast()
+    public void Cast(List<Vector3Int> spellCells)
     {
         if (!CanCast())
         {
-            Debug.Log($"{data.spellName} on cooldown ({currentCooldown} turns left)");
+            Debug.LogError($"{data.spellName} on cooldown ({currentCooldown} turns left)");
             return;
         }
-
-        // 실제 시전 로직 ...
-        Debug.Log($"Casting {data.spellName}");
-
+        
+        var spellType = data.type;
+        
+        GameObject player = GameObject.FindWithTag("Player");
+        Stats playerStats = player.GetComponent<Stats>();
+        
+        GameObject target;
+        Stats targetStats;
+        
+        // Damage Cal
+        int damage = 0;
+        ElementType elementType = ElementType.Normal;
+        switch (spellType)
+        {
+            case SpellType.Fire:
+            {
+                damage = data.damage * (playerStats.burningEnhancementAmount / 100);
+                elementType = ElementType.Fire;
+                break;
+            }
+            case SpellType.Ice:
+            {
+                damage = data.damage * (playerStats.frozenEnhancementAmount / 100);
+                elementType = ElementType.Ice;
+                break;
+            }
+            case SpellType.Wet:
+            {
+                damage = data.damage * (playerStats.wetEnhancementAmount / 100);
+                elementType = ElementType.Water;
+                break;
+            }
+        }
+        
+        foreach (var cell in spellCells)
+        {
+            target = GridManager.Instance.GetOccupant(cell);
+            targetStats = target.GetComponent<Stats>();
+            if (targetStats == null)
+            {
+                continue;
+            }
+            targetStats.TakeDamage(damage, elementType);
+        }
         // 스킬별 쿨타임 시작
         currentCooldown = Mathf.Max(0, data.cooldown);
     }

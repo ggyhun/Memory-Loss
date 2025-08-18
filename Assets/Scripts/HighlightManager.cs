@@ -180,4 +180,14 @@ public class HighlightManager : MonoBehaviour
         // 플레이어 위치에 맞춰 이동 하이라이트 다시 표시
         ShowMoveHighlighters();
     }
+
+    public void HandleCastHighlighterClick(Vector3Int castCell)
+    {
+        var areaCells = SpellPatterns.GetAreaPositions(currentSpell.data,
+            gridManager.backgroundMap.WorldToCell(player.transform.position),
+            castCell);
+        
+        // 실제 스킬 시전 로직
+        currentSpell.Cast(areaCells);
+    }
 }
