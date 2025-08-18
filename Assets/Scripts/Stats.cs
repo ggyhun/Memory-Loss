@@ -67,9 +67,11 @@ public class Stats : MonoBehaviour
         currentHp = Mathf.Min(maxHp, currentHp + amount);
     }
 
+    public event System.Action OnDied;
+
     private void Die()
     {
-        // Debug.Log($"{name} died.");
+        OnDied?.Invoke();      // 🔹 누가 죽었는지 알림
         Destroy(gameObject);
     }
 

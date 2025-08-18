@@ -8,6 +8,9 @@ public class LevelData : ScriptableObject
     [Header("Level")]
     public int floorIndex = 1;
 
+    [Header("Progression")]
+    [Min(1)] public int killsToAdvance = 5;  // ✅ 이 층에서 다음 층으로 가기 위한 처치 목표
+    
     // ---------------- Enemy ----------------
     [Header("Enemy Spawn")]
     [Min(0)] public int enemyCount = 3;

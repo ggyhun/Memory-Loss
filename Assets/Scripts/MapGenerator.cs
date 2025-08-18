@@ -22,6 +22,7 @@ public class MapGenerator : MonoBehaviour
     [Header("Level Data")]
     public List<LevelData> levelDataList;
     int currentLevelIndex = 0;  // 0-based로 권장
+    public List<int> needEnemyCountsForNextLevel;
 
     [Header("GridManager Prefab")]
     public GameObject gridManagerPrefab;

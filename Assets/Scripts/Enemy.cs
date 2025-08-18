@@ -4,45 +4,53 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private EnemyManager enemyManager;
-    private EnemyBehavior behavior; // ✅ 연결되는 Behavior
-    
+    private EnemyBehavior behavior;
+    private Stats stats;
+
+    private bool reportedThisTurn = false; // ✅ 중복 방지
+
     private void Start()
     {
-        // EnemyManager 등록
         enemyManager = FindObjectOfType<EnemyManager>();
         enemyManager.RegisterEnemy(this);
 
-        // 프리팹에 붙은 EnemyBehavior 가져오기
         behavior = GetComponent<EnemyBehavior>();
-        if (behavior == null)
-        {
-            Debug.LogWarning($"{name}에 EnemyBehavior가 없습니다!");
-        }
+        stats    = GetComponent<Stats>();
+        if (stats != null) stats.OnDied += HandleDied;
+    }
+
+    private void OnDestroy()
+    {
+        if (stats != null) stats.OnDied -= HandleDied;
+        if (enemyManager != null) enemyManager.UnregisterEnemy(this);
     }
 
     public void StartTurnAction()
     {
+        reportedThisTurn = false; // ✅ 턴 시작 시 리셋
         StartCoroutine(TakeTurnRoutine());
     }
 
     private IEnumerator TakeTurnRoutine()
     {
-        // EnemyBehavior가 있다면 실행
-        if (behavior != null)
-        {
-            behavior.Act(this);
-        }
-
-        // 행동 후 약간의 텀 (예시)
+        if (behavior != null) behavior.Act(this);
         yield return new WaitForSeconds(0.3f);
 
-        // EnemyManager에 보고
-        enemyManager.ReportEnemyDone();
+        if (!reportedThisTurn)
+        {
+            reportedThisTurn = true;
+            enemyManager.ReportEnemyDone();
+        }
     }
 
-    private void OnDestroy()
+    private void HandleDied()
     {
-        if (enemyManager != null)
-            enemyManager.UnregisterEnemy(this);
+        enemyManager.ReportEnemyKilled(this);
+
+        if (!reportedThisTurn)
+        {
+            reportedThisTurn = true;
+            enemyManager.ReportEnemyDone();
+        }
     }
 }
