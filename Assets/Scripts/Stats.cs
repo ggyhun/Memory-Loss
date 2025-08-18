@@ -84,14 +84,18 @@ public class Stats : MonoBehaviour
     }
 
     /// <summary>자신의 턴 "종료 시" 호출: 지속시간 1틱 소모</summary>
+    // Stats.OnTurnEnd() 하단에 “만료 시 원복” 로직 추가
     public void OnTurnEnd()
     {
         if (frozenTurns  > 0) frozenTurns--;
         if (burningTurns > 0) burningTurns--;
         if (wetTurns     > 0) wetTurns--;
 
-        // 턴 종료 후 만료 상태 정리 로깅 원하면 여기 추가
+        if (frozenEnhancementTurns  > 0 && --frozenEnhancementTurns  == 0) frozenEnhancementAmount  = 100;
+        if (burningEnhancementTurns > 0 && --burningEnhancementTurns == 0) burningEnhancementAmount = 100;
+        if (wetEnhancementTurns     > 0 && --wetEnhancementTurns     == 0) wetEnhancementAmount     = 100;
     }
+
 
     // ========= Status Apply APIs =========
     /// <summary>원소 피격에 따른 상태 적용(표 규칙 반영)</summary>
@@ -170,5 +174,24 @@ public class Stats : MonoBehaviour
         frozenTurns = 0;
         burningTurns = 0;
         wetTurns = 0;
+    }
+    
+    public void ApplyEnhance(ElementType elem, int percent, int turns)
+    {
+        switch (elem)
+        {
+            case ElementType.Ice:
+                frozenEnhancementAmount = Mathf.Max(1, percent);
+                frozenEnhancementTurns  = Mathf.Max(0, turns);
+                break;
+            case ElementType.Fire:
+                burningEnhancementAmount = Mathf.Max(1, percent);
+                burningEnhancementTurns  = Mathf.Max(0, turns);
+                break;
+            case ElementType.Water:
+                wetEnhancementAmount = Mathf.Max(1, percent);
+                wetEnhancementTurns  = Mathf.Max(0, turns);
+                break;
+        }
     }
 }

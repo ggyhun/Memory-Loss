@@ -226,7 +226,6 @@ public static class SpellPatterns
     {
         int x = Mathf.Clamp(v.x, -1, 1);
         int y = Mathf.Clamp(v.y, -1, 1);
-        Debug.Log(x + " " + y);
         return new Vector3Int(x, y, 0);
     }
 

@@ -54,13 +54,11 @@ public class HighlightManager : MonoBehaviour
     
     private void OnDisable()
     {
-        TurnManager.UnregisterActor();
         MapGenerator.Instance.OnMapChanged -= OnMapChanged;
     }
 
     private void Start()
     {
-        TurnManager.RegisterActor();
         MapGenerator.Instance.OnMapChanged += OnMapChanged;
         
         if (gridManager == null)
@@ -89,7 +87,7 @@ public class HighlightManager : MonoBehaviour
         gridManager.MoveTo(player, position);
         ClearMoveHighlighters();
         
-        TurnManager.Instance.PlayerActorReportDone();
+        TurnManager.Instance.EndPlayerTurn();
     }
     
     public void ShowMoveHighlighters()

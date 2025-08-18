@@ -119,38 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &9229089 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7178147870297439484, guid: a75b40be69af0ae4f98df57fdd42ca3b, type: 3}
-  m_PrefabInstance: {fileID: 149203500}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &9229098
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9229089}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4e0c52191fb7ae4e8079e1dd6ba003e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHp: 100
-  currentHp: 100
-  frozenTurns: 0
-  burningTurns: 0
-  wetTurns: 0
-  frozenDefaultTurns: 2
-  burningDefaultTurns: 3
-  wetDefaultTurns: 3
-  burningDotDamage: 5
-  frozenEnhancementTurns: 1
-  burningEnhancementTurns: 1
-  wetEnhancementTurns: 1
-  frozenEnhancementAmount: 100
-  burningEnhancementAmount: 100
-  wetEnhancementAmount: 100
 --- !u!1 &40935853
 GameObject:
   m_ObjectHideFlags: 0
@@ -244,6 +212,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4450133465781268055, guid: a75b40be69af0ae4f98df57fdd42ca3b, type: 3}
+      propertyPath: m_TagString
+      value: EditorOnly
+      objectReference: {fileID: 0}
     - target: {fileID: 7178147870297439484, guid: a75b40be69af0ae4f98df57fdd42ca3b, type: 3}
       propertyPath: m_Name
       value: Oivil
@@ -251,10 +223,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7178147870297439484, guid: a75b40be69af0ae4f98df57fdd42ca3b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 9229098}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a75b40be69af0ae4f98df57fdd42ca3b, type: 3}
 --- !u!1 &803785654
 GameObject:
@@ -346,7 +315,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gridManager: {fileID: 0}
   scrollSpawnTile: {fileID: 11400000, guid: 6b89c385dcbcf404c970ee8c4a748cc8, type: 2}
-  scrollPrefab: {fileID: 3930026950421834218, guid: 0b174d7bd6607914dad2d7acba739177, type: 3}
+  fallbackScrollPrefab: {fileID: 0}
   scrollCount: 3
   assignSpellFromPool: 1
   spellPool:
@@ -656,12 +625,28 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7892729368132557778, guid: d532bcae4f506b04890d97f4be6184d4, type: 3}
       propertyPath: levelDataList.Array.size
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7892729368132557778, guid: d532bcae4f506b04890d97f4be6184d4, type: 3}
       propertyPath: 'levelDataList.Array.data[0]'
       value: 
       objectReference: {fileID: 11400000, guid: f4308a97452976448a25623e26c1aed4, type: 2}
+    - target: {fileID: 7892729368132557778, guid: d532bcae4f506b04890d97f4be6184d4, type: 3}
+      propertyPath: 'levelDataList.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: cbb343d6664cf8b4eb1b55f90fc2e375, type: 2}
+    - target: {fileID: 7892729368132557778, guid: d532bcae4f506b04890d97f4be6184d4, type: 3}
+      propertyPath: 'levelDataList.Array.data[2]'
+      value: 
+      objectReference: {fileID: 11400000, guid: f79b6079b56e5ec4ea987d62aa27e21b, type: 2}
+    - target: {fileID: 7892729368132557778, guid: d532bcae4f506b04890d97f4be6184d4, type: 3}
+      propertyPath: 'levelDataList.Array.data[3]'
+      value: 
+      objectReference: {fileID: 11400000, guid: fcf8f4f6aaacdfa43b8ae89dd1fcdf44, type: 2}
+    - target: {fileID: 7892729368132557778, guid: d532bcae4f506b04890d97f4be6184d4, type: 3}
+      propertyPath: 'levelDataList.Array.data[4]'
+      value: 
+      objectReference: {fileID: 11400000, guid: b9e74fcb7e5f188469410835e6e6e0da, type: 2}
     - target: {fileID: 8229807226031435297, guid: d532bcae4f506b04890d97f4be6184d4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.5

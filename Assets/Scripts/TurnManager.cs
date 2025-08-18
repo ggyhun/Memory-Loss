@@ -12,9 +12,6 @@ public class TurnManager : MonoBehaviour
     private int _finishedPlayerActorCount;
 
     [SerializeField] private EnemyManager enemyManager;
-
-    public void RegisterActor() => _totalPlayerActors++;
-    public void UnregisterActor() => _totalPlayerActors--;
     
     private void Awake()
     {
@@ -47,6 +44,19 @@ public class TurnManager : MonoBehaviour
     // PlayerController에서 호출
     public void EndPlayerTurn()
     {
+        GameObject player = GameObject.FindWithTag("Player");
+        if (player == null)
+        {
+            Debug.LogError("Player GameObject not found. Cannot end turn.");
+            return;
+        }
+        var playerStats = player.GetComponent<Stats>();
+        if (playerStats == null)
+        {
+            Debug.LogError("PlayerStats component not found on Player GameObject. Cannot end turn.");
+            return;
+        }
+        playerStats.OnTurnEnd();
         _finishedPlayerActorCount = 0;
         CurrentTurn = TurnState.SystemTurn;
         enemyManager.StartEnemyTurn();
@@ -55,19 +65,21 @@ public class TurnManager : MonoBehaviour
     public void StartPlayerTurn()
     {
         CurrentTurn = TurnState.PlayerTurn;
-        
+        GameObject player = GameObject.FindWithTag("Player");
+        if (player == null)
+        {
+            Debug.LogError("Player GameObject not found. Cannot end turn.");
+            return;
+        }
+        var playerStats = player.GetComponent<Stats>();
+        if (playerStats == null)
+        {
+            Debug.LogError("PlayerStats component not found on Player GameObject. Cannot end turn.");
+            return;
+        }
+        playerStats.OnTurnStart();
         FindFirstObjectByType<PlayerController>().StartTurn();
         
         _finishedPlayerActorCount = 0;
-    }
-
-    public void PlayerActorReportDone()
-    {
-        _finishedPlayerActorCount++;
-        if (_finishedPlayerActorCount >= _totalPlayerActors)
-        {
-            Debug.Log("플레이어 턴 종료");
-            EndPlayerTurn();
-        }
     }
 }

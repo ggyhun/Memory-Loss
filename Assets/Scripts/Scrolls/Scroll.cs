@@ -1,11 +1,14 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Scroll : MonoBehaviour
 {
     [Header("Spell")]
     public SpellData spellData;
-
+    
     [Header("Optional")]
+    public bool isRandom = false; // 랜덤 스크롤 여부
+    public List<SpellData> spellDataList; // 여러 개의 스크롤 데이터 지원 (예: 랜덤 선택)
     public GridManager gridManager; // 비워두면 자동 탐색
 
     private SpriteRenderer spriteRenderer;
@@ -13,8 +16,20 @@ public class Scroll : MonoBehaviour
     private void Awake()
     {
         if (gridManager == null) gridManager = FindFirstObjectByType<GridManager>();
-        if (spellData == null)
+        if (!isRandom && spellData == null)
             Debug.LogWarning($"{name}: spellData가 비어있습니다. 스크롤 효과가 없을 수 있습니다.");
+        if (isRandom && (spellDataList == null || spellDataList.Count == 0))
+        {
+            Debug.LogWarning($"{name}: spellDataList가 비어있습니다. 랜덤 스크롤 효과가 없을 수 있습니다.");
+            isRandom = false; // 랜덤 스크롤이 비활성화됨
+        }
+
+        if (isRandom)
+        {
+            // 랜덤 스크롤 데이터 선택
+            int randomIndex = Random.Range(0, spellDataList.Count);
+            spellData = spellDataList[randomIndex];
+        }
         SetIcon();
     }
 

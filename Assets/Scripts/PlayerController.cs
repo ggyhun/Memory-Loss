@@ -153,4 +153,17 @@ public class PlayerController : MonoBehaviour
         // 플레이어가 턴을 시작할 때 모든 스킬의 쿨타운을 감소시킴
         ReduceCooldowns();
     }
+
+    public void DeleteSpell(SpellInstance spell)
+    {
+        if (spells.Contains(spell))
+        {
+            spells.Remove(spell);
+            Debug.Log($"Spell {spell.data.spellName} removed.");
+        }
+        else
+        {
+            Debug.LogWarning($"Spell {spell.data.spellName} not found in player's spell list.");
+        }
+    }
 }

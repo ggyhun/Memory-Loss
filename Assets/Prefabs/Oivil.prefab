@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 2936914997086996499}
   - component: {fileID: 7426534512633443180}
   - component: {fileID: 3436302558280871143}
+  - component: {fileID: 4570424072442219585}
   m_Layer: 0
   m_Name: Oivil
   m_TagString: Player
@@ -211,3 +212,30 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &4570424072442219585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7178147870297439484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4e0c52191fb7ae4e8079e1dd6ba003e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 100
+  currentHp: 100
+  frozenTurns: 0
+  burningTurns: 0
+  wetTurns: 0
+  frozenDefaultTurns: 2
+  burningDefaultTurns: 3
+  wetDefaultTurns: 3
+  burningDotDamage: 5
+  frozenEnhancementTurns: 0
+  burningEnhancementTurns: 0
+  wetEnhancementTurns: 0
+  frozenEnhancementAmount: 100
+  burningEnhancementAmount: 100
+  wetEnhancementAmount: 100
