@@ -64,6 +64,9 @@ public class TurnManager : MonoBehaviour
     
     public void StartPlayerTurn()
     {
+        HighlightManager highlightManager = FindFirstObjectByType<HighlightManager>();
+        highlightManager.ClearSpellHighlights();
+        
         CurrentTurn = TurnState.PlayerTurn;
         GameObject player = GameObject.FindWithTag("Player");
         if (player == null)

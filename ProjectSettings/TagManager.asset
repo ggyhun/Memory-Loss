@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Scroll
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -56,6 +57,9 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 951953921
+    locked: 0
+  - name: Effect
+    uniqueID: 1610604629
     locked: 0
   - name: Overlay
     uniqueID: 3124075019

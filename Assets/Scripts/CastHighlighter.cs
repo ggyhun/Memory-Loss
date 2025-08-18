@@ -29,7 +29,7 @@ public class CastHighlighter : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Debug.Log($"Cast confirmed at {castCell}");
-        // TODO: Spell 발동 실행
+        Debug.Log("Cast!");
+        manager.ConfirmCast(castCell);   // ✅ 시전 확정
     }
 }

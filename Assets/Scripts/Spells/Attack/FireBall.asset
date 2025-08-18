@@ -20,5 +20,8 @@ MonoBehaviour:
   icon: {fileID: 61804631, guid: 8306c62b08e4e964d8152c91546e1f69, type: 3}
   castPattern: 0
   areaPattern: 1
+  isUtility: 0
+  utilityTurns: 3
+  utilityPercent: 120
   projectilePrefab: {fileID: 0}
-  effectPrefab: {fileID: 0}
+  effectPrefab: {fileID: 1240888081418388468, guid: 71b9ececddbfdd440ae1a10601fcb267, type: 3}

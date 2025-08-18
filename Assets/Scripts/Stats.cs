@@ -42,6 +42,7 @@ public class Stats : MonoBehaviour
     // ========= HP =========
     public void TakeDamage(int amount, ElementType element = ElementType.Normal)
     {
+        Debug.Log($"[{name}] TakeDamage: {amount} ({element})");
         if (amount > 0)
         {
             currentHp = Mathf.Max(0, currentHp - amount);

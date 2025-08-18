@@ -123,7 +123,7 @@ public class HighlightManager : MonoBehaviour
 
         foreach (var cell in castPositions)
         {
-            if (!gridManager.GetTileData(cell)?.isWalkable ?? true) continue;
+            // if (!gridManager.GetTileData(cell)?.isWalkable ?? true) continue;
 
             Vector3 worldPos = gridManager.backgroundMap.GetCellCenterWorld(cell);
             GameObject go = Instantiate(castHighlighterPrefab, worldPos, Quaternion.identity);
@@ -179,13 +179,37 @@ public class HighlightManager : MonoBehaviour
         ShowMoveHighlighters();
     }
 
-    public void HandleCastHighlighterClick(Vector3Int castCell)
+    public void ConfirmCast(Vector3Int castCell)
     {
-        var areaCells = SpellPatterns.GetAreaPositions(currentSpell.data,
-            gridManager.backgroundMap.WorldToCell(player.transform.position),
-            castCell);
-        
-        // 실제 스킬 시전 로직
+        if (currentSpell == null) return;
+
+        var playerCell = gridManager.WorldToCell(player.transform.position);
+
+        // 1) 실제 타격 셀 계산
+        var areaCells = SpellPatterns.GetAreaPositions(currentSpell.data, playerCell, castCell);
+
+        // 2) 이펙트 재생 (각 셀에)
+        PlayCellEffects(currentSpell.data, areaCells);
+
+        // 3) 데미지/상태 적용
         currentSpell.Cast(areaCells);
+
+        // 4) 정리 + 턴 종료
+        ClearSpellHighlights();
+        ClearCastHighlighters();
+        TurnManager.Instance.EndPlayerTurn();
+    }
+    
+    private void PlayCellEffects(SpellData data, List<Vector3Int> areaCells)
+    {
+        if (data.effectPrefab == null) return;
+
+        Transform parent = MapGenerator.Instance ? MapGenerator.Instance.mapInstance.transform : null;
+
+        foreach (var cell in areaCells)
+        {
+            Vector3 pos = gridManager.CellToWorld(cell);      // ✅ 셀 중심
+            Instantiate(data.effectPrefab, pos, Quaternion.identity, parent);
+        }
     }
 }
