@@ -112,11 +112,11 @@ public class GridManager : MonoBehaviour
         return Vector3Int.zero;
     }
     
-    public void SetOccupant(Vector3Int pos, GameObject occupant)
+    public void SetOccupant(Vector3Int pos, GameObject occupant, bool isWalkable = false)
     {
         if (tileDictionary.TryGetValue(pos, out TileData tileData)) {
             tileData.occupant = occupant;
-            tileData.isWalkable = false;
+            tileData.isWalkable = isWalkable;;
         } else {
             Debug.LogWarning($"타일 데이터가 존재하지 않습니다: {pos}");
         }
@@ -139,7 +139,7 @@ public class GridManager : MonoBehaviour
         Vector3Int targetCell = backgroundMap.WorldToCell(targetPosition);
         TileData targetTile = GetTileData(targetCell);
         
-        if (targetTile != null && targetTile.isWalkable && targetTile.occupant == null) {
+        if (targetTile != null && targetTile.isWalkable) {
             // 현재 위치에서 타겟 위치로 이동
             occupant.transform.position = targetTile.worldPosition;
             
@@ -155,7 +155,7 @@ public class GridManager : MonoBehaviour
     {
         TileData targetTile = GetTileData(targetCell);
         
-        if (targetTile != null && targetTile.isWalkable && targetTile.occupant == null) {
+        if (targetTile != null && targetTile.isWalkable) {
             // 현재 위치에서 타겟 위치로 이동
             occupant.transform.position = targetTile.worldPosition;
             
@@ -181,7 +181,7 @@ public class GridManager : MonoBehaviour
         foreach (var dir in directions)
         {
             Vector3Int neighborPos = cellPos + dir;
-            if (tileDictionary.TryGetValue(neighborPos, out TileData tile) && tile.isWalkable && tile.occupant == null)
+            if (tileDictionary.TryGetValue(neighborPos, out TileData tile) && tile.isWalkable)
             {
                 neighbors.Add(tile);
             }

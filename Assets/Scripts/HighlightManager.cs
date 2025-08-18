@@ -79,6 +79,13 @@ public class HighlightManager : MonoBehaviour
 
     public void HandleMoveHighlighterClick(Vector3 position)
     {
+        var t = gridManager.GetTileData(position);
+        if (t.occupant && t.occupant.CompareTag("Scroll"))
+        {
+            var scroll = t.occupant.GetComponent<Scroll>();
+            scroll.TryPickup(player);
+        }
+        
         gridManager.MoveTo(player, position);
         ClearMoveHighlighters();
         
@@ -131,8 +138,6 @@ public class HighlightManager : MonoBehaviour
 
     public void ShowSpellHighlights(Vector3Int castCell)
     {
-        ClearSpellHighlights();
-
         var areaCells = SpellPatterns.GetAreaPositions(currentSpell.data,
             gridManager.backgroundMap.WorldToCell(player.transform.position),
             castCell);

@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: NormalAttack
   m_EditorClassIdentifier: 
   spellName: Normal Attack
+  type: 3
+  damage: 10
+  attackCount: 1
   cooldown: 0
-  castPattern: 3
-  castRange: 1
-  castCustomOffsets: []
+  icon: {fileID: 1794289465, guid: 8306c62b08e4e964d8152c91546e1f69, type: 3}
+  castPattern: 0
   areaPattern: 0
-  areaSize: 1
-  areaCustomOffsets: []
   projectilePrefab: {fileID: 0}
   effectPrefab: {fileID: 0}

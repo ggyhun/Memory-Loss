@@ -20,7 +20,7 @@ public class CastHighlighter : MonoBehaviour
         rend.color = hoverColor;
         manager.ShowSpellHighlights(castCell);
     }
-
+    
     private void OnMouseExit()
     {
         rend.color = baseColor;

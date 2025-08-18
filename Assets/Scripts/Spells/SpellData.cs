@@ -1,25 +1,26 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public enum CastPattern { Around8, Cross4, Line, Ring, Custom }
-public enum AreaPattern { Single, LineForwardN, CrossPlus, SquareNxN, Custom }
+public enum CastPattern { Around4, Single, Diagonal, Around4Plus }
+public enum AreaPattern { Single, LineForward2, Around4, Front1, Front2, Front3, Circle3, Splash }
+public enum SpellType { Fire, Ice, Wet, None }
 
 [CreateAssetMenu(fileName = "NewSpell", menuName = "Spells/New Spell")]
 public class SpellData : ScriptableObject
 {
     [Header("Basics")]
     public string spellName;
+    public SpellType type;
+    public int damage = 0;
+    public int attackCount = 1; // 공격 횟수 (예: 연속 공격)
     public int cooldown = 0;
+    public Sprite icon;
 
     [Header("Cast Pattern (선택 가능한 칸)")]
-    public CastPattern castPattern = CastPattern.Around8;
-    public int castRange = 1;                // Line, Ring 등에 사용
-    public List<Vector2Int> castCustomOffsets; // Custom일 때만 사용 (플레이어 기준 상대좌표)
+    public CastPattern castPattern = CastPattern.Around4;
 
     [Header("Area Pattern (실제 데미지 범위)")]
     public AreaPattern areaPattern = AreaPattern.Single;
-    public int areaSize = 1;                 // N(라인 길이 / 정사각형 크기 등)
-    public List<Vector2Int> areaCustomOffsets; // Custom일 때 사용 (선택칸 또는 방향 기준 상대좌표)
 
     [Header("VFX / Prefabs (선택)")]
     public GameObject projectilePrefab;

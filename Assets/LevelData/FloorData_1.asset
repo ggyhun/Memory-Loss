@@ -18,7 +18,7 @@ MonoBehaviour:
   - displayName: "\uC2AC\uB77C\uC784"
     enemyPrefab: {fileID: 5441253103644555324, guid: c368810063fc00744829dd34baf9bd63, type: 3}
     weight: 1
-  scrollCount: 3
+  scrollCount: 6
   scrollTable:
   - displayName: "\uD30C\uC774\uC5B4\uBCFC"
     spell: {fileID: 11400000, guid: 8a073c5e1a46108468b498b8c756c4be, type: 2}

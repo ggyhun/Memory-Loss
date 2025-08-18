@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Scroll
   layers:
   - Default
   - TransparentFX
@@ -49,6 +50,9 @@ TagManager:
     locked: 0
   - name: Obstacle
     uniqueID: 249790747
+    locked: 0
+  - name: Scroll
+    uniqueID: 2357514465
     locked: 0
   - name: Player
     uniqueID: 951953921

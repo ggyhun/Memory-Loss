@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 09279fef62079e540a4daf7010ebb4a8, type: 3}
-  m_Name: FireBall
+  m_Name: FlameBlaze
   m_EditorClassIdentifier: 
-  spellName: Fire Ball
+  spellName: Flame Blase
   type: 0
-  damage: 20
-  attackCount: 3
-  cooldown: 4
+  damage: 14
+  attackCount: 1
+  cooldown: 2
   icon: {fileID: 61804631, guid: 8306c62b08e4e964d8152c91546e1f69, type: 3}
   castPattern: 0
-  areaPattern: 1
+  areaPattern: 4
   projectilePrefab: {fileID: 0}
   effectPrefab: {fileID: 0}

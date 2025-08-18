@@ -78,7 +78,8 @@ public class ScrollSpawner : MonoBehaviour
             // ✅ 맵의 자식으로 붙이기
             GameObject instance = Instantiate(scrollPrefab, worldPos, Quaternion.identity, MapGenerator.Instance.mapInstance.transform);
 
-            gridManager.SetOccupant(cell, instance);
+            // 주문서이기에 isWalkable을 true로 설정
+            gridManager.SetOccupant(cell, instance, true);
 
             var scroll = instance.GetComponent<Scroll>();
             if (scroll != null)
