@@ -148,10 +148,18 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Player's turn started.");
         isSpellSelected = false;
-        highlightManager.ShowMoveHighlighters();
         
         // 플레이어가 턴을 시작할 때 모든 스킬의 쿨타운을 감소시킴
         ReduceCooldowns();
+
+        if (!GetComponent<Stats>().CanAct)
+        {
+            PlayerMoveRecorder.Instance.RecordMove(PlayerMoveType.None);
+            TurnManager.Instance.EndPlayerTurn();
+            return;
+        }
+        
+        highlightManager.ShowMoveHighlighters();
     }
 
     public void DeleteSpell(SpellInstance spell)
