@@ -34,4 +34,26 @@ public class PlayerMoveRecorder : MonoBehaviour
         previousMove = moveType;
         Debug.Log($"Recorded move: {moveType}");
     }
+
+    public PlayerMoveType CalculateMove(Vector3Int start, Vector3Int end)
+    {
+        Vector3Int direction = end - start;
+        
+        if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+        {
+            if (direction.x > 0)
+                return PlayerMoveType.Right;
+            else
+                return PlayerMoveType.Left;
+        }
+        else if (Mathf.Abs(direction.y) > Mathf.Abs(direction.x))
+        {
+            if (direction.y > 0)
+                return PlayerMoveType.Up;
+            else
+                return PlayerMoveType.Down;
+        }
+        
+        return PlayerMoveType.None;
+    }
 }
