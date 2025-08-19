@@ -83,6 +83,11 @@ public class HighlightManager : MonoBehaviour
             var scroll = t.occupant.GetComponent<Scroll>();
             scroll.TryPickup(player);
         }
+
+        PlayerMoveRecorder.Instance.previousMove = PlayerMoveRecorder.Instance.CalculateMove(
+                gridManager.WorldToCell(player.transform.position),
+                gridManager.WorldToCell(position)
+            );
         
         gridManager.MoveTo(player, position);
         ClearMoveHighlighters();
@@ -197,6 +202,7 @@ public class HighlightManager : MonoBehaviour
         // 4) 정리 + 턴 종료
         ClearSpellHighlights();
         ClearCastHighlighters();
+        PlayerMoveRecorder.Instance.previousMove = PlayerMoveType.Attack;
         TurnManager.Instance.EndPlayerTurn();
     }
     
