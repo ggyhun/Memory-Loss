@@ -1,0 +1,477 @@
+fileFormatVersion: 2
+guid: e85081d8a1ead184d98a4c17fd675075
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 8582005472165558859
+    second: skill_ring_of_fire_sprite_0
+  - first:
+      213: 9161719715011388952
+    second: skill_ring_of_fire_sprite_1
+  - first:
+      213: -2168882873675707878
+    second: skill_ring_of_fire_sprite_2
+  - first:
+      213: -9210102869776224691
+    second: skill_ring_of_fire_sprite_3
+  - first:
+      213: -4258792285736418491
+    second: skill_ring_of_fire_sprite_4
+  - first:
+      213: -4795364508369616871
+    second: skill_ring_of_fire_sprite_5
+  - first:
+      213: 5216180926569983375
+    second: skill_ring_of_fire_sprite_6
+  - first:
+      213: 3789821090800672809
+    second: skill_ring_of_fire_sprite_7
+  - first:
+      213: 2965763305146953720
+    second: skill_ring_of_fire_sprite_8
+  - first:
+      213: -2751523930358842072
+    second: skill_ring_of_fire_sprite_9
+  - first:
+      213: 2447802968810212153
+    second: skill_ring_of_fire_sprite_10
+  - first:
+      213: -2013896106705743647
+    second: skill_ring_of_fire_sprite_11
+  - first:
+      213: 4285114266247989231
+    second: skill_ring_of_fire_sprite_12
+  - first:
+      213: -3220581602302296110
+    second: skill_ring_of_fire_sprite_13
+  - first:
+      213: -7791581785883589039
+    second: skill_ring_of_fire_sprite_14
+  - first:
+      213: -4386694296330875255
+    second: skill_ring_of_fire_sprite_15
+  - first:
+      213: -4687270387345869262
+    second: skill_ring_of_fire_sprite_16
+  - first:
+      213: -8658240048608156645
+    second: skill_ring_of_fire_sprite_17
+  - first:
+      213: -6760636870364308706
+    second: skill_ring_of_fire_sprite_18
+  - first:
+      213: 2781278674042299583
+    second: skill_ring_of_fire_sprite_19
+  - first:
+      213: 5627243743600524494
+    second: skill_ring_of_fire_sprite_20
+  - first:
+      213: -2986567045872557629
+    second: skill_ring_of_fire_sprite_21
+  - first:
+      213: 4036638950706284215
+    second: skill_ring_of_fire_sprite_22
+  - first:
+      213: -3670875282080260854
+    second: skill_ring_of_fire_sprite_23
+  - first:
+      213: 5782176192623724342
+    second: skill_ring_of_fire_sprite_24
+  - first:
+      213: -6492659147740223034
+    second: skill_ring_of_fire_sprite_25
+  - first:
+      213: -664326623841863865
+    second: skill_ring_of_fire_sprite_26
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: skill_ring_of_fire_sprite_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4af2ece188691770800000000000000
+      internalID: 8582005472165558859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_ring_of_fire_sprite_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81662f83a87f42f70800000000000000
+      internalID: 9161719715011388952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_ring_of_fire_sprite_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1a8123848496e1e0800000000000000
+      internalID: -2168882873675707878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_ring_of_fire_sprite_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4eae26bc342f2080800000000000000
+      internalID: -9210102869776224691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_ring_of_fire_sprite_4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 543c18ceafab5e4c0800000000000000
+      internalID: -4258792285736418491
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_ring_of_fire_sprite_5
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9100d16f261737db0800000000000000
+      internalID: -4795364508369616871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_ring_of_fire_sprite_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8d2f5c8ae8936840800000000000000
+      internalID: 5216180926569983375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_ring_of_fire_sprite_7
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9202577e336289430800000000000000
+      internalID: 3789821090800672809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_ring_of_fire_sprite_8
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ff2c234302882920800000000000000
+      internalID: 2965763305146953720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_ring_of_fire_sprite_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 82d79f3409f90d9d0800000000000000
+      internalID: -2751523930358842072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_ring_of_fire_sprite_10
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93b4414c4d758f120800000000000000
+      internalID: 2447802968810212153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 74a12ef0ecabf354abab78bc085e3bb5
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      skill_ring_of_fire_sprite_0: 8582005472165558859
+      skill_ring_of_fire_sprite_1: 9161719715011388952
+      skill_ring_of_fire_sprite_10: 2447802968810212153
+      skill_ring_of_fire_sprite_2: -2168882873675707878
+      skill_ring_of_fire_sprite_3: -9210102869776224691
+      skill_ring_of_fire_sprite_4: -4258792285736418491
+      skill_ring_of_fire_sprite_5: -4795364508369616871
+      skill_ring_of_fire_sprite_6: 5216180926569983375
+      skill_ring_of_fire_sprite_7: 3789821090800672809
+      skill_ring_of_fire_sprite_8: 2965763305146953720
+      skill_ring_of_fire_sprite_9: -2751523930358842072
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

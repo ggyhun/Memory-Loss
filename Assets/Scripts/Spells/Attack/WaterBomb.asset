@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09279fef62079e540a4daf7010ebb4a8, type: 3}
+  m_Name: WaterBomb
+  m_EditorClassIdentifier: 
+  spellName: Water Bomb
+  type: 2
+  damage: 10
+  attackCount: 2
+  cooldown: 3
+  icon: {fileID: 78956130, guid: 8306c62b08e4e964d8152c91546e1f69, type: 3}
+  castPattern: 3
+  areaPattern: 7
+  isUtility: 0
+  utilityTurns: 3
+  utilityPercent: 120
+  projectilePrefab: {fileID: 0}
+  effectPrefab: {fileID: 6417976755175313169, guid: 008e14a1ea4dd84438f590fb410c2c79, type: 3}

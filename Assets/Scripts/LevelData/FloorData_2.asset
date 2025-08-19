@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 883bdf6ece2a8a84ea269de7fdb0af98, type: 3}
+  m_Name: FloorData_2
+  m_EditorClassIdentifier: 
+  floorIndex: 2
+  enemyCount: 3
+  enemyTable:
+  - displayName: "\uC2AC\uB77C\uC784"
+    enemyPrefab: {fileID: 5441253103644555324, guid: c368810063fc00744829dd34baf9bd63, type: 3}
+    weight: 1
+  scrollCount: 3
+  scrollPrefabTable:
+  - displayName: "\uD654\uC5FC\uC758 \uC8FC\uBB38\uC11C"
+    prefab: {fileID: 3930026950421834218, guid: 0b174d7bd6607914dad2d7acba739177, type: 3}
+    weight: 20
+  - displayName: "\uC5BC\uC74C\uC758 \uC8FC\uBB38\uC11C"
+    prefab: {fileID: 1732501041625537614, guid: e74fbbd01b523d345a7097aac948898e, type: 3}
+    weight: 13
+  - displayName: "\uBB3C\uC758 \uC8FC\uBB38\uC11C"
+    prefab: {fileID: 6498815992192333217, guid: 41a822029c6957f46810e25fb7fa6c1f, type: 3}
+    weight: 25
+  scrollSpellTable: []
