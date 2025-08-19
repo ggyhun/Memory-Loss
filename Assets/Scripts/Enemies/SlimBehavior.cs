@@ -19,6 +19,8 @@ public class SlimBehavior : EnemyBehavior
     public override void Act(Enemy enemy)
     {
         if (mover == null || player == null) return;
+        
+        if (!enemy.GetComponent<Stats>().CanAct) return; // 행동 불가 시 종료
 
         // 시야 체크
         var grid = FindFirstObjectByType<GridManager>();
