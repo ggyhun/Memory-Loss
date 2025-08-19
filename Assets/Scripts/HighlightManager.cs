@@ -1,80 +1,215 @@
+using System;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 using System.Collections.Generic;
 
 public class HighlightManager : MonoBehaviour
 {
-    public GameObject highlightPrefab;     // SpriteRenderer 프리팹
-    public Tilemap tilemap;
-    public TileManager tileManager;
+    public GridManager gridManager;
+    public TurnManager TurnManager;
 
-    public int poolSize = 8;
+    [Header("Prefabs")]
+    public GameObject castHighlighterPrefab;
+    public GameObject spellHighlighterPrefab;
+    public GameObject moveHighlighterPrefab;
 
-    private List<GameObject> pool = new List<GameObject>();
-    private List<GameObject> activeHighlights = new List<GameObject>();
+    private List<CastHighlighter> castHighlighters = new List<CastHighlighter>();
+    private List<SpellHighlighter> spellHighlighters = new List<SpellHighlighter>();
+    private List<GameObject> moveHighlighters = new List<GameObject>();
 
-    private Vector3Int[] directions = {
-        Vector3Int.up, Vector3Int.down, Vector3Int.left, Vector3Int.right
-    };
+    private SpellInstance currentSpell;
+    private GameObject player;
 
-    void Awake()
+    public void Init(GameObject player, GridManager grid)
     {
-        InitializePool();
+        this.player = player;
+        this.gridManager = grid;
+    }
+    
+    private void Awake()
+    {
+        if (player == null)
+        {
+            player = FindFirstObjectByType<PlayerController>().gameObject;
+        }
+
+        if (gridManager == null)
+        {
+            gridManager = FindFirstObjectByType<GridManager>();
+        }
+        
+        if (TurnManager == null)
+        {
+            TurnManager = FindFirstObjectByType<TurnManager>();
+        }
+        
+        for (int i = 0; i < 4; i++)
+        {
+            GameObject moveHighlighter = Instantiate(moveHighlighterPrefab);
+            moveHighlighter.GetComponent<MoveHighlighter>().highlightManager = this;
+            moveHighlighter.SetActive(false);
+            moveHighlighters.Add(moveHighlighter);
+        }
+    }
+    
+    
+    private void OnDisable()
+    {
+        MapGenerator.Instance.OnMapChanged -= OnMapChanged;
     }
 
-    void InitializePool()
+    private void Start()
     {
-        for (int i = 0; i < poolSize; i++)
+        MapGenerator.Instance.OnMapChanged += OnMapChanged;
+        
+        if (gridManager == null)
         {
-            GameObject go = Instantiate(highlightPrefab, Vector3.zero, Quaternion.identity, transform);
-            go.SetActive(false);
-            pool.Add(go);
+            gridManager = FindFirstObjectByType<GridManager>();
         }
     }
 
-    GameObject GetFromPool()
+    private void ClearMoveHighlighters()
     {
-        foreach (var go in pool)
+        foreach (var highlighter in moveHighlighters)
         {
-            if (!go.activeInHierarchy)
-                return go;
-        }
-
-        GameObject newGo = Instantiate(highlightPrefab, Vector3.zero, Quaternion.identity, transform);
-        newGo.SetActive(false);
-        pool.Add(newGo);
-        return newGo;
-    }
-
-    public void ShowHighlights(Vector3Int playerPos, System.Action<Vector3Int> onClick)
-    {
-        ClearHighlights();
-
-        foreach (var dir in directions)
-        {
-            Vector3Int target = playerPos + dir;
-            TileData data = tileManager.GetTileData(target);
-
-            if (data != null && data.isWalkable && data.occupant == null)
-            {
-                GameObject go = GetFromPool();
-                go.transform.position = tilemap.GetCellCenterWorld(target);
-                go.SetActive(true);
-
-                HighlightTile tile = go.GetComponent<HighlightTile>();
-                tile.Setup(target, onClick);
-
-                activeHighlights.Add(go);
-            }
+            highlighter.SetActive(false);
         }
     }
 
-    public void ClearHighlights()
+    public void HandleMoveHighlighterClick(Vector3 position)
     {
-        foreach (var go in activeHighlights)
+        var t = gridManager.GetTileData(position);
+        if (t.occupant && t.occupant.CompareTag("Scroll"))
         {
-            go.SetActive(false);
+            var scroll = t.occupant.GetComponent<Scroll>();
+            scroll.TryPickup(player);
         }
-        activeHighlights.Clear();
+        
+        gridManager.MoveTo(player, position);
+        ClearMoveHighlighters();
+        
+        TurnManager.Instance.EndPlayerTurn();
+    }
+    
+    public void ShowMoveHighlighters()
+    {
+        ClearCastHighlighters();
+        ClearMoveHighlighters();
+
+        Vector3Int playerCell = gridManager.backgroundMap.WorldToCell(player.transform.position);
+        var movePositions = gridManager.GetWalkableNeighbors(playerCell);
+        int index = 0;
+        foreach (var cell in movePositions)
+        {
+            if (index >= moveHighlighters.Count) break;
+
+            Vector3 worldPos = gridManager.backgroundMap.GetCellCenterWorld(cell.cellPosition);
+            moveHighlighters[index].transform.position = worldPos;
+            moveHighlighters[index].SetActive(true);
+            index++;
+        }
+    }
+
+    // 특정 SpellInstance 선택 시 CastHighlighter 표시
+    public void ShowCastHighlighters(SpellInstance spell)
+    {
+        ClearMoveHighlighters();
+        ClearCastHighlighters();
+        currentSpell = spell;
+
+        Vector3Int playerCell = gridManager.backgroundMap.WorldToCell(player.transform.position);
+        var castPositions = SpellPatterns.GetCastPositions(spell.data,
+            gridManager.backgroundMap.WorldToCell(player.transform.position));
+
+
+        foreach (var cell in castPositions)
+        {
+            // if (!gridManager.GetTileData(cell)?.isWalkable ?? true) continue;
+
+            Vector3 worldPos = gridManager.backgroundMap.GetCellCenterWorld(cell);
+            GameObject go = Instantiate(castHighlighterPrefab, worldPos, Quaternion.identity);
+            CastHighlighter cast = go.GetComponent<CastHighlighter>();
+            cast.manager = this;
+            cast.castCell = cell;
+            castHighlighters.Add(cast);
+        }
+    }
+
+    public void ShowSpellHighlights(Vector3Int castCell)
+    {
+        var areaCells = SpellPatterns.GetAreaPositions(currentSpell.data,
+            gridManager.backgroundMap.WorldToCell(player.transform.position),
+            castCell);
+
+        foreach (var cell in areaCells)
+        {
+            Vector3 worldPos = gridManager.backgroundMap.GetCellCenterWorld(cell);
+            GameObject go = Instantiate(spellHighlighterPrefab, worldPos, Quaternion.identity);
+            SpellHighlighter spell = go.GetComponent<SpellHighlighter>();
+            spell.Show();
+            spellHighlighters.Add(spell);
+        }
+    }
+
+    public void ClearCastHighlighters()
+    {
+        foreach (var c in castHighlighters)
+        {
+            Destroy(c.gameObject);
+        }
+        castHighlighters.Clear();
+    }
+
+    public void ClearSpellHighlights()
+    {
+        foreach (var s in spellHighlighters)
+        {
+            Destroy(s.gameObject);
+        }
+        spellHighlighters.Clear();
+    }
+
+    private void OnMapChanged(MapContext ctx)
+    {
+        // 맵이 변경되면 하이라이트 모두 제거
+        ClearCastHighlighters();
+        ClearSpellHighlights();
+        ClearMoveHighlighters();
+        
+        // 플레이어 위치에 맞춰 이동 하이라이트 다시 표시
+        ShowMoveHighlighters();
+    }
+
+    public void ConfirmCast(Vector3Int castCell)
+    {
+        if (currentSpell == null) return;
+
+        var playerCell = gridManager.WorldToCell(player.transform.position);
+
+        // 1) 실제 타격 셀 계산
+        var areaCells = SpellPatterns.GetAreaPositions(currentSpell.data, playerCell, castCell);
+
+        // 2) 이펙트 재생 (각 셀에)
+        PlayCellEffects(currentSpell.data, areaCells);
+
+        // 3) 데미지/상태 적용
+        currentSpell.Cast(areaCells);
+
+        // 4) 정리 + 턴 종료
+        ClearSpellHighlights();
+        ClearCastHighlighters();
+        TurnManager.Instance.EndPlayerTurn();
+    }
+    
+    private void PlayCellEffects(SpellData data, List<Vector3Int> areaCells)
+    {
+        if (data.effectPrefab == null) return;
+
+        Transform parent = MapGenerator.Instance ? MapGenerator.Instance.mapInstance.transform : null;
+
+        foreach (var cell in areaCells)
+        {
+            Vector3 pos = gridManager.CellToWorld(cell);      // ✅ 셀 중심
+            Instantiate(data.effectPrefab, pos, Quaternion.identity, parent);
+        }
     }
 }

@@ -1,0 +1,104 @@
+using System;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Tilemaps;
+using System.Linq;
+
+public class EnemySpawner : MonoBehaviour
+{
+    /// <summary>
+    /// Overlay Tilemap에서 적 스폰 위치를 찾아 적을 스폰합니다.
+    /// </summary>
+    public GridManager gridManager;
+    public EnemyManager enemyManager;
+
+    public TileBase enemySpawnTile; // 적 스폰 타일
+    [Header("Fallback (LevelData 없을 때만 사용)")]
+    public GameObject defaultEnemyPrefab; // 폴백 프리팹
+    public int enemyCount = 3;
+
+    [Header("Level Data")]
+    public LevelData levelData;
+
+    private void Awake()
+    {
+        if (enemyManager == null)
+        {
+            enemyManager = FindFirstObjectByType<EnemyManager>();
+        }
+    }
+
+    private void OnEnable()
+    {
+        if (MapGenerator.Instance != null)
+            MapGenerator.Instance.OnMapChanged += OnMapChanged;
+    }
+    
+    private void OnDisable()
+    {
+        if (MapGenerator.Instance != null)
+            MapGenerator.Instance.OnMapChanged -= OnMapChanged;
+    }
+    
+    private void Start()
+    {
+        if (gridManager == null) gridManager = FindFirstObjectByType<GridManager>();
+        SpawnEnemies();
+    }
+
+    private void SpawnEnemies()
+    {
+        Debug.Log("EnemySpawner: SpawnEnemies called");
+        levelData = MapGenerator.Instance.GetCurrentLevelData();
+        if (levelData == null)
+        {
+            Debug.LogWarning("EnemySpawner: levelData is null, using fallback settings.");
+        }
+        var overlay = gridManager.overlayMap;
+        if (overlay == null) { Debug.LogError("EnemySpawner: overlayMap is null."); return; }
+
+        BoundsInt bounds = overlay.cellBounds;
+        List<Vector3Int> spawnPositions = new List<Vector3Int>();
+        foreach (var pos in bounds.allPositionsWithin)
+            if (overlay.GetTile(pos) == enemySpawnTile)
+                spawnPositions.Add(pos);
+
+        System.Random random = new System.Random();
+        spawnPositions = spawnPositions.OrderBy(_ => random.Next()).ToList();
+
+        int targetCount = levelData ? levelData.enemyCount : enemyCount;
+        int spawned = 0;
+
+        foreach (var cell in spawnPositions)
+        {
+            if (spawned >= targetCount) break;
+
+            var t = gridManager.GetTileData(cell);
+            if (t == null || !t.isWalkable || t.occupant != null)
+                continue;
+
+            GameObject prefab = levelData ? levelData.PickEnemyPrefab(random) : defaultEnemyPrefab;
+            if (prefab == null) continue;
+
+            Vector3 worldPos = overlay.GetCellCenterWorld(cell);
+            // ✅ 맵의 자식으로 붙이기
+            GameObject enemy = Instantiate(prefab, worldPos, Quaternion.identity, MapGenerator.Instance.mapInstance.transform);
+
+            gridManager.SetOccupant(cell, enemy);
+            spawned++;
+        }
+
+        if (spawned < targetCount)
+            Debug.LogWarning($"EnemySpawner: 요청 수({targetCount})보다 적게 스폰됨: {spawned}");
+    }
+    
+    private void OnMapChanged(MapContext ctx)
+    {
+        // GridManager는 이미 MapGenerator가 주입+리빌드를 끝냄
+        if (gridManager == null) gridManager = FindFirstObjectByType<GridManager>();
+
+        enemyManager.ClearAllEnemies(); // 기존 적 제거
+        // 적 스폰 위치 갱신
+        SpawnEnemies();
+    }
+}

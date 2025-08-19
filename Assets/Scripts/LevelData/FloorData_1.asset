@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 883bdf6ece2a8a84ea269de7fdb0af98, type: 3}
+  m_Name: FloorData_1
+  m_EditorClassIdentifier: 
+  floorIndex: 1
+  enemyCount: 5
+  enemyTable:
+  - displayName: "\uC2AC\uB77C\uC784"
+    enemyPrefab: {fileID: 5441253103644555324, guid: c368810063fc00744829dd34baf9bd63, type: 3}
+    weight: 1
+  scrollCount: 15
+  scrollPrefabTable:
+  - displayName: "\uD654\uC5FC\uC758 \uC8FC\uBB38\uC11C"
+    prefab: {fileID: 3930026950421834218, guid: 0b174d7bd6607914dad2d7acba739177, type: 3}
+    weight: 20
+  - displayName: "\uBB3C\uC758 \uC8FC\uBB38\uC11C"
+    prefab: {fileID: 6498815992192333217, guid: 41a822029c6957f46810e25fb7fa6c1f, type: 3}
+    weight: 13
+  - displayName: "\uC5BC\uC74C\uC758 \uC8FC\uBB38\uC11C"
+    prefab: {fileID: 1732501041625537614, guid: e74fbbd01b523d345a7097aac948898e, type: 3}
+    weight: 25
+  - displayName: "\uBE59\uACB0 \uAC15\uD654\uC758 \uC8FC\uBB38\uC11C"
+    prefab: {fileID: 4042542892167865069, guid: 04235421355476146926d79783a92867, type: 3}
+    weight: 7
+  - displayName: "\uD654\uC5FC \uAC15\uD654\uC758 \uC8FC\uBB38\uC11C"
+    prefab: {fileID: 316019393489329931, guid: 0e7d2617df3c1b34e9168a4ab27ba839, type: 3}
+    weight: 5
+  - displayName: "\uC816\uC74C \uAC15\uD654\uC758 \uC8FC\uBB38\uC11C"
+    prefab: {fileID: 3126522513758178954, guid: e8de66c8e37a9d046867b01a7f46bf58, type: 3}
+    weight: 5
+  scrollSpellTable: []

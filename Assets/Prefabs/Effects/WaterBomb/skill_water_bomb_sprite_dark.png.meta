@@ -1,0 +1,578 @@
+fileFormatVersion: 2
+guid: 63792a4607398da4c9635a2a8299a486
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2430301634025810690
+    second: skill_water_bomb_sprite_dark_0
+  - first:
+      213: -3946720110305190572
+    second: skill_water_bomb_sprite_dark_1
+  - first:
+      213: 981179235572908093
+    second: skill_water_bomb_sprite_dark_2
+  - first:
+      213: -4806314710753518265
+    second: skill_water_bomb_sprite_dark_3
+  - first:
+      213: -2523143973685689591
+    second: skill_water_bomb_sprite_dark_4
+  - first:
+      213: 3135618633776976710
+    second: skill_water_bomb_sprite_dark_5
+  - first:
+      213: -7335460366721176487
+    second: skill_water_bomb_sprite_dark_6
+  - first:
+      213: 287582839446029698
+    second: skill_water_bomb_sprite_dark_7
+  - first:
+      213: 3358793398549125992
+    second: skill_water_bomb_sprite_dark_8
+  - first:
+      213: -1230330552558831992
+    second: skill_water_bomb_sprite_dark_9
+  - first:
+      213: -1983795393385138093
+    second: skill_water_bomb_sprite_dark_10
+  - first:
+      213: 152721735736662286
+    second: skill_water_bomb_sprite_dark_11
+  - first:
+      213: -7940859907360794178
+    second: skill_water_bomb_sprite_dark_12
+  - first:
+      213: 3391023461836399319
+    second: skill_water_bomb_sprite_dark_13
+  - first:
+      213: 531881188794487467
+    second: skill_water_bomb_sprite_dark_14
+  - first:
+      213: 54856142158216340
+    second: skill_water_bomb_sprite_dark_15
+  - first:
+      213: -8915241368476197443
+    second: skill_water_bomb_sprite_dark_16
+  - first:
+      213: 3150019811471026344
+    second: skill_water_bomb_sprite_dark_17
+  - first:
+      213: 5505903788329085143
+    second: skill_water_bomb_sprite_dark_18
+  - first:
+      213: 8674655265409239992
+    second: skill_water_bomb_sprite_dark_19
+  - first:
+      213: 1418271231679967090
+    second: skill_water_bomb_sprite_dark_20
+  - first:
+      213: -1104078099791737213
+    second: skill_water_bomb_sprite_dark_21
+  - first:
+      213: 5716272559203029267
+    second: skill_water_bomb_sprite_dark_22
+  - first:
+      213: 1916933240331581882
+    second: skill_water_bomb_sprite_dark_23
+  - first:
+      213: 3519799757017386948
+    second: skill_water_bomb_sprite_dark_24
+  - first:
+      213: 6367085775173335355
+    second: skill_water_bomb_sprite_dark_25
+  - first:
+      213: 9211952361436676737
+    second: skill_water_bomb_sprite_dark_26
+  - first:
+      213: 8819560815253927121
+    second: skill_water_bomb_sprite_dark_27
+  - first:
+      213: -3223260479674658554
+    second: skill_water_bomb_sprite_dark_28
+  - first:
+      213: -1374640096086987550
+    second: skill_water_bomb_sprite_dark_29
+  - first:
+      213: 1980843470928918753
+    second: skill_water_bomb_sprite_dark_30
+  - first:
+      213: -2575463717402436920
+    second: skill_water_bomb_sprite_dark_31
+  - first:
+      213: -1441488317113857203
+    second: skill_water_bomb_sprite_dark_32
+  - first:
+      213: 4694520644231552465
+    second: skill_water_bomb_sprite_dark_33
+  - first:
+      213: -3797887502381369752
+    second: skill_water_bomb_sprite_dark_34
+  - first:
+      213: 1033964737518034149
+    second: skill_water_bomb_sprite_dark_35
+  - first:
+      213: -6720720337436253136
+    second: skill_water_bomb_sprite_dark_36
+  - first:
+      213: -8771346083371531527
+    second: skill_water_bomb_sprite_dark_37
+  - first:
+      213: 8727867496433906165
+    second: skill_water_bomb_sprite_dark_38
+  - first:
+      213: -307375213189889165
+    second: skill_water_bomb_sprite_dark_39
+  - first:
+      213: -2201402557036358389
+    second: skill_water_bomb_sprite_dark_40
+  - first:
+      213: -3657424166886627290
+    second: skill_water_bomb_sprite_dark_41
+  - first:
+      213: 5574856819208801116
+    second: skill_water_bomb_sprite_dark_42
+  - first:
+      213: 5525258107309643015
+    second: skill_water_bomb_sprite_dark_43
+  - first:
+      213: 8815127289272692772
+    second: skill_water_bomb_sprite_dark_44
+  - first:
+      213: 7985392912726057827
+    second: skill_water_bomb_sprite_dark_45
+  - first:
+      213: -3191259528594467591
+    second: skill_water_bomb_sprite_dark_46
+  - first:
+      213: 8315109955680286755
+    second: skill_water_bomb_sprite_dark_47
+  - first:
+      213: 6934828808704966030
+    second: skill_water_bomb_sprite_dark_48
+  - first:
+      213: 2157936489855477226
+    second: skill_water_bomb_sprite_dark_49
+  - first:
+      213: 1679093535509423153
+    second: skill_water_bomb_sprite_dark_50
+  - first:
+      213: -9115636088656566207
+    second: skill_water_bomb_sprite_dark_51
+  - first:
+      213: -5012752657373238332
+    second: skill_water_bomb_sprite_dark_52
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: skill_water_bomb_sprite_dark_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef417d64a85d54ed0800000000000000
+      internalID: -2430301634025810690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_water_bomb_sprite_dark_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45d5e5568fe6a39c0800000000000000
+      internalID: -3946720110305190572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_water_bomb_sprite_dark_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d300055f059dd9d00800000000000000
+      internalID: 981179235572908093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_water_bomb_sprite_dark_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74d5dca4c3a8c4db0800000000000000
+      internalID: -4806314710753518265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_water_bomb_sprite_dark_4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9030c439cedfbfcd0800000000000000
+      internalID: -2523143973685689591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_water_bomb_sprite_dark_5
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6435f51c884f38b20800000000000000
+      internalID: 3135618633776976710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_water_bomb_sprite_dark_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95ca0a159a5333a90800000000000000
+      internalID: -7335460366721176487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_water_bomb_sprite_dark_7
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 285cdac9113bdf300800000000000000
+      internalID: 287582839446029698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_water_bomb_sprite_dark_8
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86b9272ecc4dc9e20800000000000000
+      internalID: 3358793398549125992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_water_bomb_sprite_dark_9
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 886bb6a81ecfceee0800000000000000
+      internalID: -1230330552558831992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_water_bomb_sprite_dark_10
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 358f83ea9942874e0800000000000000
+      internalID: -1983795393385138093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: skill_water_bomb_sprite_dark_11
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0990180c939e1200800000000000000
+      internalID: 152721735736662286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 29f752663ef45b14db096ed61a92deb4
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      skill_water_bomb_sprite_dark_0: -2430301634025810690
+      skill_water_bomb_sprite_dark_1: -3946720110305190572
+      skill_water_bomb_sprite_dark_10: -1983795393385138093
+      skill_water_bomb_sprite_dark_11: 152721735736662286
+      skill_water_bomb_sprite_dark_2: 981179235572908093
+      skill_water_bomb_sprite_dark_3: -4806314710753518265
+      skill_water_bomb_sprite_dark_4: -2523143973685689591
+      skill_water_bomb_sprite_dark_5: 3135618633776976710
+      skill_water_bomb_sprite_dark_6: -7335460366721176487
+      skill_water_bomb_sprite_dark_7: 287582839446029698
+      skill_water_bomb_sprite_dark_8: 3358793398549125992
+      skill_water_bomb_sprite_dark_9: -1230330552558831992
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

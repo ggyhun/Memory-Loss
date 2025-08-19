@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09279fef62079e540a4daf7010ebb4a8, type: 3}
+  m_Name: FlameBlaze
+  m_EditorClassIdentifier: 
+  spellName: Flame Blase
+  type: 0
+  damage: 14
+  attackCount: 1
+  cooldown: 2
+  icon: {fileID: 61804631, guid: 8306c62b08e4e964d8152c91546e1f69, type: 3}
+  castPattern: 0
+  areaPattern: 4
+  isUtility: 0
+  utilityTurns: 3
+  utilityPercent: 120
+  projectilePrefab: {fileID: 0}
+  effectPrefab: {fileID: 6089348300235321358, guid: 06529ab9f66a90f4ea15a1c47a82a928, type: 3}

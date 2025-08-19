@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a1a8b8976c5354e9c8df66820824d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileManager: {fileID: 1445362875}
+  gridManager: {fileID: 1445362876}
   tilemap: {fileID: 545919858}
   player: {fileID: 1046124761}
 --- !u!4 &386896131
@@ -181,7 +181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highlightPrefab: {fileID: 1374802447055170653, guid: b8f26a4da78855545901749591223204, type: 3}
   tilemap: {fileID: 545919858}
-  tileManager: {fileID: 1445362875}
+  gridManager: {fileID: 1445362876}
   poolSize: 4
 --- !u!1 &545919855
 GameObject:
@@ -1838,7 +1838,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilemap: {fileID: 545919858}
-  tileManager: {fileID: 1445362875}
+  gridManager: {fileID: 1445362876}
   highlightManager: {fileID: 386896132}
   isPlayerTurn: 1
 --- !u!1 &1222450553
@@ -2718,6 +2718,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1445362874}
   - component: {fileID: 1445362875}
+  - component: {fileID: 1445362876}
   m_Layer: 0
   m_Name: TileManager
   m_TagString: Untagged
@@ -2752,10 +2753,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0b439db67641dd418e91a02664d7630, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1445362876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1445362872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07e2fb9d85b774f42acbf6880ed6b4f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   backgroundMap: {fileID: 545919858}
   obstacleMap: {fileID: 1250096285}
-  decorativeMap: {fileID: 1788087912}
-  markerTilemap: {fileID: 1588541611}
+  overlayTilemap: {fileID: 1588541611}
   startTile: {fileID: 11400000, guid: 9a24bf6e4a0b80e478c8eae14af61e15, type: 2}
 --- !u!1 &1588541608
 GameObject:

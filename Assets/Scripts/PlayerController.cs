@@ -1,60 +1,169 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour
 {
     [Header("References")]
-    public Tilemap tilemap;              // 이동 기준이 되는 Tilemap (Background)
-    public TileManager tileManager;      // 타일 논리 정보 관리
-    public HighlightManager highlightManager; // 하이라이트 표시 및 클릭 관리
+    private Tilemap backgroundTilemap;
+    public GridManager gridManager;
+    public HighlightManager highlightManager;
 
-    [Header("Turn Control")]
-    public bool isPlayerTurn = true;
+    [Header("Spells")]
+    public List<SpellInstance> spells = new List<SpellInstance>();
 
-    void Start()
+    public SpellData normalAttackSpell;
+
+    private bool isSpellSelected;
+    
+    private Dictionary<KeyCode, int> spellKeyMap = new Dictionary<KeyCode, int>
     {
-        ShowMoveHighlights();
-    }
+        { KeyCode.Alpha1, 0 },
+        { KeyCode.Alpha2, 1 },
+        { KeyCode.Alpha3, 2 },
+        { KeyCode.Alpha4, 3 },
+        { KeyCode.Alpha5, 4 },
+        { KeyCode.Alpha6, 5 },
+        { KeyCode.Alpha7, 6 },
+        { KeyCode.Alpha8, 7 },
+        { KeyCode.Alpha9, 8 },
+    };
 
-    void ShowMoveHighlights()
+    private void Start()
     {
-        if (!isPlayerTurn) return;
-
-        Vector3Int playerCell = tilemap.WorldToCell(transform.position);
-        highlightManager.ShowHighlights(playerCell, OnHighlightClick);
-    }
-
-    void OnHighlightClick(Vector3Int targetCell)
-    {
-        if (!isPlayerTurn) return;
-
-        Vector3Int currentCell = tilemap.WorldToCell(transform.position);
-        tileManager.ClearOccupantAt(currentCell);
-        tileManager.SetOccupantAt(targetCell, gameObject);
-        transform.position = tilemap.GetCellCenterWorld(targetCell);
-
-        // 턴 종료
-        isPlayerTurn = false;
-        hasShownHighlightThisTurn = false;
-
-        highlightManager.ClearHighlights();
-
-        // 이후: Enemy 턴 → 다시 isPlayerTurn = true 설정 시 Highlight 표시됨
-        
-        // Todo: 적의 턴 로직 추가
-        isPlayerTurn = true;
-    }
-
-
-    private bool hasShownHighlightThisTurn = false;
-
-    void Update()
-    {
-        // 턴이 시작됐는데 아직 하이라이트를 안 보여줬다면 표시
-        if (isPlayerTurn && !hasShownHighlightThisTurn)
+        if (gridManager == null) gridManager = FindFirstObjectByType<GridManager>();
+        if (backgroundTilemap == null)
         {
-            ShowMoveHighlights();
-            hasShownHighlightThisTurn = true;
+            backgroundTilemap = gridManager.backgroundMap;
+            if (backgroundTilemap == null)
+            {
+                Debug.LogError("Background Tilemap not found in GridManager.");
+            }
+        }
+        if (highlightManager == null) highlightManager = FindFirstObjectByType<HighlightManager>();
+
+        Vector3Int startTilePosition = gridManager.FindStartTilePosition();
+        transform.position = backgroundTilemap.GetCellCenterWorld(startTilePosition);
+
+        isSpellSelected = false;
+        
+        highlightManager.ShowMoveHighlighters();
+        LearnSpell(normalAttackSpell);
+    }
+    
+    // PlayerController.cs (추가된 부분만)
+    private void OnEnable()
+    {
+        if (MapGenerator.Instance != null)
+            MapGenerator.Instance.OnMapChanged += OnMapChanged;
+    }
+
+    private void OnDisable()
+    {
+        if (MapGenerator.Instance != null)
+            MapGenerator.Instance.OnMapChanged -= OnMapChanged;
+    }
+
+    private void OnMapChanged(MapContext ctx)
+    {
+        // 참조 갱신
+        backgroundTilemap = ctx.background;
+
+        // GridManager는 이미 MapGenerator가 주입+리빌드를 끝냄
+        if (gridManager == null) gridManager = FindFirstObjectByType<GridManager>();
+
+        // 시작 위치 이동 (overlay/startTile이 있을 때)
+        if (gridManager.overlayMap && gridManager.startTile)
+        {
+            var startCell = gridManager.FindStartTilePosition();
+            transform.position = gridManager.CellToWorld(startCell);
+        }
+
+        // 하이라이트 초기화 등
+        if (highlightManager == null) highlightManager = FindFirstObjectByType<HighlightManager>();
+        highlightManager?.Init(gameObject, gridManager);
+
+        // 필요시 플레이어 턴 시작
+        TurnManager.Instance?.StartPlayerTurn();
+    }
+
+    private void Update()
+    {
+        if (!TurnManager.Instance.IsPlayerTurn()) return;
+
+        foreach (var kvp in spellKeyMap)
+        {
+            if (Input.GetKeyDown(kvp.Key))
+            {
+                HandleSpellInput(kvp.Value);
+            }
+        }
+    }
+    
+    private void HandleSpellInput(int index)
+    {
+        if (index >= spells.Count)
+        {
+            Debug.Log("No spell in that slot.");
+            return;
+        }
+
+        var spell = spells[index];
+
+        if (isSpellSelected)
+        {
+            Debug.Log("Spell selection cancelled.");
+            isSpellSelected = false;
+            highlightManager.ShowMoveHighlighters();
+        }
+        else
+        {
+            if (!spell.CanCast())
+            {
+                Debug.Log($"{spell.data.spellName} is on cooldown ({spell.currentCooldown} turns left).");
+                return;
+            }
+            
+            isSpellSelected = true;
+            Debug.Log($"{spell.data.spellName} selected.");
+            highlightManager.ShowCastHighlighters(spell);
+        }
+    }
+
+    public void LearnSpell(SpellData newSpell)
+    {
+        spells.Add(new SpellInstance(newSpell));
+        Debug.Log($"Learned new spell: {newSpell.spellName}");
+    }
+
+    public void ReduceCooldowns()
+    {
+        foreach (var spell in spells)
+        {
+            spell.TickCooldown();
+        }
+    }
+
+    public void StartTurn()
+    {
+        Debug.Log("Player's turn started.");
+        isSpellSelected = false;
+        highlightManager.ShowMoveHighlighters();
+        
+        // 플레이어가 턴을 시작할 때 모든 스킬의 쿨타운을 감소시킴
+        ReduceCooldowns();
+    }
+
+    public void DeleteSpell(SpellInstance spell)
+    {
+        if (spells.Contains(spell))
+        {
+            spells.Remove(spell);
+            Debug.Log($"Spell {spell.data.spellName} removed.");
+        }
+        else
+        {
+            Debug.LogWarning($"Spell {spell.data.spellName} not found in player's spell list.");
         }
     }
 }

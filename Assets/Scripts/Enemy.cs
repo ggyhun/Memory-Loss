@@ -4,35 +4,53 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private EnemyManager enemyManager;
-    
+    private EnemyBehavior behavior;
+    private Stats stats;
+
+    private bool reportedThisTurn = false; // ✅ 중복 방지
+
     private void Start()
     {
-        // EnemyManager를 찾아서 등록
         enemyManager = FindObjectOfType<EnemyManager>();
         enemyManager.RegisterEnemy(this);
+
+        behavior = GetComponent<EnemyBehavior>();
+        stats    = GetComponent<Stats>();
+        if (stats != null) stats.OnDied += HandleDied;
+    }
+
+    private void OnDestroy()
+    {
+        if (stats != null) stats.OnDied -= HandleDied;
+        if (enemyManager != null) enemyManager.UnregisterEnemy(this);
     }
 
     public void StartTurnAction()
     {
-        // 적의 턴 행동을 시작
+        reportedThisTurn = false; // ✅ 턴 시작 시 리셋
         StartCoroutine(TakeTurnRoutine());
     }
 
     private IEnumerator TakeTurnRoutine()
     {
-        // Todo: 적의 행동 로직 구현
-        // 예시로 0.3초 대기 후 턴 완료
+        if (behavior != null) behavior.Act(this);
         yield return new WaitForSeconds(0.3f);
 
-        // EnemyManager에 보고
-        enemyManager.ReportEnemyDone();
+        if (!reportedThisTurn)
+        {
+            reportedThisTurn = true;
+            enemyManager.ReportEnemyDone();
+        }
     }
 
-    private void OnDestroy()
+    private void HandleDied()
     {
-        // EnemyManager에서 제거
-        // 메모리 누수 방지를 위해 필요
-        if (enemyManager != null)
-            enemyManager.UnregisterEnemy(this);
+        enemyManager.ReportEnemyKilled(this);
+
+        if (!reportedThisTurn)
+        {
+            reportedThisTurn = true;
+            enemyManager.ReportEnemyDone();
+        }
     }
 }
