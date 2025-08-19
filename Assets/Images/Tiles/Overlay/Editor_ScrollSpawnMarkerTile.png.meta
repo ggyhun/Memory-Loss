@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Editor_ScrollSpawnMarkerTile_0: -6971473424459805201
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

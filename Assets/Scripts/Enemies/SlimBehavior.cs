@@ -7,6 +7,8 @@ public class SlimBehavior : EnemyBehavior
     private EnemyMover mover;
     private Transform player;
 
+    
+    
     private void Awake()
     {
         mover = GetComponent<EnemyMover>();                     // 같은 오브젝트에 붙이기
