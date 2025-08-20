@@ -193,6 +193,7 @@ MonoBehaviour:
   frozenEnhancementAmount: 100
   burningEnhancementAmount: 100
   wetEnhancementAmount: 100
+  spriteRenderer: {fileID: 3177961617685303482}
 --- !u!1001 &488090089981526409
 PrefabInstance:
   m_ObjectHideFlags: 0
