@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using System.Collections.Generic;
 
 public enum PlayerMoveType
 {
@@ -14,7 +15,8 @@ public enum PlayerMoveType
 public class PlayerMoveRecorder : MonoBehaviour
 {
     public static PlayerMoveRecorder Instance { get; private set; }
-    public PlayerMoveType previousMove = PlayerMoveType.None;
+    private PlayerMoveType previousMove = PlayerMoveType.None;
+    public List<int> spellDamages = new List<int>();
 
     private void Awake()
     {
@@ -29,10 +31,28 @@ public class PlayerMoveRecorder : MonoBehaviour
         }
     }
     
-    public void RecordMove(PlayerMoveType moveType)
+    public void RecordMove(PlayerMoveType moveType, int spellDamage = 0)
     {
         previousMove = moveType;
+        if (moveType == PlayerMoveType.Attack && spellDamage > 0)
+        {
+            spellDamages.Add(spellDamage);
+        }
         Debug.Log($"Recorded move: {moveType}");
+    }
+
+    public int GetSpellDamage()
+    {
+        if (spellDamages.Count > 0)
+        {
+            // count 중 랜덤으로 하나를 반환
+            int randomIndex = UnityEngine.Random.Range(0, spellDamages.Count);
+            int damage = spellDamages[randomIndex];
+            spellDamages.RemoveAt(randomIndex); // 사용 후 제거
+            Debug.Log($"Returning spell damage: {damage}");
+            return damage;
+        }
+        return 0; // No damage recorded
     }
 
     public PlayerMoveType CalculateMove(Vector3Int start, Vector3Int end)
