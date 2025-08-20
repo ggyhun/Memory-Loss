@@ -41,6 +41,23 @@ public class PlayerMoveRecorder : MonoBehaviour
         Debug.Log($"Recorded move: {moveType}");
     }
 
+    public PlayerMoveType GetPreviousMove()
+    {
+        return previousMove; // PlayerMoveType를 int로 변환하여 반환
+    }
+
+    public int GetLastSpellDamage()
+    {
+        if (spellDamages.Count > 0)
+        {
+            int lastDamage = spellDamages[spellDamages.Count - 1];
+            spellDamages.RemoveAt(spellDamages.Count - 1); // 사용 후 제거
+            Debug.Log($"Returning last spell damage: {lastDamage}");
+            return lastDamage;
+        }
+        return 0; // No damage recorded
+    }
+    
     public int GetSpellDamage()
     {
         if (spellDamages.Count > 0)
