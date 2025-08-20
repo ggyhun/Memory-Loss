@@ -140,6 +140,12 @@ public class GridManager : MonoBehaviour
         }
     }
 
+    public void ClearOccupant(Vector3 worldPos)
+    {
+        Vector3Int cellPos = backgroundMap.WorldToCell(worldPos);
+        ClearOccupant(cellPos);
+    }
+
     public void MoveTo(GameObject occupant, Vector3 targetPosition)
     {
         Vector3Int startCell = backgroundMap.WorldToCell(occupant.transform.position);
