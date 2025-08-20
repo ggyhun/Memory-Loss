@@ -28,6 +28,8 @@ public class SlimBehavior : EnemyBehavior
         }
         
         attackArea = attackAreaPrefab.GetComponent<EnemyAttackArea>();
+        attackArea.transform.SetParent(transform); // 공격 범위 오브젝트를 슬림 오브젝트의 자식으로 설정
+        attackArea.transform.localPosition = Vector3.zero; // 위치 초기화
     }
 
     public override void Act(Enemy enemy)

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public enum ElementType { Normal, Ice, Fire, Water }
 public enum StatusType  { Frozen, Burning, Wet }
@@ -29,6 +30,9 @@ public class Stats : MonoBehaviour
     public int burningEnhancementAmount= 100; // 화염 강화 효과 (% 단위)
     public int wetEnhancementAmount    = 100; // 젖음 강화 효과 (% 단위)
     
+    [Header("Sprite References")]
+    public SpriteRenderer spriteRenderer;
+    
     public bool IsFrozen  => frozenTurns  > 0;
     public bool IsBurning => burningTurns > 0;
     public bool IsWet     => wetTurns     > 0;
@@ -48,6 +52,9 @@ public class Stats : MonoBehaviour
             currentHp = Mathf.Max(0, currentHp - amount);
             // Debug.Log($"{name} took {amount} {element} dmg. HP: {currentHp}/{maxHp}");
 
+            // 피격 시 빨간색 깜빡임 효과
+            StartCoroutine(FlashRed());
+             
             if (currentHp <= 0)
             {
                 Die();
@@ -60,6 +67,25 @@ public class Stats : MonoBehaviour
         {
             TryApplyElement(element);
         }
+    }
+    
+    // 피격 시 0.2초동안 빨간색 깜빡임 효과
+    private IEnumerator FlashRed()
+    {
+        if (spriteRenderer == null)
+        {
+            spriteRenderer = GetComponent<SpriteRenderer>();
+            if (spriteRenderer == null)
+            {
+                Debug.LogError("SpriteRenderer not found on Stats object.");
+                yield break;
+            }
+        }
+
+        Color originalColor = spriteRenderer.color;
+        spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(0.2f);
+        spriteRenderer.color = originalColor;
     }
 
     public void Heal(int amount)
