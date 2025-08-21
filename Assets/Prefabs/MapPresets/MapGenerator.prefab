@@ -57,4 +57,11 @@ MonoBehaviour:
   - {fileID: 8877365098275030806, guid: a390fd8f2eef2d24bbe6e0df5db9e3ef, type: 3}
   - {fileID: 8617080961315015463, guid: b078ce196d061844c84ff221f4512154, type: 3}
   mapInstance: {fileID: 0}
+  levelDataList:
+  - {fileID: 11400000, guid: f4308a97452976448a25623e26c1aed4, type: 2}
+  - {fileID: 11400000, guid: cbb343d6664cf8b4eb1b55f90fc2e375, type: 2}
+  - {fileID: 11400000, guid: f79b6079b56e5ec4ea987d62aa27e21b, type: 2}
+  - {fileID: 11400000, guid: fcf8f4f6aaacdfa43b8ae89dd1fcdf44, type: 2}
+  - {fileID: 11400000, guid: b9e74fcb7e5f188469410835e6e6e0da, type: 2}
+  needEnemyCountsForNextLevel: 
   gridManagerPrefab: {fileID: 6295389440773565797, guid: 8952e0bef2b55714cb1496ff54fc0d03, type: 3}
