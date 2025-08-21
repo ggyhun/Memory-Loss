@@ -6,6 +6,7 @@ public class GameOverUI : MonoBehaviour
 {
     public TextMeshProUGUI FloorText;
     public TextMeshProUGUI MonsterText;
+    public TextMeshProUGUI UITitleText;
     void Awake()
     {
         UpdateTextUI();
@@ -13,8 +14,17 @@ public class GameOverUI : MonoBehaviour
 
     void UpdateTextUI()
     {
-        FloorText.text = 1.ToString() + "층";
-        MonsterText.text = 1.ToString();
+        if (GameRecorder.Instance.GetIsGameCleared())
+        {
+            UITitleText.text = "GAME CLEAR";
+        }
+        else
+        {
+            UITitleText.text = "GAME OVER";
+            AudioManager.Instance.PlayBGM(5);
+        }
+        FloorText.text = GameRecorder.Instance.GetReachedFloor().ToString() + "층";
+        MonsterText.text = GameRecorder.Instance.GetTotalKillCount().ToString();
     }
     public void OnClickRetryButton()
     {

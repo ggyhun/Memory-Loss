@@ -52,6 +52,16 @@ public class EnemyMover : MonoBehaviour
         }
         return false;
     }
+    // 특정 방향으로 이동
+    public bool TryMoveToward(GameObject actor, int direction) // direction > 0 = 위로, 1 = 아래로, 2 = 왼쪽으로, 3 = 오른쪽으로
+    {
+        if (grid == null || actor == null) return false;
+
+        Vector3Int actorCell = grid.WorldToCell(actor.transform.position);
+        Vector3Int[] dirs = { Vector3Int.up, Vector3Int.down, Vector3Int.left, Vector3Int.right };
+        if (TryMoveTo(actor, actorCell + dirs[direction])) return true;
+        return false;
+    }
 
     // === 내부 유틸 ===
     private bool TryMoveTo(GameObject actor, Vector3Int targetCell)
