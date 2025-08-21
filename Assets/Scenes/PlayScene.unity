@@ -622,7 +622,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b88a9bb3fa12400b987c922b13069829, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  previousMove: 0
+  spellDamages: 
 --- !u!1 &1962530311
 GameObject:
   m_ObjectHideFlags: 0
@@ -672,37 +672,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: MapGenerator
       objectReference: {fileID: 0}
-    - target: {fileID: 7892729368132557778, guid: d532bcae4f506b04890d97f4be6184d4, type: 3}
-      propertyPath: levelDataList.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7892729368132557778, guid: d532bcae4f506b04890d97f4be6184d4, type: 3}
-      propertyPath: 'levelDataList.Array.data[0]'
-      value: 
-      objectReference: {fileID: 11400000, guid: f4308a97452976448a25623e26c1aed4, type: 2}
-    - target: {fileID: 7892729368132557778, guid: d532bcae4f506b04890d97f4be6184d4, type: 3}
-      propertyPath: 'levelDataList.Array.data[1]'
-      value: 
-      objectReference: {fileID: 11400000, guid: cbb343d6664cf8b4eb1b55f90fc2e375, type: 2}
-    - target: {fileID: 7892729368132557778, guid: d532bcae4f506b04890d97f4be6184d4, type: 3}
-      propertyPath: 'levelDataList.Array.data[2]'
-      value: 
-      objectReference: {fileID: 11400000, guid: f79b6079b56e5ec4ea987d62aa27e21b, type: 2}
-    - target: {fileID: 7892729368132557778, guid: d532bcae4f506b04890d97f4be6184d4, type: 3}
-      propertyPath: 'levelDataList.Array.data[3]'
-      value: 
-      objectReference: {fileID: 11400000, guid: fcf8f4f6aaacdfa43b8ae89dd1fcdf44, type: 2}
-    - target: {fileID: 7892729368132557778, guid: d532bcae4f506b04890d97f4be6184d4, type: 3}
-      propertyPath: 'levelDataList.Array.data[4]'
-      value: 
-      objectReference: {fileID: 11400000, guid: b9e74fcb7e5f188469410835e6e6e0da, type: 2}
     - target: {fileID: 8229807226031435297, guid: d532bcae4f506b04890d97f4be6184d4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8229807226031435297, guid: d532bcae4f506b04890d97f4be6184d4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8229807226031435297, guid: d532bcae4f506b04890d97f4be6184d4, type: 3}
       propertyPath: m_LocalPosition.z

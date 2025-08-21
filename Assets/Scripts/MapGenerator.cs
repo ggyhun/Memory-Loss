@@ -22,8 +22,7 @@ public class MapGenerator : MonoBehaviour
     [Header("Level Data")]
     public List<LevelData> levelDataList;
     int currentLevelIndex = 0;  // 0-based로 권장
-    public List<int> needEnemyCountsForNextLevel;
-
+    
     [Header("GridManager Prefab")]
     public GameObject gridManagerPrefab;
 
@@ -37,7 +36,7 @@ public class MapGenerator : MonoBehaviour
             Debug.LogError("Map prefabs are not assigned in the MapGenerator.");
             return;
         }
-        SpawnRandomMap();
+        ChangeMap();
     }
 
     private void Update()
@@ -58,6 +57,7 @@ public class MapGenerator : MonoBehaviour
         mapInstance = Instantiate(prefab, Vector3.zero, Quaternion.identity);
 
         var background = mapInstance.transform.Find("Background")?.GetComponent<Tilemap>();
+        var Decorative = mapInstance.transform.Find("Decorative")?.GetComponent<Tilemap>();
         var obstacle   = mapInstance.transform.Find("Obstacle")  ?.GetComponent<Tilemap>();
         var overlay    = mapInstance.transform.Find("Overlay")   ?.GetComponent<Tilemap>();
 
