@@ -84,11 +84,23 @@ public class GameEndingUI : MonoBehaviour
     };
     string DisplayingText;
     bool IsAwaitingInput = false;
+    bool WalkingSFXPlaying = true;
     int TextDataLine = 0;
     int TextDataColumn = 0;
     void Awake()
     {
+        AudioManager.Instance.PlayBGM(0);
+        StartCoroutine(WalkingSFX());
         StartCoroutine(StartEndingScene());
+    }
+    IEnumerator WalkingSFX()
+    {
+        while (WalkingSFXPlaying)
+        {
+            AudioManager.Instance.PlaySFX(0);
+            yield return new WaitForSeconds(3.5f);
+        }
+        yield break;
     }
     IEnumerator StartEndingScene()
     {
@@ -144,6 +156,8 @@ public class GameEndingUI : MonoBehaviour
         }
         else if (mode == 2)
         {
+            WalkingSFXPlaying = false;
+            AudioManager.Instance.ClearAllSFX();
             TextPanelUI.SetActive(true);
             LetterUI.SetActive(false);
             if (Fade.activeSelf)
