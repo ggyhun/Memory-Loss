@@ -241,6 +241,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FloorText: {fileID: 1492831761}
   MonsterText: {fileID: 819199598}
+  UITitleText: {fileID: 1689592376}
 --- !u!1 &446917124
 GameObject:
   m_ObjectHideFlags: 0
@@ -1115,7 +1116,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Game Over
+  m_text: GAME OVER
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5463ef668c3ffc247ba9d1050972a2f0, type: 2}
   m_sharedMaterial: {fileID: -4874882760808282491, guid: 5463ef668c3ffc247ba9d1050972a2f0, type: 2}
