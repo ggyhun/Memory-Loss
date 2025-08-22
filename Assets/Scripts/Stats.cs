@@ -3,10 +3,12 @@ using System.Collections;
 
 public enum ElementType { Normal, Ice, Fire, Water }
 public enum StatusType  { Frozen, Burning, Wet }
+public enum StatusOwnership { Player, Enemy }
 
 public class Stats : MonoBehaviour
 {
     [Header("HP")]
+    public StatusOwnership ownership;
     public int maxHp = 100;
     public int currentHp;
 
@@ -72,6 +74,12 @@ public class Stats : MonoBehaviour
     // 피격 시 0.2초동안 빨간색 깜빡임 효과
     private IEnumerator FlashRed()
     {
+        Animator animator = GetComponent<Animator>();
+        if (animator != null)
+        {
+            animator.SetTrigger("Hurt");
+        }
+        
         if (spriteRenderer == null)
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
@@ -98,8 +106,17 @@ public class Stats : MonoBehaviour
 
     private void Die()
     {
-        OnDied?.Invoke();      // 🔹 누가 죽었는지 알림
-        Destroy(gameObject);
+        if (ownership == StatusOwnership.Player)
+        {
+            Animator animator = GetComponent<Animator>();
+            if (animator == null) return;
+            animator.SetTrigger("Die"); // 플레이어 사망 애니메이션 트리거
+        }
+        else
+        {
+            OnDied?.Invoke();      // 🔹 누가 죽었는지 알림
+            Destroy(gameObject);
+        }
     }
 
     // ========= Turn Hooks =========

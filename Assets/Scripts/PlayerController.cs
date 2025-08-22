@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController Instance { get; private set; }
+    
     [Header("References")]
     public GridManager gridManager;
     public HighlightManager highlightManager;
@@ -32,6 +34,20 @@ public class PlayerController : MonoBehaviour
         { KeyCode.Alpha8, 7 },
         { KeyCode.Alpha9, 8 },
     };
+    
+    private void Awake()
+    {
+        if (Instance && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        
+        // 초기화
+        spells.Clear();
+        isSpellSelected = false;
+    }
 
     private void Start()
     {

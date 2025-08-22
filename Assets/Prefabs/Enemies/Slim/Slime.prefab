@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1856549785798420584}
   - component: {fileID: 3177961617685303482}
+  - component: {fileID: 807674093434967952}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Enemy
@@ -87,6 +88,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &807674093434967952
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1589604032083422235}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c36776385ad954a4d872491b73d9ab2e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5441253103644555324
 GameObject:
   m_ObjectHideFlags: 0
@@ -100,6 +123,7 @@ GameObject:
   - component: {fileID: 4847881299111053190}
   - component: {fileID: 853517964548802230}
   - component: {fileID: 4220579091969757832}
+  - component: {fileID: 3560748619256661725}
   m_Layer: 0
   m_Name: Slime
   m_TagString: Enemy
@@ -166,6 +190,7 @@ MonoBehaviour:
   allowDiagonal: 0
   avoidExit: 1
   useClaims: 0
+  enemyAnimator: {fileID: 3560748619256661725}
   fakeStepDuration: 0.2
   ease:
     serializedVersion: 2
@@ -204,6 +229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4e0c52191fb7ae4e8079e1dd6ba003e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ownership: 1
   maxHp: 20
   currentHp: 20
   frozenTurns: 0
@@ -220,6 +246,26 @@ MonoBehaviour:
   burningEnhancementAmount: 100
   wetEnhancementAmount: 100
   spriteRenderer: {fileID: 3177961617685303482}
+--- !u!114 &3560748619256661725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5441253103644555324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a3b78af778e47adaa4de0ee4390413f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 807674093434967952}
+  spriteRenderer: {fileID: 3177961617685303482}
+  isTowardRight: 1
+  idleState: Idle
+  moveState: Move
+  attackState: Attack
+  hurtState: Hurt
+  deathState: Die
 --- !u!1001 &488090089981526409
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -271,6 +317,22 @@ PrefabInstance:
     - target: {fileID: 5015639047799849277, guid: 0e4ec350992423c47accf81f2172b1f3, type: 3}
       propertyPath: m_Name
       value: SlimeAttackArea
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715905471227001555, guid: 0e4ec350992423c47accf81f2172b1f3, type: 3}
+      propertyPath: m_Color.a
+      value: 0.35686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715905471227001555, guid: 0e4ec350992423c47accf81f2172b1f3, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715905471227001555, guid: 0e4ec350992423c47accf81f2172b1f3, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715905471227001555, guid: 0e4ec350992423c47accf81f2172b1f3, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

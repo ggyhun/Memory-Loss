@@ -204,6 +204,12 @@ public class HighlightManager : MonoBehaviour
 
         // 1) 실제 타격 셀 계산
         var areaCells = SpellPatterns.GetAreaPositions(currentSpell.data, playerCell, castCell);
+        
+        Vector3Int dir = castCell - playerCell;
+        if (dir.x > 0) 
+            player.GetComponent<PlayerController>().isTowardsRight = true;
+        else if (dir.x < 0)
+            player.GetComponent<PlayerController>().isTowardsRight = false;
         player.GetComponent<PlayerController>().animator.SetTrigger("Attack");
 
         // 2) 이펙트 재생 (각 셀에)
