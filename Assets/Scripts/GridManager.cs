@@ -15,6 +15,8 @@ public class GridManager : MonoBehaviour
     public TileBase startTile; // StartTile Asset (Editor에서 할당)
     
     private Dictionary<Vector3Int, TileData> tileDictionary = new Dictionary<Vector3Int, TileData>();
+
+    private bool _startSign = true;
     
     private void Awake()
     {
@@ -24,7 +26,6 @@ public class GridManager : MonoBehaviour
             return;
         }
         Instance = this;
-        if (backgroundMap != null) RebuildTileData();
     }
 
     public void RebuildTileData()
@@ -49,27 +50,6 @@ public class GridManager : MonoBehaviour
             tileDictionary[pos] = data;
         }
     }
-    
-    private void OnEnable()
-    {
-        if (MapGenerator.Instance != null)
-            MapGenerator.Instance.OnMapChanged += OnMapChanged;
-    }
-
-    private void OnDisable()
-    {
-        if (MapGenerator.Instance != null)
-            MapGenerator.Instance.OnMapChanged -= OnMapChanged;
-    }
-
-    private void OnMapChanged(MapContext ctx)
-    {
-        backgroundMap  = ctx.background;
-        obstacleMap    = ctx.obstacle;
-        overlayMap     = ctx.overlay; // 없을 수도 있음
-
-        RebuildTileData();
-    }
 
     void InitializeTileData()
     {
@@ -92,13 +72,6 @@ public class GridManager : MonoBehaviour
     {
         tileDictionary.TryGetValue(pos, out TileData data);
         return data;
-    }
-
-    public TileData GetTileData(Vector3 pos)
-    {
-        // Vector3를 Vector3Int로 변환하여 TileData를 가져옴
-        Vector3Int intPos = backgroundMap.WorldToCell(pos);
-        return GetTileData(intPos);
     }
 
     // 시작 타일의 위치를 찾아 반환

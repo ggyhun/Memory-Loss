@@ -39,8 +39,6 @@ public class PlayerController : MonoBehaviour
         if (highlightManager == null) highlightManager = FindFirstObjectByType<HighlightManager>();
         if (animator == null) animator = GetComponent<Animator>();
         if (mover == null) mover = GetComponent<GridMoveVisual>();
-
-        SetPlayerStartPosition();
         
         LearnSpell(normalAttackSpell);
         
@@ -51,43 +49,55 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    // PlayerController.cs (추가된 부분만)
-    private void OnEnable()
+    public void OnMapChanged()
     {
-        if (MapGenerator.Instance != null)
-            MapGenerator.Instance.OnMapChanged += OnMapChanged;
-    }
-
-    private void OnDisable()
-    {
-        if (MapGenerator.Instance != null)
-            MapGenerator.Instance.OnMapChanged -= OnMapChanged;
-    }
-
-    private void SetPlayerStartPosition()
-    {
-        Vector3Int startTilePosition = gridManager.FindStartTilePosition();
-        transform.position = gridManager.backgroundMap.GetCellCenterWorld(startTilePosition);
+        Debug.Log("OnMapChanged: PlayerController.cs");
         
-        isSpellSelected = false;
-        
-        highlightManager.ShowMoveHighlighters();
-    }
-
-    private void OnMapChanged(MapContext _)
-    {
-        // GridManager는 이미 MapGenerator가 주입+리빌드를 끝냄
         if (gridManager == null) gridManager = FindFirstObjectByType<GridManager>();
-
-        // 시작 위치 이동 (overlay/startTile이 있을 때)
-        SetPlayerStartPosition();
-
-        // 하이라이트 초기화 등
         if (highlightManager == null) highlightManager = FindFirstObjectByType<HighlightManager>();
+
+        // 1) 하이라이트 매니저 먼저 초기화
         highlightManager?.Init(gameObject, gridManager);
 
-        // 필요시 플레이어 턴 시작
+        // 2) 플레이어 시작 위치 세팅 (점유자 포함)
+        SetPlayerStartPosition();
+
+        // 3) 플레이어 턴 시작(여기서 Move 하이라이트를 띄우게)
         TurnManager.Instance?.StartPlayerTurn();
+    }
+    
+    private void SetPlayerStartPosition()
+    {
+        var startCell = gridManager.FindStartTilePosition();
+        // 안전 가드
+        if (startCell == Vector3Int.zero && (!gridManager.overlayMap || !gridManager.overlayMap.HasTile(startCell)))
+        {
+            Debug.LogWarning("SetPlayerStartPosition: startCell invalid. Skipping.");
+            return;
+        }
+
+        // 이전 점유 해제
+        var oldCell = gridManager.WorldToCell(transform.position);
+        var oldTile = gridManager.GetTileData(oldCell);
+        if (oldTile != null && oldTile.occupant == gameObject)
+            gridManager.ClearOccupant(oldCell);
+
+        // 🔴 오버레이 기준으로 월드 변환(없으면 백그라운드 사용)
+        Vector3 worldPos =
+            gridManager.overlayMap
+                ? gridManager.overlayMap.GetCellCenterWorld(startCell)
+                : gridManager.backgroundMap.GetCellCenterWorld(startCell);
+
+        transform.position = worldPos;
+
+        // 새 점유 설정(플레이어가 밟고 있는 칸은 보통 isWalkable=false)
+        gridManager.SetOccupant(startCell, gameObject, false);
+
+        Debug.Log($"Player start positioned at cell {startCell}, world {worldPos}");
+        isSpellSelected = false;
+
+        // ❌ 여기서 ShowMoveHighlighters() 호출하지 않음
+        //    -> TurnManager.StartPlayerTurn()에서 호출되도록 유지
     }
 
     private void Update()

@@ -51,6 +51,10 @@ public class HighlightManager : MonoBehaviour
         }
     }
     
+    private void OnEnable()
+    {
+        MapGenerator.Instance.OnMapChanged += OnMapChanged;
+    }
     
     private void OnDisable()
     {
@@ -59,8 +63,6 @@ public class HighlightManager : MonoBehaviour
 
     private void Start()
     {
-        MapGenerator.Instance.OnMapChanged += OnMapChanged;
-        
         if (gridManager == null)
         {
             gridManager = FindFirstObjectByType<GridManager>();
