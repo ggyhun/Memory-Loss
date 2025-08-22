@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public class PlayerController : MonoBehaviour
 {
     [Header("References")]
-    private Tilemap backgroundTilemap;
     public GridManager gridManager;
     public HighlightManager highlightManager;
 
@@ -32,22 +31,10 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         if (gridManager == null) gridManager = FindFirstObjectByType<GridManager>();
-        if (backgroundTilemap == null)
-        {
-            backgroundTilemap = gridManager.backgroundMap;
-            if (backgroundTilemap == null)
-            {
-                Debug.LogError("Background Tilemap not found in GridManager.");
-            }
-        }
         if (highlightManager == null) highlightManager = FindFirstObjectByType<HighlightManager>();
 
-        Vector3Int startTilePosition = gridManager.FindStartTilePosition();
-        transform.position = backgroundTilemap.GetCellCenterWorld(startTilePosition);
-
-        isSpellSelected = false;
+        SetPlayerStartPosition();
         
-        highlightManager.ShowMoveHighlighters();
         LearnSpell(normalAttackSpell);
     }
     
@@ -64,20 +51,23 @@ public class PlayerController : MonoBehaviour
             MapGenerator.Instance.OnMapChanged -= OnMapChanged;
     }
 
-    private void OnMapChanged(MapContext ctx)
+    private void SetPlayerStartPosition()
     {
-        // 참조 갱신
-        backgroundTilemap = ctx.background;
+        Vector3Int startTilePosition = gridManager.FindStartTilePosition();
+        transform.position = gridManager.backgroundMap.GetCellCenterWorld(startTilePosition);
+        
+        isSpellSelected = false;
+        
+        highlightManager.ShowMoveHighlighters();
+    }
 
+    private void OnMapChanged(MapContext _)
+    {
         // GridManager는 이미 MapGenerator가 주입+리빌드를 끝냄
         if (gridManager == null) gridManager = FindFirstObjectByType<GridManager>();
 
         // 시작 위치 이동 (overlay/startTile이 있을 때)
-        if (gridManager.overlayMap && gridManager.startTile)
-        {
-            var startCell = gridManager.FindStartTilePosition();
-            transform.position = gridManager.CellToWorld(startCell);
-        }
+        SetPlayerStartPosition();
 
         // 하이라이트 초기화 등
         if (highlightManager == null) highlightManager = FindFirstObjectByType<HighlightManager>();
@@ -148,10 +138,18 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Player's turn started.");
         isSpellSelected = false;
-        highlightManager.ShowMoveHighlighters();
         
         // 플레이어가 턴을 시작할 때 모든 스킬의 쿨타운을 감소시킴
         ReduceCooldowns();
+
+        if (!GetComponent<Stats>().CanAct)
+        {
+            PlayerMoveRecorder.Instance.RecordMove(PlayerMoveType.None);
+            TurnManager.Instance.EndPlayerTurn();
+            return;
+        }
+        
+        highlightManager.ShowMoveHighlighters();
     }
 
     public void DeleteSpell(SpellInstance spell)

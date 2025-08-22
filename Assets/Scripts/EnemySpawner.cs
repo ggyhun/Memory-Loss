@@ -6,9 +6,8 @@ using System.Linq;
 
 public class EnemySpawner : MonoBehaviour
 {
-    /// <summary>
-    /// Overlay Tilemap에서 적 스폰 위치를 찾아 적을 스폰합니다.
-    /// </summary>
+    public static EnemySpawner Instance;
+    
     public GridManager gridManager;
     public EnemyManager enemyManager;
 
@@ -22,22 +21,13 @@ public class EnemySpawner : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance && Instance != this) { Destroy(gameObject); return; }
+        Instance = this;
+        
         if (enemyManager == null)
         {
             enemyManager = FindFirstObjectByType<EnemyManager>();
         }
-    }
-
-    private void OnEnable()
-    {
-        if (MapGenerator.Instance != null)
-            MapGenerator.Instance.OnMapChanged += OnMapChanged;
-    }
-    
-    private void OnDisable()
-    {
-        if (MapGenerator.Instance != null)
-            MapGenerator.Instance.OnMapChanged -= OnMapChanged;
     }
     
     private void Start()
@@ -92,7 +82,7 @@ public class EnemySpawner : MonoBehaviour
             Debug.LogWarning($"EnemySpawner: 요청 수({targetCount})보다 적게 스폰됨: {spawned}");
     }
     
-    private void OnMapChanged(MapContext ctx)
+    public void RespawnEnemies()
     {
         // GridManager는 이미 MapGenerator가 주입+리빌드를 끝냄
         if (gridManager == null) gridManager = FindFirstObjectByType<GridManager>();

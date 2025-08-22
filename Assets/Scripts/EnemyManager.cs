@@ -27,6 +27,8 @@ public class EnemyManager : MonoBehaviour
 
     private void OnMapChanged(MapContext _)
     {
+        ClearAllEnemies();
+        
         // ✅ 층이 바뀔 때 LevelData에서 목표치 주입 + 카운트 리셋
         var ld = MapGenerator.Instance?.GetCurrentLevelData();
         if (ld != null)
@@ -36,8 +38,9 @@ public class EnemyManager : MonoBehaviour
         killsThisFloor = 0;
         finishedCount  = 0;
         // 필요 시 남은 적 정리: EnemySpawner에서 이미 ClearAllEnemies()를 호출한다면 생략 가능
-        // ClearAllEnemies();
         Debug.Log($"[EnemyManager] Floor changed. Goal: {killsToAdvance} kills");
+
+        EnemySpawner.Instance.RespawnEnemies();
     }
 
     public void RegisterEnemy(Enemy enemy)   => enemies.Add(enemy);

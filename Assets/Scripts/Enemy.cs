@@ -46,6 +46,8 @@ public class Enemy : MonoBehaviour
     private void HandleDied()
     {
         enemyManager.ReportEnemyKilled(this);
+        
+        GridManager.Instance.ClearOccupant(transform.position);
 
         if (!reportedThisTurn)
         {
