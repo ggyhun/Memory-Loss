@@ -124,7 +124,7 @@ public class GridManager : MonoBehaviour
     {
         if (tileDictionary.TryGetValue(pos, out TileData tileData)) {
             tileData.occupant = occupant;
-            tileData.isWalkable = isWalkable;;
+            tileData.isWalkable = isWalkable;
         } else {
             Debug.LogWarning($"타일 데이터가 존재하지 않습니다: {pos}");
         }
@@ -167,19 +167,19 @@ public class GridManager : MonoBehaviour
 
     public void MoveTo(GameObject occupant, Vector3Int targetCell)
     {
+        // ✅ 먼저 시작 셀을 구한다
+        Vector3Int startCell = backgroundMap.WorldToCell(occupant.transform.position);
+
         TileData targetTile = GetTileData(targetCell);
-        
-        if (targetTile != null && targetTile.isWalkable) {
-            // 현재 위치에서 타겟 위치로 이동
-            occupant.transform.position = targetTile.worldPosition;
-            
-            // 점유자 정보 업데이트
-            Vector3Int startCell = backgroundMap.WorldToCell(occupant.transform.position);
-            ClearOccupant(startCell);
-            SetOccupant(targetCell, occupant);
-        } else {
+        if (targetTile == null || !targetTile.isWalkable) {
             Debug.LogWarning("이동 불가능한 위치입니다: " + targetCell);
+            return;
         }
+
+        // 점유자/좌표 업데이트
+        ClearOccupant(startCell);
+        occupant.transform.position = targetTile.worldPosition;
+        SetOccupant(targetCell, occupant);
     }
     
     public List<TileData> GetWalkableNeighbors(Vector3Int cellPos)
@@ -225,4 +225,20 @@ public class GridManager : MonoBehaviour
     
     public Vector3Int WorldToCell(Vector3 worldPos) => backgroundMap.WorldToCell(worldPos);
     public Vector3 CellToWorld(Vector3Int cellPos) => backgroundMap.GetCellCenterWorld(cellPos);
+    
+    private readonly HashSet<Vector3Int> _claims = new HashSet<Vector3Int>();
+
+    public bool IsFreeConsideringClaims(Vector3Int cell) {
+        var t = GetTileData(cell);
+        return t != null && t.isWalkable && t.occupant == null && !_claims.Contains(cell);
+    }
+
+    public bool TryClaimCell(Vector3Int cell) {
+        if (!IsFreeConsideringClaims(cell)) return false;
+        return _claims.Add(cell);
+    }
+
+    public void ReleaseClaimCell(Vector3Int cell) {
+        _claims.Remove(cell);
+    }
 }

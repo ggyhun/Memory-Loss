@@ -151,7 +151,6 @@ MonoBehaviour:
   detectionRange: 3
   attackDamage: 5
   attackAreaPrefab: {fileID: 4854082677286666420}
-  stats: {fileID: 4220579091969757832}
 --- !u!114 &853517964548802230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,6 +165,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allowDiagonal: 0
   avoidExit: 1
+  useClaims: 0
+  fakeStepDuration: 0.2
+  ease:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  defaultVisualRoot: {fileID: 1856549785798420584}
 --- !u!114 &4220579091969757832
 MonoBehaviour:
   m_ObjectHideFlags: 0

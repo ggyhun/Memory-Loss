@@ -7,12 +7,17 @@ public class PlayerController : MonoBehaviour
     [Header("References")]
     public GridManager gridManager;
     public HighlightManager highlightManager;
-
+    
     [Header("Spells")]
     public List<SpellInstance> spells = new List<SpellInstance>();
-
     public SpellData normalAttackSpell;
 
+    [Header("Animations")]
+    public Animator animator;
+    public GridMoveVisual mover;
+    public SpriteRenderer rend;
+    public bool isTowardsRight = false; // 플레이어가 바라보는 방향 (오른쪽이 기본)
+    
     private bool isSpellSelected;
     
     private Dictionary<KeyCode, int> spellKeyMap = new Dictionary<KeyCode, int>
@@ -32,10 +37,18 @@ public class PlayerController : MonoBehaviour
     {
         if (gridManager == null) gridManager = FindFirstObjectByType<GridManager>();
         if (highlightManager == null) highlightManager = FindFirstObjectByType<HighlightManager>();
+        if (animator == null) animator = GetComponent<Animator>();
+        if (mover == null) mover = GetComponent<GridMoveVisual>();
 
         SetPlayerStartPosition();
         
         LearnSpell(normalAttackSpell);
+        
+        // 자식인 sprite의 Animator를 가져옴
+        if (animator == null)
+        {
+            animator = GetComponentInChildren<Animator>();
+        }
     }
     
     // PlayerController.cs (추가된 부분만)
@@ -88,6 +101,12 @@ public class PlayerController : MonoBehaviour
                 HandleSpellInput(kvp.Value);
             }
         }
+
+        if (mover.IsMoving)
+        {
+            animator.SetTrigger("Move");
+        }
+        rend.flipX = !isTowardsRight;
     }
     
     private void HandleSpellInput(int index)
