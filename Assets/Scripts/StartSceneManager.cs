@@ -36,4 +36,10 @@ public class StartSceneManager : MonoBehaviour
             }
         }
     }
+
+    public void OffGame()
+    {
+        Application.Quit();
+        Debug.Log("게임종료");
+    }
 }
