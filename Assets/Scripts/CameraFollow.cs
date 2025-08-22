@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -19,6 +20,8 @@ public class CameraFollow : MonoBehaviour
 
     private Camera cam;
     private Vector3 velocity;
+
+    public GameObject Fade;
 
     private void Awake()
     {
@@ -96,6 +99,49 @@ public class CameraFollow : MonoBehaviour
         if (minClamp.y > maxClamp.y) { float m = (minClamp.y + maxClamp.y) * 0.5f; minClamp.y = maxClamp.y = m; }
 
         hasBounds = true;
+    }
+
+    IEnumerator InGameZoomInOut(float StartSize = 5, float EndSize = 5, float t = 3)
+    {
+        cam.orthographicSize = StartSize;
+        float timecount = 0;
+        while (timecount <= t)
+        {
+            cam.orthographicSize = StartSize - (StartSize - EndSize) * timecount / t;
+            timecount += Time.deltaTime;
+            yield return null;
+        }
+        cam.orthographicSize = EndSize;
+        yield break;
+    }
+
+    IEnumerator IngameFadeInOut(int type, float t)
+    {
+        CanvasRenderer fade = Fade.GetComponent<CanvasRenderer>();
+        float timecount = 0f;
+        if (type == 0) // Fade in
+        {
+            fade.SetAlpha(1f);
+            while (timecount <= t)
+            {
+                fade.SetAlpha(1f - timecount / t);
+                timecount += Time.deltaTime;
+                yield return null;
+            }
+            Fade.SetActive(false);
+        }
+        else if (type == 1) // Fade out
+        {
+            fade.SetAlpha(0f);
+            Fade.SetActive(true);
+            while (timecount <= t)
+            {
+                fade.SetAlpha(timecount / t);
+                timecount += Time.deltaTime;
+                yield return null;
+            }
+        }
+        yield break;
     }
 
     private Vector3 ClampPos(Vector3 pos)
