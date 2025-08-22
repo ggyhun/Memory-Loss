@@ -625,12 +625,12 @@ TextureImporter:
       name: mon4_sprite_base_0
       rect:
         serializedVersion: 2
-        x: 19
+        x: 10
         y: 457
-        width: 30
-        height: 35
+        width: 46
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -647,12 +647,12 @@ TextureImporter:
       name: mon4_sprite_base_1
       rect:
         serializedVersion: 2
-        x: 82
+        x: 73
         y: 457
-        width: 30
-        height: 34
+        width: 46
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -669,12 +669,12 @@ TextureImporter:
       name: mon4_sprite_base_2
       rect:
         serializedVersion: 2
-        x: 145
+        x: 137
         y: 457
-        width: 32
-        height: 33
+        width: 46
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -691,12 +691,12 @@ TextureImporter:
       name: mon4_sprite_base_3
       rect:
         serializedVersion: 2
-        x: 210
+        x: 201
         y: 457
-        width: 30
-        height: 34
+        width: 46
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -713,12 +713,12 @@ TextureImporter:
       name: mon4_sprite_base_11
       rect:
         serializedVersion: 2
-        x: 19
+        x: 10
         y: 393
-        width: 30
-        height: 35
+        width: 46
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -735,12 +735,12 @@ TextureImporter:
       name: mon4_sprite_base_12
       rect:
         serializedVersion: 2
-        x: 82
+        x: 73
         y: 393
-        width: 30
-        height: 34
+        width: 46
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -757,12 +757,12 @@ TextureImporter:
       name: mon4_sprite_base_13
       rect:
         serializedVersion: 2
-        x: 148
+        x: 137
         y: 393
-        width: 30
-        height: 32
+        width: 46
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -779,12 +779,12 @@ TextureImporter:
       name: mon4_sprite_base_14
       rect:
         serializedVersion: 2
-        x: 209
+        x: 201
         y: 393
-        width: 32
-        height: 37
+        width: 46
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -801,12 +801,12 @@ TextureImporter:
       name: mon4_sprite_base_15
       rect:
         serializedVersion: 2
-        x: 273
-        y: 396
-        width: 31
-        height: 40
+        x: 264
+        y: 393
+        width: 46
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -823,12 +823,12 @@ TextureImporter:
       name: mon4_sprite_base_16
       rect:
         serializedVersion: 2
-        x: 338
-        y: 396
-        width: 32
-        height: 40
+        x: 330
+        y: 393
+        width: 46
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -845,12 +845,12 @@ TextureImporter:
       name: mon4_sprite_base_17
       rect:
         serializedVersion: 2
-        x: 401
+        x: 393
         y: 393
-        width: 32
-        height: 37
+        width: 46
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -867,12 +867,12 @@ TextureImporter:
       name: mon4_sprite_base_18
       rect:
         serializedVersion: 2
-        x: 468
+        x: 459
         y: 393
-        width: 30
-        height: 32
+        width: 46
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -889,12 +889,12 @@ TextureImporter:
       name: mon4_sprite_base_19
       rect:
         serializedVersion: 2
-        x: 530
+        x: 521
         y: 393
-        width: 30
-        height: 34
+        width: 46
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -911,12 +911,12 @@ TextureImporter:
       name: mon4_sprite_base_44
       rect:
         serializedVersion: 2
-        x: 19
+        x: 10
         y: 329
-        width: 30
-        height: 35
+        width: 46
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -933,12 +933,12 @@ TextureImporter:
       name: mon4_sprite_base_45
       rect:
         serializedVersion: 2
-        x: 82
+        x: 73
         y: 329
-        width: 30
-        height: 34
+        width: 46
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -955,12 +955,12 @@ TextureImporter:
       name: mon4_sprite_base_46
       rect:
         serializedVersion: 2
-        x: 143
+        x: 137
         y: 329
-        width: 32
-        height: 35
+        width: 46
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -977,12 +977,12 @@ TextureImporter:
       name: mon4_sprite_base_47
       rect:
         serializedVersion: 2
-        x: 203
+        x: 201
         y: 329
-        width: 31
-        height: 39
+        width: 46
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1001,10 +1001,10 @@ TextureImporter:
         serializedVersion: 2
         x: 264
         y: 329
-        width: 34
-        height: 34
+        width: 46
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1021,12 +1021,12 @@ TextureImporter:
       name: mon4_sprite_base_95
       rect:
         serializedVersion: 2
-        x: 19
+        x: 10
         y: 265
-        width: 30
-        height: 35
+        width: 46
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1043,12 +1043,12 @@ TextureImporter:
       name: mon4_sprite_base_97
       rect:
         serializedVersion: 2
-        x: 74
+        x: 73
         y: 265
-        width: 38
-        height: 34
+        width: 46
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1065,12 +1065,12 @@ TextureImporter:
       name: mon4_sprite_base_98
       rect:
         serializedVersion: 2
-        x: 129
+        x: 131
         y: 265
-        width: 46
-        height: 35
+        width: 52
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1087,12 +1087,12 @@ TextureImporter:
       name: mon4_sprite_base_100
       rect:
         serializedVersion: 2
-        x: 192
+        x: 194
         y: 265
-        width: 42
-        height: 39
+        width: 53
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1109,12 +1109,12 @@ TextureImporter:
       name: mon4_sprite_base_101
       rect:
         serializedVersion: 2
-        x: 265
+        x: 264
         y: 265
-        width: 38
-        height: 35
+        width: 46
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1131,12 +1131,12 @@ TextureImporter:
       name: mon4_sprite_base_102
       rect:
         serializedVersion: 2
-        x: 334
+        x: 330
         y: 265
-        width: 34
-        height: 34
+        width: 46
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1153,12 +1153,12 @@ TextureImporter:
       name: mon4_sprite_base_103
       rect:
         serializedVersion: 2
-        x: 405
+        x: 393
         y: 265
-        width: 30
-        height: 35
+        width: 46
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1175,12 +1175,12 @@ TextureImporter:
       name: mon4_sprite_base_104
       rect:
         serializedVersion: 2
-        x: 470
+        x: 459
         y: 265
-        width: 29
-        height: 35
+        width: 46
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1197,12 +1197,12 @@ TextureImporter:
       name: mon4_sprite_base_105
       rect:
         serializedVersion: 2
-        x: 530
+        x: 521
         y: 265
-        width: 30
-        height: 34
+        width: 46
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1219,12 +1219,12 @@ TextureImporter:
       name: mon4_sprite_base_106
       rect:
         serializedVersion: 2
-        x: 591
+        x: 586
         y: 265
-        width: 32
-        height: 35
+        width: 42
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1241,12 +1241,12 @@ TextureImporter:
       name: mon4_sprite_base_107
       rect:
         serializedVersion: 2
-        x: 651
+        x: 646
         y: 265
-        width: 32
-        height: 39
+        width: 42
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1263,12 +1263,12 @@ TextureImporter:
       name: mon4_sprite_base_108
       rect:
         serializedVersion: 2
-        x: 715
+        x: 710
         y: 265
-        width: 32
-        height: 40
+        width: 42
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1285,12 +1285,12 @@ TextureImporter:
       name: mon4_sprite_base_109
       rect:
         serializedVersion: 2
-        x: 783
+        x: 778
         y: 265
-        width: 32
-        height: 35
+        width: 42
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1307,12 +1307,12 @@ TextureImporter:
       name: mon4_sprite_base_110
       rect:
         serializedVersion: 2
-        x: 850
+        x: 844
         y: 265
-        width: 30
-        height: 34
+        width: 42
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1329,12 +1329,12 @@ TextureImporter:
       name: mon4_sprite_base_114
       rect:
         serializedVersion: 2
-        x: 74
+        x: 10
         y: 201
-        width: 39
-        height: 40
+        width: 46
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1351,12 +1351,12 @@ TextureImporter:
       name: mon4_sprite_base_115
       rect:
         serializedVersion: 2
-        x: 142
+        x: 73
         y: 201
-        width: 38
-        height: 41
+        width: 46
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1373,12 +1373,12 @@ TextureImporter:
       name: mon4_sprite_base_117
       rect:
         serializedVersion: 2
-        x: 204
+        x: 137
         y: 201
-        width: 38
-        height: 42
+        width: 46
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1395,12 +1395,12 @@ TextureImporter:
       name: mon4_sprite_base_118
       rect:
         serializedVersion: 2
-        x: 270
-        y: 202
-        width: 36
-        height: 39
+        x: 201
+        y: 201
+        width: 46
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1417,12 +1417,12 @@ TextureImporter:
       name: mon4_sprite_base_119
       rect:
         serializedVersion: 2
-        x: 17
+        x: 264
         y: 201
-        width: 30
-        height: 35
+        width: 46
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1439,12 +1439,12 @@ TextureImporter:
       name: mon4_sprite_base_120
       rect:
         serializedVersion: 2
-        x: 336
-        y: 203
-        width: 32
-        height: 34
+        x: 330
+        y: 201
+        width: 46
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1461,12 +1461,12 @@ TextureImporter:
       name: mon4_sprite_base_148
       rect:
         serializedVersion: 2
-        x: 474
-        y: 216
-        width: 7
-        height: 6
+        x: 393
+        y: 201
+        width: 46
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1483,12 +1483,12 @@ TextureImporter:
       name: mon4_sprite_base_149
       rect:
         serializedVersion: 2
-        x: 408
-        y: 205
-        width: 17
-        height: 28
+        x: 459
+        y: 201
+        width: 46
+        height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1502,13 +1502,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: mon4_sprite_base_150
+      name: mon4_sprite_base_1000
       rect:
         serializedVersion: 2
-        x: 7
-        y: 167
-        width: 17
-        height: 17
+        x: 389
+        y: 103
+        width: 48
+        height: 48
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1517,118 +1517,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d7c874f88893ee94bbdc3fd9b1efffd4
-      internalID: -695232267
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mon4_sprite_base_151
-      rect:
-        serializedVersion: 2
-        x: 40
-        y: 165
-        width: 17
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 795c46804e608fb40820f6d815154963
-      internalID: -340319626
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mon4_sprite_base_152
-      rect:
-        serializedVersion: 2
-        x: 71
-        y: 166
-        width: 18
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0a6d51d93f72e0b4e942bc7822ab4117
-      internalID: 1741102135
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mon4_sprite_base_153
-      rect:
-        serializedVersion: 2
-        x: 104
-        y: 162
-        width: 17
-        height: 27
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6922a453d2f90e84d8798b5326790ea4
-      internalID: -930997712
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mon4_sprite_base_154
-      rect:
-        serializedVersion: 2
-        x: 136
-        y: 164
-        width: 15
-        height: 24
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9723abfd841afcc4785ab476c4a9518f
-      internalID: 1419713018
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: mon4_sprite_base_156
-      rect:
-        serializedVersion: 2
-        x: 165
-        y: 168
-        width: 15
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a86ea86443b054242b8c0011e651584b
-      internalID: 781536754
+      spriteID: cf194864c8c8f9d4280c35704d4b6467
+      internalID: 150310414
       vertices: []
       indices: 
       edges: []
@@ -1649,8 +1539,8 @@ TextureImporter:
     nameFileIdTable:
       mon4_sprite_base_0: 2075908239
       mon4_sprite_base_1: 2086949725
-      mon4_sprite_base_10: 402361931
       mon4_sprite_base_100: 819974452
+      mon4_sprite_base_1000: -1675486787
       mon4_sprite_base_101: 903502816
       mon4_sprite_base_102: 1986118053
       mon4_sprite_base_103: -458952354
@@ -1756,7 +1646,6 @@ TextureImporter:
       mon4_sprite_base_37: 770882951
       mon4_sprite_base_38: -23891415
       mon4_sprite_base_39: -1201877516
-      mon4_sprite_base_4: -1675486787
       mon4_sprite_base_40: -96292333
       mon4_sprite_base_41: -2084458926
       mon4_sprite_base_42: -25574625
