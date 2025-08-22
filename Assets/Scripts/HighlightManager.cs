@@ -1,6 +1,6 @@
-using System;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class HighlightManager : MonoBehaviour
 {
@@ -51,6 +51,10 @@ public class HighlightManager : MonoBehaviour
         }
     }
     
+    private void OnEnable()
+    {
+        MapGenerator.Instance.OnMapChanged += OnMapChanged;
+    }
     
     private void OnDisable()
     {
@@ -59,8 +63,6 @@ public class HighlightManager : MonoBehaviour
 
     private void Start()
     {
-        MapGenerator.Instance.OnMapChanged += OnMapChanged;
-        
         if (gridManager == null)
         {
             gridManager = FindFirstObjectByType<GridManager>();
@@ -77,21 +79,31 @@ public class HighlightManager : MonoBehaviour
 
     public void HandleMoveHighlighterClick(Vector3 position)
     {
-        var t = gridManager.GetTileData(position);
-        if (t.occupant && t.occupant.CompareTag("Scroll"))
+        Vector3Int startCell = gridManager.WorldToCell(player.transform.position);
+        Vector3Int targetCell = gridManager.WorldToCell(position);
+        PlayerMoveRecorder.Instance.RecordMove(startCell, targetCell);
+        StartCoroutine(Co_HandlePlayerMove(position));
+    }
+
+    private IEnumerator Co_HandlePlayerMove(Vector3 worldPos)
+    {
+        // 스크롤 밟으면 습득
+        var cell = gridManager.WorldToCell(worldPos);
+        var t = gridManager.GetTileData(cell);
+        if (t != null && t.occupant && t.occupant.CompareTag("Scroll"))
         {
             var scroll = t.occupant.GetComponent<Scroll>();
-            scroll.TryPickup(player);
+            scroll?.TryPickup(player);
         }
 
-        PlayerMoveRecorder.Instance.RecordMove(PlayerMoveRecorder.Instance.CalculateMove(
-            gridManager.WorldToCell(player.transform.position),
-            gridManager.WorldToCell(position)
-        ));
-        
-        gridManager.MoveTo(player, position);
+        // 시각 이동 + 마지막에 스냅
+        var mover = player.GetComponent<GridMoveVisual>();
+        if (mover == null) mover = player.AddComponent<GridMoveVisual>();
+
+        // (플레이어는 보통 단독 이동이라 claim은 굳이 안 써도 됨)
+        yield return mover.FakeThenSnap(gridManager, cell, useClaim:false);
+
         ClearMoveHighlighters();
-        
         TurnManager.Instance.EndPlayerTurn();
     }
     
@@ -192,6 +204,7 @@ public class HighlightManager : MonoBehaviour
 
         // 1) 실제 타격 셀 계산
         var areaCells = SpellPatterns.GetAreaPositions(currentSpell.data, playerCell, castCell);
+        player.GetComponent<PlayerController>().animator.SetTrigger("Attack");
 
         // 2) 이펙트 재생 (각 셀에)
         PlayCellEffects(currentSpell.data, areaCells);

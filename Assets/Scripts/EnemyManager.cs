@@ -40,7 +40,7 @@ public class EnemyManager : MonoBehaviour
         // 필요 시 남은 적 정리: EnemySpawner에서 이미 ClearAllEnemies()를 호출한다면 생략 가능
         Debug.Log($"[EnemyManager] Floor changed. Goal: {killsToAdvance} kills");
 
-        EnemySpawner.Instance.RespawnEnemies();
+        EnemySpawner.Instance.RespawnEnemies(ld);
     }
 
     public void RegisterEnemy(Enemy enemy)   => enemies.Add(enemy);

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class SolitudeBehavior : EnemyBehavior
 {
     [Header("Solitude Behavior Settings")]
-    // public int detectionRange = 5; // 칸 단위 시야
+     public int detectionRange = 5; // 칸 단위 모방 범위
     
     [Header("Solitude Attack Settings")]
     // public int attackDamage = 5; // 공격력
@@ -41,39 +41,49 @@ public class SolitudeBehavior : EnemyBehavior
         if (attackArea != null && attackArea.CanAttack() && PlayerMoveRecorder.Instance.GetPreviousMove() == PlayerMoveType.Attack)
         {
             // 데미지만 복사하는 방식이라 플레이어 공격 범위 내 + 이전 턴 플레이어 행동이 공격 조건으로 적용
-            playerStats.TakeDamage(PlayerMoveRecorder.Instance.GetSpellDamage());
+            playerStats.TakeDamage((int)(PlayerMoveRecorder.Instance.GetSpellDamage() * 0.7));
             return;
         }
 
-        // 시야 체크 없음
-        /*
+        // 모방 범위 체크
         var grid = FindFirstObjectByType<GridManager>();
         var enemyCell  = grid.WorldToCell(enemy.transform.position);
         var playerCell = grid.WorldToCell(player.position);
         var d = playerCell - enemyCell;
         int dist2 = d.x * d.x + d.y * d.y;
-        */
 
-        // 플레이어 이동시 반대 방향으로 이동 시도
-        if (PlayerMoveRecorder.Instance.GetPreviousMove() == PlayerMoveType.Up)
+        if (dist2 > detectionRange * detectionRange)
         {
-            mover.TryMoveToward(enemy.gameObject, 1);
-            return;
+            // 모방 범위 밖이면 플레이어 쪽으로 1칸
+            mover.TryStepTowardTarget(enemy.gameObject, player.gameObject);
         }
-        else if (PlayerMoveRecorder.Instance.GetPreviousMove() == PlayerMoveType.Down)
+        else
         {
-            mover.TryMoveToward(enemy.gameObject, 0);
-            return;
-        }
-        else if (PlayerMoveRecorder.Instance.GetPreviousMove() == PlayerMoveType.Left)
-        {
-            mover.TryMoveToward(enemy.gameObject, 3);
-            return;
-        }
-        else if (PlayerMoveRecorder.Instance.GetPreviousMove() == PlayerMoveType.Right)
-        {
-            mover.TryMoveToward(enemy.gameObject, 2);
-            return;
+            // 플레이어 이동시 반대 방향으로 이동 시도
+            if (PlayerMoveRecorder.Instance.GetPreviousMove() == PlayerMoveType.Up)
+            {
+                mover.TryMoveToward(enemy.gameObject, 1);
+                return;
+            }
+            else if (PlayerMoveRecorder.Instance.GetPreviousMove() == PlayerMoveType.Down)
+            {
+                mover.TryMoveToward(enemy.gameObject, 0);
+                return;
+            }
+            else if (PlayerMoveRecorder.Instance.GetPreviousMove() == PlayerMoveType.Left)
+            {
+                mover.TryMoveToward(enemy.gameObject, 3);
+                return;
+            }
+            else if (PlayerMoveRecorder.Instance.GetPreviousMove() == PlayerMoveType.Right)
+            {
+                mover.TryMoveToward(enemy.gameObject, 2);
+                return;
+            }
+            else if (dist2 > 1) // 플레이어가 이동하지 않았고 거리가 1칸보다 멀면 플레이어 방향으로 이동
+            {
+                mover.TryStepTowardTarget(enemy.gameObject, player.gameObject);
+            }
         }
     }
 }

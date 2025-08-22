@@ -1,22 +1,10 @@
 fileFormatVersion: 2
-guid: a611605ddab048447ba646f3ace6f242
+guid: 52b1d27ca5dd57f4499572d6cb43453c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4641866708977881422
-    second: Character_Walk_L_0
-  - first:
-      213: 4808266246865082565
-    second: Character_Walk_L_1
-  - first:
-      213: -4076424918474327638
-    second: Character_Walk_L_2
-  - first:
-      213: -7964259628733071782
-    second: Character_Walk_L_3
-  - first:
-      213: -1502938050906915562
-    second: Character_Walk_L_4
+      213: 5668723071718756358
+    second: letter_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -63,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 84
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -87,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -138,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Character_Walk_L_0
+      name: letter_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 124
-        width: 124
-        height: 124
+        x: 367
+        y: 159
+        width: 1036
+        height: 1238
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,96 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2be69a462d6c49fb0800000000000000
-      internalID: -4641866708977881422
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Character_Walk_L_1
-      rect:
-        serializedVersion: 2
-        x: 124
-        y: 124
-        width: 124
-        height: 124
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5c8d4ed1da46ab240800000000000000
-      internalID: 4808266246865082565
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Character_Walk_L_2
-      rect:
-        serializedVersion: 2
-        x: 248
-        y: 124
-        width: 124
-        height: 124
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: aa979cc6221ad67c0800000000000000
-      internalID: -4076424918474327638
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Character_Walk_L_3
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 124
-        height: 124
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a5e716a6014497190800000000000000
-      internalID: -7964259628733071782
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Character_Walk_L_4
-      rect:
-        serializedVersion: 2
-        x: 124
-        y: 0
-        width: 124
-        height: 124
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 61d764c3ecd742be0800000000000000
-      internalID: -1502938050906915562
+      spriteID: 6009bdb79995bae40800000000000000
+      internalID: 5668723071718756358
       vertices: []
       indices: 
       edges: []
@@ -251,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: ae0b4a2dce2532c429ac3a3b333b12c1
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -261,11 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Character_Walk_L_0: -4641866708977881422
-      Character_Walk_L_1: 4808266246865082565
-      Character_Walk_L_2: -4076424918474327638
-      Character_Walk_L_3: -7964259628733071782
-      Character_Walk_L_4: -1502938050906915562
+      letter_0: 5668723071718756358
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

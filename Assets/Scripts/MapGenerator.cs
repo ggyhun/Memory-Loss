@@ -36,6 +36,19 @@ public class MapGenerator : MonoBehaviour
             Debug.LogError("Map prefabs are not assigned in the MapGenerator.");
             return;
         }
+        // Awake 단계에서 다른 객체가 구독이 안되어있어 주석처리
+        // ChangeMap();
+    }
+    
+    private void Start()
+    {
+        if (mapPrefabs == null || mapPrefabs.Count == 0)
+        {
+            Debug.LogError("Map prefabs are not assigned in the MapGenerator.");
+            return;
+        }
+
+        // ✅ 시작 시 맵 생성
         ChangeMap();
     }
 
@@ -48,6 +61,7 @@ public class MapGenerator : MonoBehaviour
     public void ChangeMap()
     {
         if (mapInstance) Destroy(mapInstance);
+        Debug.Log("MapGenerator: Changing map...");
         SpawnRandomMap();
     }
 
@@ -57,7 +71,7 @@ public class MapGenerator : MonoBehaviour
         mapInstance = Instantiate(prefab, Vector3.zero, Quaternion.identity);
 
         var background = mapInstance.transform.Find("Background")?.GetComponent<Tilemap>();
-        var Decorative = mapInstance.transform.Find("Decorative")?.GetComponent<Tilemap>();
+        var decorative = mapInstance.transform.Find("Decorative")?.GetComponent<Tilemap>();
         var obstacle   = mapInstance.transform.Find("Obstacle")  ?.GetComponent<Tilemap>();
         var overlay    = mapInstance.transform.Find("Overlay")   ?.GetComponent<Tilemap>();
 
@@ -84,6 +98,8 @@ public class MapGenerator : MonoBehaviour
 
         // ✅ 현재 레벨 데이터로 스폰들이 동작하도록 먼저 브로드캐스트
         OnMapChanged?.Invoke(ctx);
+        PlayerController pc = FindFirstObjectByType<PlayerController>();
+        pc.OnMapChanged(); // 플레이어 컨트롤러에게도 맵 변경 알림
 
         // ✅ 이벤트가 끝난 뒤 다음 레벨로 증가(리스트 범위 내에서)
         if (levelDataList != null && levelDataList.Count > 0)

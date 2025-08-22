@@ -41,6 +41,12 @@ public class PlayerMoveRecorder : MonoBehaviour
         Debug.Log($"Recorded move: {moveType}");
     }
 
+    public void RecordMove(Vector3Int start, Vector3Int end)
+    {
+        PlayerMoveType moveType = CalculateMove(start, end);
+        RecordMove(moveType);
+    }
+
     public PlayerMoveType GetPreviousMove()
     {
         return previousMove; // PlayerMoveType를 int로 변환하여 반환
@@ -74,14 +80,21 @@ public class PlayerMoveRecorder : MonoBehaviour
 
     public PlayerMoveType CalculateMove(Vector3Int start, Vector3Int end)
     {
+        var pc = FindFirstObjectByType<PlayerController>();
         Vector3Int direction = end - start;
         
         if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
         {
             if (direction.x > 0)
+            {
+                pc.isTowardsRight = false;
                 return PlayerMoveType.Right;
+            }
             else
+            {
+                pc.isTowardsRight = true;
                 return PlayerMoveType.Left;
+            }
         }
         else if (Mathf.Abs(direction.y) > Mathf.Abs(direction.x))
         {
