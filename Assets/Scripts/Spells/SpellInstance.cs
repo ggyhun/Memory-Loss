@@ -15,6 +15,7 @@ public class SpellInstance
     public int currentCooldown;  // 남은 쿨타임(런타임 상태)
     public int currentForgettableCooldown; // 잊혀지는 쿨타임(런타임 상태)
     public bool isSealed = false; // 봉인 상태(런타임 상태)
+    public bool isForgetStart;
 
     public SpellInstance(SpellData data)
     {
@@ -99,7 +100,7 @@ public class SpellInstance
         currentCooldown = Mathf.Max(0, data.cooldown);
         if (data.isForgettable)
         {
-            data.isForgotStart = true;
+            isForgetStart = true;
             currentForgettableCooldown = Mathf.Max(0, data.forgettableCooldown);
         }
     }
@@ -119,7 +120,7 @@ public class SpellInstance
             }
         }
 
-        if (data.isForgotStart)
+        if (isForgetStart)
         {
             if (currentForgettableCooldown > 0)
             {

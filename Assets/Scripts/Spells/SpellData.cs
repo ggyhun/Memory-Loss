@@ -18,7 +18,6 @@ public class SpellData : ScriptableObject
     
     [Header("Forgettable")]
     public bool isForgettable = true;   // 잊을 수 있는지 여부
-    public bool isForgotStart = false;  // 스킬이 사용되었는지 여부
     public int forgettableCooldown = 3; // 스킬 사용 후 잊혀지는 쿨다운  
 
     [Header("Cast Pattern (선택 가능한 칸)")]
