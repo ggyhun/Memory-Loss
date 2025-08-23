@@ -110,6 +110,18 @@ public class SpellInstance
         }
     }
     
+    public void AddCooldown(int amount)
+    {
+        currentCooldown = Mathf.Max(0, currentCooldown + amount);
+
+        // 유틸 스펠: 쿨다운이 0이 되면 인벤토리에서 삭제
+        if (data.isUtility && currentCooldown == 0)
+        {
+            Init(GameObject.FindWithTag("Player"));
+            playerController?.DeleteSpell(this);
+        }
+    }
+    
     public void Init(GameObject player)
     {
         this.player = player;

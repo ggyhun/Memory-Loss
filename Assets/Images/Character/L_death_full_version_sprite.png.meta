@@ -129,7 +129,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 84
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -153,7 +153,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -174,6 +174,32 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -181,12 +207,12 @@ TextureImporter:
       name: L_death_full_version_sprite_3
       rect:
         serializedVersion: 2
-        x: 381
-        y: 382
-        width: 88
-        height: 101
+        x: 372
+        y: 372
+        width: 124
+        height: 124
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -203,12 +229,12 @@ TextureImporter:
       name: L_death_full_version_sprite_4
       rect:
         serializedVersion: 2
-        x: 9
-        y: 258
-        width: 88
-        height: 101
+        x: 0
+        y: 248
+        width: 124
+        height: 124
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -225,12 +251,12 @@ TextureImporter:
       name: L_death_full_version_sprite_5
       rect:
         serializedVersion: 2
-        x: 133
-        y: 258
-        width: 88
-        height: 101
+        x: 124
+        y: 248
+        width: 124
+        height: 124
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -247,12 +273,12 @@ TextureImporter:
       name: L_death_full_version_sprite_6
       rect:
         serializedVersion: 2
-        x: 257
-        y: 258
-        width: 88
-        height: 101
+        x: 248
+        y: 248
+        width: 124
+        height: 124
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -269,12 +295,12 @@ TextureImporter:
       name: L_death_full_version_sprite_7
       rect:
         serializedVersion: 2
-        x: 381
-        y: 258
-        width: 88
-        height: 101
+        x: 372
+        y: 248
+        width: 124
+        height: 124
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -291,12 +317,12 @@ TextureImporter:
       name: L_death_full_version_sprite_8
       rect:
         serializedVersion: 2
-        x: 9
-        y: 130
-        width: 88
-        height: 101
+        x: 0
+        y: 124
+        width: 124
+        height: 124
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -313,12 +339,12 @@ TextureImporter:
       name: L_death_full_version_sprite_9
       rect:
         serializedVersion: 2
-        x: 133
-        y: 130
-        width: 88
-        height: 101
+        x: 124
+        y: 124
+        width: 124
+        height: 124
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -335,12 +361,12 @@ TextureImporter:
       name: L_death_full_version_sprite_10
       rect:
         serializedVersion: 2
-        x: 257
-        y: 130
-        width: 88
-        height: 101
+        x: 248
+        y: 124
+        width: 124
+        height: 124
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -357,12 +383,12 @@ TextureImporter:
       name: L_death_full_version_sprite_12
       rect:
         serializedVersion: 2
-        x: 381
-        y: 130
-        width: 88
-        height: 101
+        x: 0
+        y: 0
+        width: 124
+        height: 124
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -376,89 +402,155 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: L_death_full_version_sprite_23
+      name: L_death_full_version_sprite_0
       rect:
         serializedVersion: 2
-        x: 9
-        y: 6
-        width: 88
-        height: 101
+        x: 0
+        y: 372
+        width: 124
+        height: 124
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: f03fe2cced9240800800000000000000
-      internalID: 577632689095373583
+      spriteID: 290a280472c98504593adc52dd88843d
+      internalID: -2908701818199304168
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: L_death_full_version_sprite_24
+      name: L_death_full_version_sprite_1
       rect:
         serializedVersion: 2
-        x: 133
-        y: 6
-        width: 88
-        height: 101
+        x: 124
+        y: 372
+        width: 124
+        height: 124
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 661ff8f70fd6a2010800000000000000
-      internalID: 1164864333328413030
+      spriteID: 3ff67b0f97840f945b84f9c89493aeb8
+      internalID: 2685406319948628891
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: L_death_full_version_sprite_25
+      name: L_death_full_version_sprite_2
       rect:
         serializedVersion: 2
-        x: 257
-        y: 6
-        width: 88
-        height: 101
+        x: 248
+        y: 372
+        width: 124
+        height: 124
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 846034f887d6b6ea0800000000000000
-      internalID: -5878484524035013048
+      spriteID: ba04cfc468a76684f9f1420c98cce430
+      internalID: 5728737210839073470
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: L_death_full_version_sprite_26
+      name: L_death_full_version_sprite_11
       rect:
         serializedVersion: 2
-        x: 381
-        y: 6
-        width: 88
-        height: 101
+        x: 372
+        y: 124
+        width: 124
+        height: 124
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: bdbc5352d74c9b530800000000000000
-      internalID: 3871341396475890651
+      spriteID: 201763da022edc347be66f61e81ba91e
+      internalID: -9214840471309728100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: L_death_full_version_sprite_13
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 0
+        width: 124
+        height: 124
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3966219407db1640816613f3fd6d1f5
+      internalID: 4443360776189566634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: L_death_full_version_sprite_14
+      rect:
+        serializedVersion: 2
+        x: 248
+        y: 0
+        width: 124
+        height: 124
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56e88b6b04456754ea63c067edb61d3c
+      internalID: -8925912516781820540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: L_death_full_version_sprite_15
+      rect:
+        serializedVersion: 2
+        x: 372
+        y: 0
+        width: 124
+        height: 124
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b91a61a4d9a1bf54ca537d6b56a86850
+      internalID: -8036805051806653851
       vertices: []
       indices: 
       edges: []
@@ -485,18 +577,7 @@ TextureImporter:
       L_death_full_version_sprite_13: 4443360776189566634
       L_death_full_version_sprite_14: -8925912516781820540
       L_death_full_version_sprite_15: -8036805051806653851
-      L_death_full_version_sprite_16: -5881963937733635279
-      L_death_full_version_sprite_17: -8931633566060982665
-      L_death_full_version_sprite_18: 6108834675134659891
-      L_death_full_version_sprite_19: 5403468285143000536
       L_death_full_version_sprite_2: 5728737210839073470
-      L_death_full_version_sprite_20: 6302246637893012811
-      L_death_full_version_sprite_21: 3469182025244933974
-      L_death_full_version_sprite_22: -9211815196287616797
-      L_death_full_version_sprite_23: 577632689095373583
-      L_death_full_version_sprite_24: 1164864333328413030
-      L_death_full_version_sprite_25: -5878484524035013048
-      L_death_full_version_sprite_26: 3871341396475890651
       L_death_full_version_sprite_3: -7392041845033697431
       L_death_full_version_sprite_4: 3842763200551496739
       L_death_full_version_sprite_5: -5726354034712712935

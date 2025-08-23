@@ -33,13 +33,11 @@ public class EnemySpawner : MonoBehaviour
     private void Start()
     {
         if (gridManager == null) gridManager = FindFirstObjectByType<GridManager>();
-        SpawnEnemies();
     }
 
-    private void SpawnEnemies()
+    private void SpawnEnemies(LevelData levelData)
     {
         Debug.Log("EnemySpawner: SpawnEnemies called");
-        levelData = MapGenerator.Instance.GetCurrentLevelData();
         if (levelData == null)
         {
             Debug.LogWarning("EnemySpawner: levelData is null, using fallback settings.");
@@ -56,7 +54,7 @@ public class EnemySpawner : MonoBehaviour
         System.Random random = new System.Random();
         spawnPositions = spawnPositions.OrderBy(_ => random.Next()).ToList();
 
-        int targetCount = levelData ? levelData.enemyCount : enemyCount;
+        int targetCount = levelData.enemyCount;
         int spawned = 0;
 
         foreach (var cell in spawnPositions)
@@ -82,13 +80,13 @@ public class EnemySpawner : MonoBehaviour
             Debug.LogWarning($"EnemySpawner: 요청 수({targetCount})보다 적게 스폰됨: {spawned}");
     }
     
-    public void RespawnEnemies()
+    public void RespawnEnemies(LevelData ld)
     {
         // GridManager는 이미 MapGenerator가 주입+리빌드를 끝냄
         if (gridManager == null) gridManager = FindFirstObjectByType<GridManager>();
 
         enemyManager.ClearAllEnemies(); // 기존 적 제거
         // 적 스폰 위치 갱신
-        SpawnEnemies();
+        SpawnEnemies(ld);
     }
 }

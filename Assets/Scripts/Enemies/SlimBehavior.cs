@@ -1,64 +1,74 @@
+using System;
+using Unity.Mathematics;
 using UnityEngine;
-using System.Collections.Generic;
 
+[RequireComponent(typeof(EnemyMover))]
+[RequireComponent(typeof(Stats))]
 public class SlimBehavior : EnemyBehavior
 {
     [Header("Slim Behavior Settings")]
     public int detectionRange = 5; // 칸 단위 시야
-    
+
     [Header("Slim Attack Settings")]
-    public int attackDamage = 5; // 공격력
-    public GameObject attackAreaPrefab; // 공격 범위 프리팹
-    public Stats stats;
+    public int attackDamage = 5;
+    public GameObject attackAreaPrefab; // 반드시 프리팹(씬 인스턴스 아님)
 
     private EnemyMover mover;
-    private GameObject playerObject;
-    private Transform player;
+    private Transform player;       // 필드만 사용
     private Stats playerStats;
-    private EnemyAttackArea attackArea; // 공격 범위 컴포넌트
-    
+    private EnemyAttackArea attackArea;
+    private GridManager grid;
+    private Stats myStats;
+
     private void Awake()
     {
-        mover = GetComponent<EnemyMover>();                     // 같은 오브젝트에 붙이기
-        var playerObject = GameObject.FindGameObjectWithTag("Player");
-        if (playerObject != null)
-        {
-            player = playerObject.transform;
-            playerStats = playerObject.GetComponent<Stats>();
+        mover    = GetComponent<EnemyMover>();
+        myStats  = GetComponent<Stats>();
+        grid     = FindFirstObjectByType<GridManager>();
+
+        var pObj = GameObject.FindGameObjectWithTag("Player");
+        if (pObj != null) {
+            player      = pObj.transform;
+            playerStats = pObj.GetComponent<Stats>();
+        } else {
+            Debug.LogWarning($"{name}: Player not found.");
         }
-        
-        attackArea = attackAreaPrefab.GetComponent<EnemyAttackArea>();
-        attackArea.transform.SetParent(transform); // 공격 범위 오브젝트를 슬림 오브젝트의 자식으로 설정
-        attackArea.transform.localPosition = Vector3.zero; // 위치 초기화
+
+        if (attackAreaPrefab != null) {
+            // ✅ 프리팹을 인스턴스화해서 자식으로 부착
+            var inst = Instantiate(attackAreaPrefab, transform);
+            attackArea = inst.GetComponent<EnemyAttackArea>();
+            if (attackArea == null)
+                Debug.LogWarning($"{name}: EnemyAttackArea component not found on attackAreaPrefab.");
+        }
     }
 
     public override void Act(Enemy enemy)
     {
-        if (mover == null || player == null) return;
-        
-        if (!enemy.GetComponent<Stats>().CanAct) return; // 행동 불가 시 종료
+        if (mover == null || player == null || grid == null) return;
+        if (!myStats.CanAct) return;
 
+        // 공격 가능이면 공격 먼저
         if (attackArea != null && attackArea.CanAttack())
         {
-            playerStats.TakeDamage(attackDamage);
+            // 공격 애니메이션 재생
+            mover.enemyAnimator.PlayAttack(Vector3Int.zero);
+            playerStats?.TakeDamage(attackDamage);
             return;
         }
-        
-        // 시야 체크
-        var grid = FindFirstObjectByType<GridManager>();
+
+        // 시야 체크(맨해튼^2)
         var enemyCell  = grid.WorldToCell(enemy.transform.position);
         var playerCell = grid.WorldToCell(player.position);
         var d = playerCell - enemyCell;
-        int dist2 = d.x * d.x + d.y * d.y;
+        
+        // x, y 좌표의 절댓값을 각각 구하고, 둘 중 큰 값을 사용
+        // 이 값이 detectionRange 이하이면 플레이어를 향해 이동
+        int dist2 = Math.Max(Math.Abs(d.x), Math.Abs(d.y));
 
-        if (dist2 <= detectionRange * detectionRange)
-        {
-            // 보이면 플레이어 쪽으로 1칸
+        if (dist2 <= detectionRange) {
             mover.TryStepTowardTarget(enemy.gameObject, player.gameObject);
-        }
-        else
-        {
-            // 안 보이면 상/하/좌/우 랜덤 1칸 (막히면 이동X)
+        } else {
             mover.TryRandomCardinalStep(enemy.gameObject);
         }
     }

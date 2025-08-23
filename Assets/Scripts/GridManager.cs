@@ -15,6 +15,8 @@ public class GridManager : MonoBehaviour
     public TileBase startTile; // StartTile Asset (Editor에서 할당)
     
     private Dictionary<Vector3Int, TileData> tileDictionary = new Dictionary<Vector3Int, TileData>();
+
+    private bool _startSign = true;
     
     private void Awake()
     {
@@ -24,7 +26,6 @@ public class GridManager : MonoBehaviour
             return;
         }
         Instance = this;
-        if (backgroundMap != null) RebuildTileData();
     }
 
     public void RebuildTileData()
@@ -48,27 +49,6 @@ public class GridManager : MonoBehaviour
             };
             tileDictionary[pos] = data;
         }
-    }
-    
-    private void OnEnable()
-    {
-        if (MapGenerator.Instance != null)
-            MapGenerator.Instance.OnMapChanged += OnMapChanged;
-    }
-
-    private void OnDisable()
-    {
-        if (MapGenerator.Instance != null)
-            MapGenerator.Instance.OnMapChanged -= OnMapChanged;
-    }
-
-    private void OnMapChanged(MapContext ctx)
-    {
-        backgroundMap  = ctx.background;
-        obstacleMap    = ctx.obstacle;
-        overlayMap     = ctx.overlay; // 없을 수도 있음
-
-        RebuildTileData();
     }
 
     void InitializeTileData()
@@ -94,13 +74,6 @@ public class GridManager : MonoBehaviour
         return data;
     }
 
-    public TileData GetTileData(Vector3 pos)
-    {
-        // Vector3를 Vector3Int로 변환하여 TileData를 가져옴
-        Vector3Int intPos = backgroundMap.WorldToCell(pos);
-        return GetTileData(intPos);
-    }
-
     // 시작 타일의 위치를 찾아 반환
     public Vector3Int FindStartTilePosition()
     {
@@ -124,7 +97,7 @@ public class GridManager : MonoBehaviour
     {
         if (tileDictionary.TryGetValue(pos, out TileData tileData)) {
             tileData.occupant = occupant;
-            tileData.isWalkable = isWalkable;;
+            tileData.isWalkable = isWalkable;
         } else {
             Debug.LogWarning($"타일 데이터가 존재하지 않습니다: {pos}");
         }
@@ -167,19 +140,19 @@ public class GridManager : MonoBehaviour
 
     public void MoveTo(GameObject occupant, Vector3Int targetCell)
     {
+        // ✅ 먼저 시작 셀을 구한다
+        Vector3Int startCell = backgroundMap.WorldToCell(occupant.transform.position);
+
         TileData targetTile = GetTileData(targetCell);
-        
-        if (targetTile != null && targetTile.isWalkable) {
-            // 현재 위치에서 타겟 위치로 이동
-            occupant.transform.position = targetTile.worldPosition;
-            
-            // 점유자 정보 업데이트
-            Vector3Int startCell = backgroundMap.WorldToCell(occupant.transform.position);
-            ClearOccupant(startCell);
-            SetOccupant(targetCell, occupant);
-        } else {
+        if (targetTile == null || !targetTile.isWalkable) {
             Debug.LogWarning("이동 불가능한 위치입니다: " + targetCell);
+            return;
         }
+
+        // 점유자/좌표 업데이트
+        ClearOccupant(startCell);
+        occupant.transform.position = targetTile.worldPosition;
+        SetOccupant(targetCell, occupant);
     }
     
     public List<TileData> GetWalkableNeighbors(Vector3Int cellPos)
@@ -225,4 +198,20 @@ public class GridManager : MonoBehaviour
     
     public Vector3Int WorldToCell(Vector3 worldPos) => backgroundMap.WorldToCell(worldPos);
     public Vector3 CellToWorld(Vector3Int cellPos) => backgroundMap.GetCellCenterWorld(cellPos);
+    
+    private readonly HashSet<Vector3Int> _claims = new HashSet<Vector3Int>();
+
+    public bool IsFreeConsideringClaims(Vector3Int cell) {
+        var t = GetTileData(cell);
+        return t != null && t.isWalkable && t.occupant == null && !_claims.Contains(cell);
+    }
+
+    public bool TryClaimCell(Vector3Int cell) {
+        if (!IsFreeConsideringClaims(cell)) return false;
+        return _claims.Add(cell);
+    }
+
+    public void ReleaseClaimCell(Vector3Int cell) {
+        _claims.Remove(cell);
+    }
 }
