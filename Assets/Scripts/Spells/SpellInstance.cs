@@ -11,7 +11,7 @@ public class SpellInstance
     
     public SpellData data;
     public int currentCooldown;  // 남은 쿨타임(런타임 상태)
-    
+    public int currentForgettableCooldown; // 잊혀지는 쿨타임(런타임 상태)
 
     public SpellInstance(SpellData data)
     {
@@ -92,6 +92,11 @@ public class SpellInstance
         }
 
         currentCooldown = Mathf.Max(0, data.cooldown);
+        if (data.isForgettable)
+        {
+            data.isForgotStart = true;
+            currentForgettableCooldown = Mathf.Max(0, data.forgettableCooldown);
+        }
     }
 
 
@@ -106,6 +111,19 @@ public class SpellInstance
             {
                 Init(GameObject.FindWithTag("Player"));
                 playerController?.DeleteSpell(this);
+            }
+        }
+
+        if (data.isForgotStart)
+        {
+            if (currentForgettableCooldown > 0)
+            {
+                currentForgettableCooldown = Mathf.Max(0, currentForgettableCooldown - amount);
+                if (currentForgettableCooldown == 0)
+                {
+                    Init(GameObject.FindWithTag("Player"));
+                    playerController?.DeleteSpell(this);
+                }
             }
         }
     }

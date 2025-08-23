@@ -15,6 +15,11 @@ public class SpellData : ScriptableObject
     public int attackCount = 1; // 공격 횟수 (예: 연속 공격)
     public int cooldown = 0;
     public Sprite icon;
+    
+    [Header("Forgettable")]
+    public bool isForgettable = true;   // 잊을 수 있는지 여부
+    public bool isForgotStart = false;  // 스킬이 사용되었는지 여부
+    public int forgettableCooldown = 3; // 스킬 사용 후 잊혀지는 쿨다운  
 
     [Header("Cast Pattern (선택 가능한 칸)")]
     public CastPattern castPattern = CastPattern.Around4;
