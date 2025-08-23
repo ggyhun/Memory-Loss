@@ -152,6 +152,12 @@ public class PlayerController : MonoBehaviour
 
         var spell = spells[index];
 
+        if (spell.isSealed)
+        {
+            Debug.Log("Spell is sealed.");
+            return;
+        }
+
         if (isSpellSelected)
         {
             Debug.Log("Spell selection cancelled.");
@@ -215,5 +221,26 @@ public class PlayerController : MonoBehaviour
         {
             Debug.LogWarning($"Spell {spell.data.spellName} not found in player's spell list.");
         }
+    }
+
+    public bool SealRandomSpell(int playerSpellsCount)
+    {
+        if (spells.Count < playerSpellsCount) return false;
+        
+        var availableSpells = spells.FindAll(s => !s.isSealed && s.data != normalAttackSpell);
+        if (availableSpells.Count == 0)
+        {
+            
+            Debug.Log("No available spells to seal.");
+            return false;
+        }
+
+        var randomIndex = Random.Range(0, availableSpells.Count);
+        var spellToSeal = availableSpells[randomIndex];
+        spellToSeal.Seal();
+
+        Debug.Log($"Spell {spellToSeal.data.spellName} has been sealed.");
+        
+        return true;
     }
 }
