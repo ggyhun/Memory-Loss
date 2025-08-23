@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Unity.VisualScripting;
 
 [System.Serializable]
@@ -9,14 +10,18 @@ public class SpellInstance
     private Stats playerStats;
     private PlayerController playerController;
     
+    [Header("Cooldown & State")]
     public SpellData data;
     public int currentCooldown;  // 남은 쿨타임(런타임 상태)
     public int currentForgettableCooldown; // 잊혀지는 쿨타임(런타임 상태)
+    public bool isSealed = false; // 봉인 상태(런타임 상태)
 
     public SpellInstance(SpellData data)
     {
         this.data = data;
         currentCooldown = 0;
+        currentForgettableCooldown = 0;
+        isSealed = false;
     }
 
     public bool CanCast() => currentCooldown <= 0;
@@ -138,6 +143,11 @@ public class SpellInstance
             Init(GameObject.FindWithTag("Player"));
             playerController?.DeleteSpell(this);
         }
+    }
+
+    public void Seal()
+    {
+        isSealed = true;
     }
     
     public void Init(GameObject player)
