@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public enum ElementType { Normal, Ice, Fire, Water }
+public enum ElementEffectType { Normal, Ice, Fire, Water }
 public enum StatusType  { Frozen, Burning, Wet }
 public enum StatusOwnership { Player, Enemy }
 
@@ -46,9 +46,9 @@ public class Stats : MonoBehaviour
     }
 
     // ========= HP =========
-    public void TakeDamage(int amount, ElementType element = ElementType.Normal)
+    public void TakeDamage(int amount, ElementEffectType elementEffect = ElementEffectType.Normal)
     {
-        Debug.Log($"[{name}] TakeDamage: {amount} ({element})");
+        Debug.Log($"[{name}] TakeDamage: {amount} ({elementEffect})");
         if (amount > 0)
         {
             currentHp = Mathf.Max(0, currentHp - amount);
@@ -65,9 +65,9 @@ public class Stats : MonoBehaviour
         }
 
         // 원소 판정
-        if (element != ElementType.Normal)
+        if (elementEffect != ElementEffectType.Normal)
         {
-            TryApplyElement(element);
+            TryApplyElement(elementEffect);
         }
     }
     
@@ -147,15 +147,15 @@ public class Stats : MonoBehaviour
 
     // ========= Status Apply APIs =========
     /// <summary>원소 피격에 따른 상태 적용(표 규칙 반영)</summary>
-    public bool TryApplyElement(ElementType element)
+    public bool TryApplyElement(ElementEffectType elementEffect)
     {
-        switch (element)
+        switch (elementEffect)
         {
-            case ElementType.Ice:
+            case ElementEffectType.Ice:
                 return TryApplyStatus(StatusType.Frozen);
-            case ElementType.Fire:
+            case ElementEffectType.Fire:
                 return TryApplyStatus(StatusType.Burning);
-            case ElementType.Water:
+            case ElementEffectType.Water:
                 return TryApplyStatus(StatusType.Wet);
             default:
                 return false;
@@ -224,19 +224,19 @@ public class Stats : MonoBehaviour
         wetTurns = 0;
     }
     
-    public void ApplyEnhance(ElementType elem, int percent, int turns)
+    public void ApplyEnhance(ElementEffectType elem, int percent, int turns)
     {
         switch (elem)
         {
-            case ElementType.Ice:
+            case ElementEffectType.Ice:
                 frozenEnhancementAmount = Mathf.Max(1, percent);
                 frozenEnhancementTurns  = Mathf.Max(0, turns);
                 break;
-            case ElementType.Fire:
+            case ElementEffectType.Fire:
                 burningEnhancementAmount = Mathf.Max(1, percent);
                 burningEnhancementTurns  = Mathf.Max(0, turns);
                 break;
-            case ElementType.Water:
+            case ElementEffectType.Water:
                 wetEnhancementAmount = Mathf.Max(1, percent);
                 wetEnhancementTurns  = Mathf.Max(0, turns);
                 break;

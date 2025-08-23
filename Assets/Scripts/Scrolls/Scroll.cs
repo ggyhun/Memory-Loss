@@ -53,6 +53,10 @@ public class Scroll : MonoBehaviour
             player.LearnSpell(spellData);
             Debug.Log($"Player learned spell: {spellData.spellName}");
         }
+        
+        // GridManager에서 점유자 제거
+        var cellPos = GridManager.Instance.WorldToCell(transform.position);
+        GridManager.Instance.ClearOccupant(cellPos);
 
         // 스크롤 제거
         Destroy(gameObject);

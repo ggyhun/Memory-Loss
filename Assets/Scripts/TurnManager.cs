@@ -10,19 +10,23 @@ public class TurnManager : MonoBehaviour
     public TurnState CurrentTurn { get; private set; }
 
     [Header("Swap Delay")]
-    public float turnSwapDelay = 1f;          // 1초 대기
-    public bool useUnscaledTime = true;       // timeScale=0이어도 대기하도록
+    public float turnSwapDelay = 1f;
+    public bool useUnscaledTime = true;
+
+    // === Extra Turn ===
+    // 외부(주문서 등)에서 SetExtraTurn()으로 누적 예약
+    [SerializeField] private int extraTurnsPending = 0;
+    public bool isExtraTurn => extraTurnsPending > 0;  // 읽기 전용 뷰
 
     private int _totalPlayerActors;
     private int _finishedPlayerActorCount;
 
     [SerializeField] private EnemyManager enemyManager;
 
-    // ===== 애니 끝 신호 대기 플래그 =====
-    // 플레이어 행동(공격/이동 연출 등) 후, 애니메이션 끝에서 턴을 넘기고 싶을 때 true
+    // 애니 끝까지 기다리기
     private bool waitPlayerAnimToEndTurn = false;
 
-    // 전환 코루틴 중복 방지
+    // 전환 중복 방지
     private bool isSwapping = false;
 
     private void Awake()
@@ -43,6 +47,25 @@ public class TurnManager : MonoBehaviour
 
     public bool IsPlayerTurn() => CurrentTurn == TurnState.PlayerTurn;
 
+    // ===== Extra Turn API =====
+    /// <summary>
+    /// 추가 턴을 n회 예약. (기본 1회)
+    /// </summary>
+    public void SetExtraTurn(int count = 1)
+    {
+        if (count <= 0) return;
+        extraTurnsPending += count;
+        // 필요시 디버그:
+        // Debug.Log($"[TurnManager] Extra turns +{count} → pending: {extraTurnsPending}");
+    }
+
+    private void ConsumeOneExtraTurn()
+    {
+        if (extraTurnsPending > 0) extraTurnsPending--;
+        // 필요시 디버그:
+        // Debug.Log($"[TurnManager] Extra turn consumed. pending: {extraTurnsPending}");
+    }
+
     // ===== 전환 코루틴 헬퍼 =====
     private IEnumerator DelaySwap()
     {
@@ -51,36 +74,21 @@ public class TurnManager : MonoBehaviour
         else                 yield return new WaitForSeconds(turnSwapDelay);
     }
 
-    // ====== 애니메이션 대기 API ======
-    /// <summary>
-    /// 플레이어 액션 직전에 호출: 애니메이션이 끝나야 턴을 넘기도록 예약
-    /// (예: PlayerAnimator.PlayAttackAnimation() 내부)
-    /// </summary>
-    public void RequestEndAfterPlayerAnimation()
-    {
-        waitPlayerAnimToEndTurn = true;
-    }
+    // ===== 애니 대기 플래그 =====
+    public void RequestEndAfterPlayerAnimation() => waitPlayerAnimToEndTurn = true;
 
-    /// <summary>
-    /// 애니메이션 이벤트(클립 마지막 프레임 등)에서 호출:
-    /// 예약이 있었다면 여기서 실제로 턴 종료 진행
-    /// </summary>
     public void NotifyPlayerAnimationComplete()
     {
         if (!waitPlayerAnimToEndTurn) return;
         waitPlayerAnimToEndTurn = false;
-        EndPlayerTurn(); // 이제 보류 없이 진행
+        EndPlayerTurn();
     }
 
-    // ===== 플레이어 → 시스템 =====
+    // ===== 플레이어 → 시스템 (혹은 추가 턴으로 바로 회귀) =====
     public void EndPlayerTurn()
     {
-        // 애니 끝을 기다리기로 한 상태라면, 여기서는 보류
-        if (waitPlayerAnimToEndTurn)
-            return;
-
-        if (!isSwapping)
-            StartCoroutine(CoEndPlayerTurn());
+        if (waitPlayerAnimToEndTurn) return;      // 애니 끝날 때까지 보류
+        if (!isSwapping) StartCoroutine(CoEndPlayerTurn());
     }
 
     private IEnumerator CoEndPlayerTurn()
@@ -92,16 +100,39 @@ public class TurnManager : MonoBehaviour
         var playerStats = player.GetComponent<Stats>();
         if (playerStats == null) { Debug.LogError("Stats not found on Player."); isSwapping = false; yield break; }
 
-        // 플레이어 턴 종료 훅
+        // 플레이어 턴 종료 훅 (도트/지속시간 감소 등)
         playerStats.OnTurnEnd();
 
         _finishedPlayerActorCount = 0;
+
+        // ⛳️ 추가 턴이 예약되어 있으면: 적 턴을 스킵하고 곧장 플레이어 추가 턴으로
+        if (isExtraTurn)
+        {
+            ConsumeOneExtraTurn();
+
+            // (원하면 살짝 연출 딜레이)
+            yield return DelaySwap();
+
+            // 적 턴으로 가지 않고, 플레이어 턴을 다시 시작
+            CurrentTurn = TurnState.PlayerTurn;
+
+            // 🔸 간단히 StartTurn 재사용 (쿨다운/OnTurnStart가 다시 돌 수 있음)
+            //    만약 ‘추가턴에서는 쿨다운/도트 반복 NO’가 필요하면,
+            //    PlayerController에 StartExtraTurn()을 만들어 isSpellSelected만 초기화하고
+            //    HighlightManager.ShowMoveHighlighters()만 호출하세요.
+            var pc = player.GetComponent<PlayerController>();
+            if (pc != null) pc.StartTurn();
+            else Debug.LogWarning("PlayerController not found on Player.");
+
+            isSwapping = false;
+            yield break;
+        }
+
+        // 추가 턴이 아니면 정상적으로 적 턴으로 전환
         CurrentTurn = TurnState.SystemTurn;
 
-        // 전환 딜레이
         yield return DelaySwap();
 
-        // 적 턴 시작
         enemyManager.StartEnemyTurn();
 
         isSwapping = false;
@@ -110,18 +141,15 @@ public class TurnManager : MonoBehaviour
     // ===== 시스템 → 플레이어 =====
     public void StartPlayerTurn()
     {
-        if (!isSwapping)
-            StartCoroutine(CoStartPlayerTurn());
+        if (!isSwapping) StartCoroutine(CoStartPlayerTurn());
     }
 
     private IEnumerator CoStartPlayerTurn()
     {
         isSwapping = true;
 
-        // 전환 딜레이
         yield return DelaySwap();
 
-        // (원한다면 전환 직후 잔여 하이라이트 정리)
         var highlightManager = FindFirstObjectByType<HighlightManager>();
         if (highlightManager) highlightManager.ClearSpellHighlights();
 
@@ -135,7 +163,7 @@ public class TurnManager : MonoBehaviour
         // 플레이어 턴 시작 훅
         playerStats.OnTurnStart();
 
-        // 입력/하이라이트 등 플레이어 턴 세팅
+        // 입력/하이라이트 등 세팅
         var pc = player.GetComponent<PlayerController>();
         if (pc) pc.StartTurn();
 
