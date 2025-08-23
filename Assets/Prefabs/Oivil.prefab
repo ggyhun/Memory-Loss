@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6499240080378539535}
   - component: {fileID: 141998810403387284}
   - component: {fileID: 309673278466595091}
+  - component: {fileID: 3245270852428343348}
   m_Layer: 0
   m_Name: Sprites
   m_TagString: EditorOnly
@@ -110,6 +111,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3245270852428343348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4450133465781268055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2dd3a58906f24be45acc6ed21a11f563, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7178147870297439484
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,6 +137,7 @@ GameObject:
   - component: {fileID: 3436302558280871143}
   - component: {fileID: 4570424072442219585}
   - component: {fileID: 7326357770432451439}
+  - component: {fileID: 998539562619175501}
   m_Layer: 0
   m_Name: Oivil
   m_TagString: Player
@@ -252,6 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4e0c52191fb7ae4e8079e1dd6ba003e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ownership: 0
   maxHp: 100
   currentHp: 100
   frozenTurns: 0
@@ -306,3 +321,17 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &998539562619175501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7178147870297439484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6692d6ca2fa4b12b963b6b891656504, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 309673278466595091}
+  spriteRenderer: {fileID: 141998810403387284}

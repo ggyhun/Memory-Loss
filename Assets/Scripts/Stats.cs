@@ -108,13 +108,15 @@ public class Stats : MonoBehaviour
     {
         if (ownership == StatusOwnership.Player)
         {
-            Animator animator = GetComponent<Animator>();
-            if (animator == null) return;
-            animator.SetTrigger("Die"); // 플레이어 사망 애니메이션 트리거
+            PlayerAnimator.Instance.PlayDeathAnimation();
+            // 플레이어 사망 시 게임 오버 처리
+            GameManager.Instance.GameOver();
         }
         else
         {
             OnDied?.Invoke();      // 🔹 누가 죽었는지 알림
+            EnemyAnimator animator = GetComponent<EnemyAnimator>();
+            animator.PlayDeathAnimation();
             Destroy(gameObject);
         }
     }

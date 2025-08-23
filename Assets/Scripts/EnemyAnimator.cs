@@ -52,9 +52,16 @@ public class EnemyAnimator : MonoBehaviour
     {
         animator.SetTrigger(hurtState);
     }
+    
+    public void PlayDeathAnimation() => animator.SetTrigger("Die");
 
     public void PlayDeath()
     {
         animator.SetTrigger(deathState);
+    }
+    
+    public void AnimEvent_EnemyActionEnd()
+    {
+        Destroy(gameObject);
     }
 }

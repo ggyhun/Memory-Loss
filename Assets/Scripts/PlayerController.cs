@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Tilemaps;
 using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour
@@ -116,6 +115,7 @@ public class PlayerController : MonoBehaviour
         //    -> TurnManager.StartPlayerTurn()에서 호출되도록 유지
     }
 
+    private bool isMoving = false;
     private void Update()
     {
         if (!TurnManager.Instance.IsPlayerTurn()) return;
@@ -130,8 +130,15 @@ public class PlayerController : MonoBehaviour
 
         if (mover.IsMoving)
         {
-            animator.SetTrigger("Move");
+            isMoving = true;
+            PlayerAnimator.Instance.PlayerMoveAnimation();
         }
+        if (!mover.IsMoving && isMoving)
+        {
+            isMoving = false;
+            TurnManager.Instance.NotifyPlayerAnimationComplete(); // 애니 끝 신호
+        }
+        
         rend.flipX = !isTowardsRight;
     }
     
