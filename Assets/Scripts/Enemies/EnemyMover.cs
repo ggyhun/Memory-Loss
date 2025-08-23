@@ -10,10 +10,11 @@ public class EnemyMover : MonoBehaviour
     public bool useClaims = true;        // GridManager의 셀 클레임 사용(동시 이동 충돌 방지)
 
     [Header("Visual Move")]
+    public EnemyAnimator enemyAnimator;
     public float fakeStepDuration = 0.2f;                 // 시각 이동 시간
     public AnimationCurve ease = AnimationCurve.EaseInOut(0,0,1,1);
     public Transform defaultVisualRoot;                    // 비워두면 자동으로 찾아줌(자식 Sprite)
-
+    
     private GridManager grid;
 
     private void Awake()
@@ -35,13 +36,21 @@ public class EnemyMover : MonoBehaviour
 
         // 주 방향
         var step = ComputeStepToward(d, allowDiagonal);
-        if (TryMoveTo(actor, actorCell + step)) return true;
+        if (TryMoveTo(actor, actorCell + step))
+        {
+            enemyAnimator.PlayMove(step);
+            return true;
+        }
 
         // 차선 방향들
         foreach (var alt in GetAlternatives(d, allowDiagonal))
         {
             if (alt == Vector3Int.zero) continue;
-            if (TryMoveTo(actor, actorCell + alt)) return true;
+            if (TryMoveTo(actor, actorCell + alt))
+            {
+                enemyAnimator.PlayMove(alt);
+                return true;
+            }
         }
         return false;
     }
@@ -56,7 +65,11 @@ public class EnemyMover : MonoBehaviour
         Shuffle(dirs);
 
         foreach (var dir in dirs)
-            if (TryMoveTo(actor, actorCell + dir)) return true;
+            if (TryMoveTo(actor, actorCell + dir))
+            {
+                enemyAnimator.PlayMove(dir);
+                return true;
+            }
 
         return false;
     }

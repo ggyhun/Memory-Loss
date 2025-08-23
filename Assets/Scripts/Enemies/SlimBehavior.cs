@@ -1,3 +1,5 @@
+using System;
+using Unity.Mathematics;
 using UnityEngine;
 
 [RequireComponent(typeof(EnemyMover))]
@@ -49,6 +51,8 @@ public class SlimBehavior : EnemyBehavior
         // 공격 가능이면 공격 먼저
         if (attackArea != null && attackArea.CanAttack())
         {
+            // 공격 애니메이션 재생
+            mover.enemyAnimator.PlayAttack(Vector3Int.zero);
             playerStats?.TakeDamage(attackDamage);
             return;
         }
@@ -57,9 +61,12 @@ public class SlimBehavior : EnemyBehavior
         var enemyCell  = grid.WorldToCell(enemy.transform.position);
         var playerCell = grid.WorldToCell(player.position);
         var d = playerCell - enemyCell;
-        int dist2 = d.x * d.x + d.y * d.y;
+        
+        // x, y 좌표의 절댓값을 각각 구하고, 둘 중 큰 값을 사용
+        // 이 값이 detectionRange 이하이면 플레이어를 향해 이동
+        int dist2 = Math.Max(Math.Abs(d.x), Math.Abs(d.y));
 
-        if (dist2 <= detectionRange * detectionRange) {
+        if (dist2 <= detectionRange) {
             mover.TryStepTowardTarget(enemy.gameObject, player.gameObject);
         } else {
             mover.TryRandomCardinalStep(enemy.gameObject);

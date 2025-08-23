@@ -1,9 +1,10 @@
 using UnityEngine;
-using UnityEngine.Tilemaps;
 using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController Instance { get; private set; }
+    
     [Header("References")]
     public GridManager gridManager;
     public HighlightManager highlightManager;
@@ -32,6 +33,20 @@ public class PlayerController : MonoBehaviour
         { KeyCode.Alpha8, 7 },
         { KeyCode.Alpha9, 8 },
     };
+    
+    private void Awake()
+    {
+        if (Instance && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        
+        // 초기화
+        spells.Clear();
+        isSpellSelected = false;
+    }
 
     private void Start()
     {
@@ -100,6 +115,7 @@ public class PlayerController : MonoBehaviour
         //    -> TurnManager.StartPlayerTurn()에서 호출되도록 유지
     }
 
+    private bool isMoving = false;
     private void Update()
     {
         if (!TurnManager.Instance.IsPlayerTurn()) return;
@@ -114,8 +130,15 @@ public class PlayerController : MonoBehaviour
 
         if (mover.IsMoving)
         {
-            animator.SetTrigger("Move");
+            isMoving = true;
+            PlayerAnimator.Instance.PlayerMoveAnimation();
         }
+        if (!mover.IsMoving && isMoving)
+        {
+            isMoving = false;
+            TurnManager.Instance.NotifyPlayerAnimationComplete(); // 애니 끝 신호
+        }
+        
         rend.flipX = !isTowardsRight;
     }
     
