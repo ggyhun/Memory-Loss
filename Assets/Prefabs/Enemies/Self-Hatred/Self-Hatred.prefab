@@ -272,7 +272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 3902789237907777958}
   spriteRenderer: {fileID: 4183929809331210728}
-  isTowardRight: 1
+  isTowardRight: 0
   idleState: Idle
   moveState: Move
   attackState: Attack
