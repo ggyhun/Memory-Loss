@@ -118,10 +118,12 @@ public class SpellInstance
             }
             case SpellType.Recollection:
             {
+                playerController.AddCooldownsToAll();
                 break;
             }
             case SpellType.Heal:
             {
+                playerStats.Heal(playerStats.maxHp * 10 / 100);
                 break;
             }
             case SpellType.ExtraTurn:
@@ -131,10 +133,12 @@ public class SpellInstance
             }
             case SpellType.Distortion:
             {
+                // TODO:
                 break;
             }
             case SpellType.UpMaxHp:
             {
+                playerStats.IncreaseMaxHp();
                 break;
             }
         }
@@ -156,7 +160,7 @@ public class SpellInstance
     
     public void AddCooldown(int amount)
     {
-        forgettableTurn += amount;
+        forgettableTurn = Mathf.Max(0, forgettableTurn + amount); // 최소 1턴 증가, 자신 턴 보정 1
     }
 
     public void DeleteSpell()
