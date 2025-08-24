@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
 
@@ -17,17 +18,19 @@ public class EmptinessBehavior : EnemyBehavior
     private Stats playerStats;
     private PlayerController playerController; // 주문서 개수 확인용
     private EnemyAttackArea attackArea; // 공격 범위 컴포넌트
+    private GridManager grid;
+    private Stats myStats;
     private bool PreviouslyAttacked = false;
     
     private void Awake()
     {
         mover = GetComponent<EnemyMover>();                     // 같은 오브젝트에 붙이기
         var playerObject = GameObject.FindGameObjectWithTag("Player");
+        grid = FindFirstObjectByType<GridManager>();
         if (playerObject != null)
         {
             player = playerObject.transform;
             playerStats = playerObject.GetComponent<Stats>();
-            playerController = playerObject.GetComponent<PlayerController>();
         }
 
         attackArea = attackAreaPrefab.GetComponent<EnemyAttackArea>();
@@ -43,9 +46,12 @@ public class EmptinessBehavior : EnemyBehavior
 
         if (attackArea != null && attackArea.CanAttack())
         {
-            if (PreviouslyAttacked || playerController.spells.Count >= 4)
+            if (PreviouslyAttacked)
             {
-                // 주문 봉인 코드
+                if (!PlayerController.Instance.SealRandomSpell(4))
+                {
+                    playerStats.TakeDamage(attackDamage);
+                }
             }
             else
             {
@@ -55,15 +61,20 @@ public class EmptinessBehavior : EnemyBehavior
         }
         
         // 봉인 범위 체크
-        var grid = FindFirstObjectByType<GridManager>();
         var enemyCell  = grid.WorldToCell(enemy.transform.position);
         var playerCell = grid.WorldToCell(player.position);
         var d = playerCell - enemyCell;
-        int dist2 = d.x * d.x + d.y * d.y;
+        
+        // x, y 좌표의 절댓값을 각각 구하고, 둘 중 큰 값을 사용
+        // 이 값이 detectionRange 이하이면 플레이어를 향해 이동
+        int dist2 = Math.Max(Math.Abs(d.x), Math.Abs(d.y));
 
-        if (dist2 <= detectionRange * detectionRange && playerController.spells.Count >= 4)
+        if (dist2 <= detectionRange)
         {
-            // 주문 봉인 코드
+            if (!PlayerController.Instance.SealRandomSpell(4))
+            {
+                mover.TryStepTowardTarget(enemy.gameObject, player.gameObject);
+            }
         }
         else
         {
