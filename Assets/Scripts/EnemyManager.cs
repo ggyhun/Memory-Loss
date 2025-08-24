@@ -94,4 +94,10 @@ public class EnemyManager : MonoBehaviour
         enemies.Clear();
         finishedCount = 0;
     }
+    
+    public void GetKillCounts(out int current, out int goal)
+    {
+        current = killsThisFloor;
+        goal    = killsToAdvance;
+    }
 }

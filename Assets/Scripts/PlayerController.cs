@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.UI;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -21,6 +23,12 @@ public class PlayerController : MonoBehaviour
     public bool isTowardsRight = false; // 플레이어가 바라보는 방향 (오른쪽이 기본)
     
     private bool isSpellSelected;
+
+    
+    // --- 인벤토리 UI 캐시용 ---
+    private bool _invUiCached = false;
+    private Image[] _slotIcons = new Image[9];
+    private TextMeshProUGUI[] _slotCounts = new TextMeshProUGUI[9];
     
     private Dictionary<KeyCode, int> spellKeyMap = new Dictionary<KeyCode, int>
     {
@@ -66,31 +74,111 @@ public class PlayerController : MonoBehaviour
     }
     
     private bool isMoving = false;
-    private void Update()
-    {
-        if (!TurnManager.Instance.IsPlayerTurn()) return;
+private void Update()
+{
+    if (!TurnManager.Instance.IsPlayerTurn()) return;
 
-        foreach (var kvp in spellKeyMap)
+    foreach (var kvp in spellKeyMap)
+    {
+        if (Input.GetKeyDown(kvp.Key))
         {
-            if (Input.GetKeyDown(kvp.Key))
+            HandleSpellInput(kvp.Value);
+        }
+    }
+
+    if (mover.IsMoving)
+    {
+        isMoving = true;
+        PlayerAnimator.Instance.PlayerMoveAnimation();
+    }
+    if (!mover.IsMoving && isMoving)
+    {
+        isMoving = false;
+        TurnManager.Instance.NotifyPlayerAnimationComplete(); // 애니 끝 신호
+    }
+
+    rend.flipX = !isTowardsRight;
+
+    // =========================
+    //  인벤토리 UI 업데이트
+    // =========================
+    // 1) 한 번만 슬롯 참조 캐시(이름 규칙: "Slots" 컨테이너 안에 Slot(0..8), 각 Slot 안에 "Icon", "Count")
+    if (!_invUiCached)
+    {
+        // 1-1) Slots 컨테이너 찾기 (권장 이름: "Slots")
+        GameObject slotsGO = GameObject.Find("Slots");
+
+        // 이름이 다르다면 InventoryBase 하위에서 그리드처럼 보이는 오브젝트를 대충 찾아봄(폴백)
+        if (slotsGO == null)
+        {
+            var canvases = GameObject.FindObjectsOfType<Canvas>();
+            foreach (var c in canvases)
             {
-                HandleSpellInput(kvp.Value);
+                var t = c.transform.Find("InventoryBase/Slots");
+                if (t != null) { slotsGO = t.gameObject; break; }
+                var t2 = c.transform.Find("Slots");
+                if (t2 != null) { slotsGO = t2.gameObject; break; }
             }
         }
 
-        if (mover.IsMoving)
+        if (slotsGO != null)
         {
-            isMoving = true;
-            PlayerAnimator.Instance.PlayerMoveAnimation();
+            var root = slotsGO.transform;
+            int count = Mathf.Min(9, root.childCount);
+            for (int i = 0; i < count; i++)
+            {
+                var slot = root.GetChild(i);
+
+                // 자식 "Icon" 이미지
+                var iconTr = slot.Find("Icon");
+                if (iconTr != null) _slotIcons[i] = iconTr.GetComponent<Image>();
+
+                // 자식 "Count" TMP 텍스트(없으면 null 허용)
+                var countTr = slot.Find("Count");
+                if (countTr != null) _slotCounts[i] = countTr.GetComponent<TextMeshProUGUI>();
+            }
+            _invUiCached = true;
         }
-        if (!mover.IsMoving && isMoving)
+        else
         {
-            isMoving = false;
-            TurnManager.Instance.NotifyPlayerAnimationComplete(); // 애니 끝 신호
+            // 슬롯 못 찾으면 이번 프레임은 스킵 (다음 프레임에 다시 시도)
+            return;
         }
-        
-        rend.flipX = !isTowardsRight;
     }
+
+    // 2) spells -> UI 반영(아이콘 & 카운트)
+    for (int i = 0; i < 9; i++)
+    {
+        Image iconImg = _slotIcons[i];
+        TextMeshProUGUI countTxt = _slotCounts[i];
+
+        if (i < spells.Count)
+        {
+            var inst = spells[i];
+            // 아이콘
+            if (iconImg)
+            {
+                iconImg.sprite = (inst != null && inst.data != null) ? inst.data.icon : null;
+                iconImg.enabled = (iconImg.sprite != null);
+                iconImg.preserveAspect = true;
+                // 필요하면 iconImg.raycastTarget = false;  // 슬롯 클릭 충돌 방지
+            }
+
+            // 카운트 = forgettableTurn (1 이하면 빈칸)
+            if (countTxt)
+            {
+                int n = (inst != null) ? inst.forgettableTurn : 0;
+                countTxt.text = (n > 1) ? n.ToString() : "0";
+            }
+        }
+        else
+        {
+            // 빈 칸 처리
+            if (iconImg) { iconImg.sprite = null; iconImg.enabled = false; }
+            if (countTxt) countTxt.text = "";
+        }
+    }
+}
     
     public void OnMapChanged()
     {
