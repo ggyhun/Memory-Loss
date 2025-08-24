@@ -11,7 +11,7 @@ public class SlimBehavior : EnemyBehavior
 
     [Header("Slim Attack Settings")]
     public int attackDamage = 5;
-    public GameObject attackAreaPrefab; // 반드시 프리팹(씬 인스턴스 아님)
+    public GameObject attackAreaPrefab; 
 
     private EnemyMover mover;
     private Transform player;       // 필드만 사용
