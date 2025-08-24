@@ -9,21 +9,14 @@ public class StartSceneManager : MonoBehaviour
     private GameObject startButtons;
     private bool active = true;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         StartCoroutine(StartText());
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     IEnumerator StartText()
     {
-        while (true)   // ¹«ÇÑ ¹Ýº¹
+        while (true)   // ï¿½ï¿½ï¿½ï¿½ ï¿½Ýºï¿½
         {
             active = !active;                  
             startText.SetActive(active);        
@@ -37,9 +30,19 @@ public class StartSceneManager : MonoBehaviour
         }
     }
 
+    public void StartGame()
+    {
+        SceneLoader.Instance.LoadScene("PlayScene");
+    }
+
+    public void OpenOption()
+    {
+        
+    }
+
     public void OffGame()
     {
         Application.Quit();
-        Debug.Log("°ÔÀÓÁ¾·á");
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
     }
 }

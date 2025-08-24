@@ -126,6 +126,8 @@ public class GameEndingUI : MonoBehaviour
             }
             SceneUpdate();
         }
+        GameRecorder.Instance.GameCleared();
+        SceneLoader.Instance.LoadScene("GameOver");
         yield break;
     }
     IEnumerator BackgroundFadeIn()

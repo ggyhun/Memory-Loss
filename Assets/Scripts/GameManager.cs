@@ -13,6 +13,6 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        
+        SceneLoader.Instance.LoadScene("GameOver");
     }
 }
