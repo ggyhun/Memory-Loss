@@ -62,6 +62,7 @@ public class MapGenerator : MonoBehaviour
     {
         if (mapInstance) Destroy(mapInstance);
         Debug.Log("MapGenerator: Changing map...");
+        InGameUiManager.Instance.currentFloor += 1;
         SpawnRandomMap();
     }
 
