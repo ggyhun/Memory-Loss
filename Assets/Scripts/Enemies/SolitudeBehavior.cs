@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
 
@@ -16,17 +17,19 @@ public class SolitudeBehavior : EnemyBehavior
     private Transform player;
     private Stats playerStats;
     private EnemyAttackArea attackArea; // 공격 범위 컴포넌트
+    private GridManager grid;
     
     private void Awake()
     {
         mover = GetComponent<EnemyMover>();                     // 같은 오브젝트에 붙이기
         var playerObject = GameObject.FindGameObjectWithTag("Player");
+        grid = FindFirstObjectByType<GridManager>();
         if (playerObject != null)
         {
             player = playerObject.transform;
             playerStats = playerObject.GetComponent<Stats>();
         }
-        
+
         attackArea = attackAreaPrefab.GetComponent<EnemyAttackArea>();
         attackArea.transform.SetParent(transform); // 공격 범위 오브젝트를 고독 오브젝트의 자식으로 설정
         attackArea.transform.localPosition = Vector3.zero; // 위치 초기화
@@ -46,13 +49,14 @@ public class SolitudeBehavior : EnemyBehavior
         }
 
         // 모방 범위 체크
-        var grid = FindFirstObjectByType<GridManager>();
         var enemyCell  = grid.WorldToCell(enemy.transform.position);
         var playerCell = grid.WorldToCell(player.position);
         var d = playerCell - enemyCell;
-        int dist2 = d.x * d.x + d.y * d.y;
+        
+        // x, y 좌표의 절댓값을 각각 구하고, 둘 중 큰 값을 사용
+        int dist2 = Math.Max(Math.Abs(d.x), Math.Abs(d.y));
 
-        if (dist2 > detectionRange * detectionRange)
+        if (dist2 >= detectionRange)
         {
             // 모방 범위 밖이면 플레이어 쪽으로 1칸
             mover.TryStepTowardTarget(enemy.gameObject, player.gameObject);
