@@ -180,7 +180,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "\uACF5\uD5C8_0"
+      name: EmptinessIdle_0
       rect:
         serializedVersion: 2
         x: 0
@@ -193,16 +193,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: e8e86567555ad2790800000000000000
-      internalID: -7553199213554266482
+      spriteID: dd65b6c9020e6d74d967c0a02e2953d5
+      internalID: -1110901990
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uACF5\uD5C8_1"
+      name: EmptinessIdle_1
       rect:
         serializedVersion: 2
         x: 32
@@ -215,16 +215,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 4231b07ae94ea0cc0800000000000000
-      internalID: -3743928770146659548
+      spriteID: 7004f7ef1a14e994cbbbe7d367fd556a
+      internalID: -1316898752
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uACF5\uD5C8_2"
+      name: EmptinessIdle_2
       rect:
         serializedVersion: 2
         x: 64
@@ -237,16 +237,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: cbe6a185f0464bf60800000000000000
-      internalID: 8049168451083333308
+      spriteID: e009377b784fa3b49b1c2c82dac84519
+      internalID: 885535449
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uACF5\uD5C8_3"
+      name: EmptinessIdle_3
       rect:
         serializedVersion: 2
         x: 96
@@ -259,16 +259,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 2dfdca6221a60c3c0800000000000000
-      internalID: -4341353414594338862
+      spriteID: 1adcdaf40f2bb614daa9750d4eefecaf
+      internalID: -1829557920
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uACF5\uD5C8_4"
+      name: EmptinessIdle_4
       rect:
         serializedVersion: 2
         x: 0
@@ -281,16 +281,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 95430b02c806b8170800000000000000
-      internalID: 8181739303008744537
+      spriteID: 2c27f7c98bae78f43981e133d037ba80
+      internalID: -2070351144
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uACF5\uD5C8_5"
+      name: EmptinessIdle_5
       rect:
         serializedVersion: 2
         x: 32
@@ -303,16 +303,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 5124158000e76ac00800000000000000
-      internalID: 911554513193746965
+      spriteID: 8aa750ac69dcccb4ab26d95296a9f793
+      internalID: -329565595
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uACF5\uD5C8_6"
+      name: EmptinessIdle_6
       rect:
         serializedVersion: 2
         x: 64
@@ -325,16 +325,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 44d37a364a52fc1d0800000000000000
-      internalID: -3328400211626738364
+      spriteID: dc39b9c1b67700e4a89ea899113b7449
+      internalID: -1095782719
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uACF5\uD5C8_7"
+      name: EmptinessIdle_7
       rect:
         serializedVersion: 2
         x: 96
@@ -347,16 +347,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 863d9c2c1e4146550800000000000000
-      internalID: 6153065950763144040
+      spriteID: 39bad2ccde3231742bed0cc505812eed
+      internalID: 906002992
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uACF5\uD5C8_8"
+      name: EmptinessIdle_8
       rect:
         serializedVersion: 2
         x: 0
@@ -369,16 +369,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 2df4aa0ac19af3d60800000000000000
-      internalID: 7872196614086610898
+      spriteID: 9edb6eec56eda7e48aca5f1124e239a3
+      internalID: -1376072006
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uACF5\uD5C8_9"
+      name: EmptinessIdle_9
       rect:
         serializedVersion: 2
         x: 32
@@ -391,16 +391,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: aae2059d5f5a96640800000000000000
-      internalID: 5073768930541055658
+      spriteID: 70304652062c8944d97aa02e65d572c4
+      internalID: -23578708
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uACF5\uD5C8_10"
+      name: EmptinessIdle_10
       rect:
         serializedVersion: 2
         x: 64
@@ -413,16 +413,16 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 52a582a9871614960800000000000000
-      internalID: 7584450418078931493
+      spriteID: 4874e7ae9e15cd74baa9229d8c8397e5
+      internalID: -522576222
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "\uACF5\uD5C8_11"
+      name: EmptinessIdle_11
       rect:
         serializedVersion: 2
         x: 96
@@ -435,10 +435,10 @@ TextureImporter:
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 54a2263664795a8d0800000000000000
-      internalID: -2835694061788976571
+      spriteID: b832049870cbf924f87a476ff7555b37
+      internalID: 508337092
       vertices: []
       indices: 
       edges: []
@@ -457,18 +457,18 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "\uACF5\uD5C8_0": -7553199213554266482
-      "\uACF5\uD5C8_1": -3743928770146659548
-      "\uACF5\uD5C8_10": 7584450418078931493
-      "\uACF5\uD5C8_11": -2835694061788976571
-      "\uACF5\uD5C8_2": 8049168451083333308
-      "\uACF5\uD5C8_3": -4341353414594338862
-      "\uACF5\uD5C8_4": 8181739303008744537
-      "\uACF5\uD5C8_5": 911554513193746965
-      "\uACF5\uD5C8_6": -3328400211626738364
-      "\uACF5\uD5C8_7": 6153065950763144040
-      "\uACF5\uD5C8_8": 7872196614086610898
-      "\uACF5\uD5C8_9": 5073768930541055658
+      EmptinessIdle_0: -1110901990
+      EmptinessIdle_1: -1316898752
+      EmptinessIdle_10: -522576222
+      EmptinessIdle_11: 508337092
+      EmptinessIdle_2: 885535449
+      EmptinessIdle_3: -1829557920
+      EmptinessIdle_4: -2070351144
+      EmptinessIdle_5: -329565595
+      EmptinessIdle_6: -1095782719
+      EmptinessIdle_7: 906002992
+      EmptinessIdle_8: -1376072006
+      EmptinessIdle_9: -23578708
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
