@@ -11,6 +11,7 @@ public class Stats : MonoBehaviour
     public StatusOwnership ownership;
     public int maxHp = 100;
     public int currentHp;
+    public bool isInvincible; // 무적 상태 (데미지 무효)
 
     [Header("shield Hp")]
     public int shildTurns; // 쉴드 지속 턴 수
@@ -48,11 +49,17 @@ public class Stats : MonoBehaviour
     {
         currentHp = Mathf.Clamp(currentHp == 0 ? maxHp : currentHp, 0, maxHp);
     }
+    
 
     // ========= HP =========
+    public event System.Action OnHit;
+
     public void TakeDamage(int amount, ElementEffectType elementEffect = ElementEffectType.Normal)
     {
+        if (isInvincible || amount <= 0) return;
+        
         Debug.Log($"[{name}] TakeDamage: {amount} ({elementEffect})");
+        OnHit?.Invoke();
         if (amount > 0)
         {
             // 쉴드가 있으면 쉴드 먼저 깎음
@@ -261,5 +268,15 @@ public class Stats : MonoBehaviour
                 wetEnhancementTurns  = Mathf.Max(0, turns);
                 break;
         }
+    }
+
+    public void SetInvincible()
+    {
+        isInvincible = true;
+    }
+
+    public void ResetInvincible()
+    {
+        isInvincible = false;
     }
 }
