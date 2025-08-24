@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [Header("Spells")]
     public List<SpellInstance> spells = new List<SpellInstance>();
     public SpellData normalAttackSpell;
+    [SerializeField] private List<SpellData> spellHistory = new List<SpellData>();
 
     [Header("Animations")]
     public Animator animator;
@@ -187,6 +188,7 @@ public class PlayerController : MonoBehaviour
         
         spells.Add(new SpellInstance(newSpell));
         Debug.Log($"Learned new spell: {newSpell.spellName}");
+        UpdateInventoryIndex();
     }
 
     public void ReduceCooldowns()
@@ -237,7 +239,9 @@ public class PlayerController : MonoBehaviour
             Debug.Log("This spell cannot be forgotten.");
             return;
         }
-
+        
+        // 삭제시 History에 추가
+        spellHistory.Add(spell.data);
         spells.RemoveAt(index);
         Debug.Log($"Forgotten spell: {spell.data.spellName}");
         UpdateInventoryIndex();
@@ -272,5 +276,18 @@ public class PlayerController : MonoBehaviour
         {
             spell.inventroyIndex = index;
         }
+    }
+    
+    public void LearnRecentForgottenSpell()
+    {
+        if (spellHistory.Count == 0)
+        {
+            Debug.Log("No recently forgotten spells.");
+            return;
+        }
+
+        var recentSpell = spellHistory[spellHistory.Count - 1];
+        LearnSpell(recentSpell);
+        UpdateInventoryIndex();
     }
 }
