@@ -215,6 +215,14 @@ public class PlayerController : MonoBehaviour
         highlightManager.ShowMoveHighlighters();
     }
 
+    public void AddCooldownsToAll(int amount = 1)
+    {
+        foreach (var spell in spells)
+        {
+            spell.AddCooldown(amount);
+        }
+    }
+
     public void DeleteSpell(int index)
     {
         if (index < 0 || index >= spells.Count)

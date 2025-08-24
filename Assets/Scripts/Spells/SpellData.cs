@@ -26,8 +26,8 @@ public class SpellData : ScriptableObject
     public AreaPattern areaPattern = AreaPattern.Single;
 
     [Header("Utility (소모형 버프 설정)")]
-    public SpellType spellType = SpellType.Attack;      // 유틸 여부
     public bool isUtility = false;
+    public SpellType spellType = SpellType.Attack;      // 유틸 여부
     public int utilityTurns = 3;                        // 지속 턴 수 (기본 3)
     [Range(1, 500)] public int utilityPercent = 120;    // 120 = +20%
     
