@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 883bdf6ece2a8a84ea269de7fdb0af98, type: 3}
-  m_Name: FloorData_5
+  m_Name: FloorData_7
   m_EditorClassIdentifier: 
   floorIndex: 5
   killsToAdvance: 5
   enemyCount: 3
   enemyTable: []
-  scrollCount: 7
+  scrollCount: 8
   scrollPrefabTable: []
   scrollSpellTable: []

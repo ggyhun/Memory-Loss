@@ -735,7 +735,31 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      G_L_death_sprite_0: -924414038137274002
+      G_L_death_sprite_1: 1323406786435073021
+      G_L_death_sprite_10: -8638776352701309563
+      G_L_death_sprite_11: -4241521676528396515
+      G_L_death_sprite_12: -1711226747413145881
+      G_L_death_sprite_13: 83584191075867657
+      G_L_death_sprite_14: 6642159359662381094
+      G_L_death_sprite_15: 485125516805754516
+      G_L_death_sprite_16: 5793352885071259565
+      G_L_death_sprite_17: 7245428679536055991
+      G_L_death_sprite_18: 1408451804784394318
+      G_L_death_sprite_19: 8577692612337617691
+      G_L_death_sprite_2: 5245722760563981696
+      G_L_death_sprite_20: 2722496394522401229
+      G_L_death_sprite_21: 2306865897437918563
+      G_L_death_sprite_22: -683104715915024356
+      G_L_death_sprite_23: 4463688324977924875
+      G_L_death_sprite_3: 4959858761936319484
+      G_L_death_sprite_4: 178738091503614516
+      G_L_death_sprite_5: 2188280108115501382
+      G_L_death_sprite_6: -2681885941742889118
+      G_L_death_sprite_7: -5483561451180565168
+      G_L_death_sprite_8: -8015144042965534048
+      G_L_death_sprite_9: -6616298910642360648
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

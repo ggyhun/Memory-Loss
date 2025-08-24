@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: DownFall
   m_EditorClassIdentifier: 
   spellName: Down Fall
-  type: 2
+  elementType: 2
   damage: 12
-  attackCount: 1
-  cooldown: 2
   icon: {fileID: 78956130, guid: 8306c62b08e4e964d8152c91546e1f69, type: 3}
+  isForgettable: 1
+  forgettableCooldown: 2
   castPattern: 0
   areaPattern: 5
   isUtility: 0
+  spellType: 0
   utilityTurns: 3
   utilityPercent: 120
-  projectilePrefab: {fileID: 0}
   effectPrefab: {fileID: 1562865141274165012, guid: 714e972d1ffea00428ae14624e88e297, type: 3}

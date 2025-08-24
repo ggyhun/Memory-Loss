@@ -810,7 +810,34 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      R_death_full_version_sprite_0: 925222862750854922
+      R_death_full_version_sprite_1: 9197683973857527297
+      R_death_full_version_sprite_10: 3162453901036070244
+      R_death_full_version_sprite_11: 4406928274646711890
+      R_death_full_version_sprite_12: -2096422928077216049
+      R_death_full_version_sprite_13: -769900413223093962
+      R_death_full_version_sprite_14: -60848775424364856
+      R_death_full_version_sprite_15: 7800598307731884703
+      R_death_full_version_sprite_16: 5856150068442369421
+      R_death_full_version_sprite_17: 6154694897879168347
+      R_death_full_version_sprite_18: -7420964036481745569
+      R_death_full_version_sprite_19: -2660510853465158255
+      R_death_full_version_sprite_2: -8961567143061038087
+      R_death_full_version_sprite_20: 6544720244152225766
+      R_death_full_version_sprite_21: -3847625336173026296
+      R_death_full_version_sprite_22: -6588896464541133369
+      R_death_full_version_sprite_23: -242907920335204626
+      R_death_full_version_sprite_24: 1931579431638166838
+      R_death_full_version_sprite_25: 3572193862100060595
+      R_death_full_version_sprite_26: 3541796514796397758
+      R_death_full_version_sprite_3: 7812858288449470239
+      R_death_full_version_sprite_4: 5386300617663404012
+      R_death_full_version_sprite_5: -2986193819719045264
+      R_death_full_version_sprite_6: 6539821129394680027
+      R_death_full_version_sprite_7: -1140351698505313668
+      R_death_full_version_sprite_8: -8989420228117117855
+      R_death_full_version_sprite_9: -9127828127050144642
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

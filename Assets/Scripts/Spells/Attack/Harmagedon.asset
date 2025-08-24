@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: Harmagedon
   m_EditorClassIdentifier: 
   spellName: Harmagedon
-  type: 0
+  elementType: 0
   damage: 25
-  attackCount: 1
-  cooldown: 1
   icon: {fileID: 61804631, guid: 8306c62b08e4e964d8152c91546e1f69, type: 3}
+  isForgettable: 1
+  forgettableCooldown: 1
   castPattern: 1
   areaPattern: 6
   isUtility: 0
+  spellType: 0
   utilityTurns: 3
   utilityPercent: 120
-  projectilePrefab: {fileID: 0}
   effectPrefab: {fileID: 7892279890359710698, guid: f77544d5d511e0b41b9cf655e7ecadad, type: 3}
