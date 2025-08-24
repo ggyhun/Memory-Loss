@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: WaterBomb
   m_EditorClassIdentifier: 
   spellName: Water Bomb
-  type: 2
+  elementType: 2
   damage: 10
-  attackCount: 2
-  cooldown: 3
   icon: {fileID: 78956130, guid: 8306c62b08e4e964d8152c91546e1f69, type: 3}
+  isForgettable: 1
+  forgettableCooldown: 3
   castPattern: 3
   areaPattern: 7
   isUtility: 0
+  spellType: 0
   utilityTurns: 3
   utilityPercent: 120
-  projectilePrefab: {fileID: 0}
   effectPrefab: {fileID: 6417976755175313169, guid: 008e14a1ea4dd84438f590fb410c2c79, type: 3}

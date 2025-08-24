@@ -1,17 +1,21 @@
 using UnityEngine;
 using System.Collections;
 
-public enum ElementType { Normal, Ice, Fire, Water }
+public enum ElementEffectType { Normal, Ice, Fire, Water }
 public enum StatusType  { Frozen, Burning, Wet }
 public enum StatusOwnership { Player, Enemy }
 
 public class Stats : MonoBehaviour
 {
-    [Header("HP")]
+    [Header("Hp")]
     public StatusOwnership ownership;
     public int maxHp = 100;
     public int currentHp;
 
+    [Header("shield Hp")]
+    public int shildTurns; // 쉴드 지속 턴 수
+    public int shieldHp;
+    
     // --- 이하 상태이상 관련 필드 (앞서 작성한 것과 동일) ---
     [Header("Status Effects")]
     [SerializeField] private int frozenTurns;   
@@ -46,14 +50,20 @@ public class Stats : MonoBehaviour
     }
 
     // ========= HP =========
-    public void TakeDamage(int amount, ElementType element = ElementType.Normal)
+    public void TakeDamage(int amount, ElementEffectType elementEffect = ElementEffectType.Normal)
     {
-        Debug.Log($"[{name}] TakeDamage: {amount} ({element})");
+        Debug.Log($"[{name}] TakeDamage: {amount} ({elementEffect})");
         if (amount > 0)
         {
-            currentHp = Mathf.Max(0, currentHp - amount);
-            // Debug.Log($"{name} took {amount} {element} dmg. HP: {currentHp}/{maxHp}");
-
+            // 쉴드가 있으면 쉴드 먼저 깎음
+            int shieldDamage = Mathf.Min(shieldHp, amount);
+            shieldHp -= shieldDamage;
+            amount -= shieldDamage;
+            if (amount > 0)
+            {
+                currentHp = Mathf.Max(0, currentHp - amount);
+            }
+            
             // 피격 시 빨간색 깜빡임 효과
             StartCoroutine(FlashRed());
              
@@ -65,9 +75,9 @@ public class Stats : MonoBehaviour
         }
 
         // 원소 판정
-        if (element != ElementType.Normal)
+        if (elementEffect != ElementEffectType.Normal)
         {
-            TryApplyElement(element);
+            TryApplyElement(elementEffect);
         }
     }
     
@@ -129,6 +139,9 @@ public class Stats : MonoBehaviour
         {
             TakeDamage(burningDotDamage); // 표: 턴 시작 시 5 데미지
         }
+        
+        if (shildTurns > 0) shildTurns--;
+        if (shildTurns == 0) shieldHp = 0;
     }
 
     /// <summary>자신의 턴 "종료 시" 호출: 지속시간 1틱 소모</summary>
@@ -147,15 +160,15 @@ public class Stats : MonoBehaviour
 
     // ========= Status Apply APIs =========
     /// <summary>원소 피격에 따른 상태 적용(표 규칙 반영)</summary>
-    public bool TryApplyElement(ElementType element)
+    public bool TryApplyElement(ElementEffectType elementEffect)
     {
-        switch (element)
+        switch (elementEffect)
         {
-            case ElementType.Ice:
+            case ElementEffectType.Ice:
                 return TryApplyStatus(StatusType.Frozen);
-            case ElementType.Fire:
+            case ElementEffectType.Fire:
                 return TryApplyStatus(StatusType.Burning);
-            case ElementType.Water:
+            case ElementEffectType.Water:
                 return TryApplyStatus(StatusType.Wet);
             default:
                 return false;
@@ -217,6 +230,13 @@ public class Stats : MonoBehaviour
         }
     }
 
+    public void IncreaseMaxHp(int percent = 30)
+    {
+        int increaseAmount = Mathf.Max(1, maxHp * percent / 100);
+        maxHp += increaseAmount;
+        currentHp = Mathf.Min(currentHp + increaseAmount, maxHp);
+    }
+
     public void ClearAllStatuses()
     {
         frozenTurns = 0;
@@ -224,19 +244,19 @@ public class Stats : MonoBehaviour
         wetTurns = 0;
     }
     
-    public void ApplyEnhance(ElementType elem, int percent, int turns)
+    public void ApplyEnhance(ElementEffectType elem, int percent, int turns)
     {
         switch (elem)
         {
-            case ElementType.Ice:
+            case ElementEffectType.Ice:
                 frozenEnhancementAmount = Mathf.Max(1, percent);
                 frozenEnhancementTurns  = Mathf.Max(0, turns);
                 break;
-            case ElementType.Fire:
+            case ElementEffectType.Fire:
                 burningEnhancementAmount = Mathf.Max(1, percent);
                 burningEnhancementTurns  = Mathf.Max(0, turns);
                 break;
-            case ElementType.Water:
+            case ElementEffectType.Water:
                 wetEnhancementAmount = Mathf.Max(1, percent);
                 wetEnhancementTurns  = Mathf.Max(0, turns);
                 break;

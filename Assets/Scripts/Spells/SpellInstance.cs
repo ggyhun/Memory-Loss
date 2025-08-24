@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 
 [System.Serializable]
 public class SpellInstance
@@ -8,73 +7,75 @@ public class SpellInstance
     private GameObject player;
     private Stats playerStats;
     private PlayerController playerController;
+    public int inventroyIndex = -1; // 인벤토리 내 위치(런타임 상태)
     
+    [Header("Cooldown & State")]
     public SpellData data;
-    public int currentCooldown;  // 남은 쿨타임(런타임 상태)
-    
+    public int forgettableTurn; // 잊혀지는 쿨타임(런타임 상태)
+    public bool isSealed = false; // 봉인 상태(런타임 상태)
 
     public SpellInstance(SpellData data)
     {
         this.data = data;
-        currentCooldown = 0;
+        forgettableTurn = data.forgettableCooldown;
+        isSealed = false;
+    }
+    
+    private void InitializePlayerReferences()
+    {
+        if (player == null)
+        {
+            player = PlayerController.Instance.gameObject;
+            playerController = player.GetComponent<PlayerController>();
+            playerStats = player.GetComponent<Stats>();
+        }
     }
 
-    public bool CanCast() => currentCooldown <= 0;
+    public bool CanCast() => !isSealed;
 
     public void Cast(List<Vector3Int> spellCells)
     {  
         if (!CanCast())
         {
-            Debug.LogError($"{data.spellName} on cooldown ({currentCooldown} turns left)");
+            Debug.Log("스킬을 시전할 수 없습니다.: 봉인 상태입니다.");
             return;
         }
+        
+        InitializePlayerReferences();
 
-        Init(GameObject.FindWithTag("Player"));
-        var spellType = data.type;
-
-        // ---- 유틸(소모형) ----
-        if (data.isUtility)
+        if (!data.isUtility)
         {
-            if (playerStats != null)
-            {
-                switch (spellType)
-                {
-                    case SpellType.Fire:
-                        playerStats.ApplyEnhance(ElementType.Fire,  data.utilityPercent, data.utilityTurns);
-                        break;
-                    case SpellType.Ice:
-                        playerStats.ApplyEnhance(ElementType.Ice,   data.utilityPercent, data.utilityTurns);
-                        break;
-                    case SpellType.Wet:
-                        playerStats.ApplyEnhance(ElementType.Water, data.utilityPercent, data.utilityTurns);
-                        break;
-                }
-            }
-            // 인벤토리에 유지: 쿨다운만 시작 (0이 되면 삭제는 TickCooldown에서)
-            currentCooldown = Mathf.Max(0, data.cooldown);
-            return;
+            HandleAttackSpell(spellCells);
         }
+        else
+        {
+            HandleUtilitySpell();
+        }
+        
+        // 
+    }
 
-        // ---- 공격 스펠 ----
+    private void HandleAttackSpell(List<Vector3Int> spellCells)
+    {
         int damage = 0;
-        ElementType elementType = ElementType.Normal;
-        switch (spellType)
+        ElementEffectType elementEffectType;
+        switch (data.elementType)
         {
-            case SpellType.Fire:
+            case SpellElementType.Fire:
                 damage = data.damage * playerStats.burningEnhancementAmount / 100; // ✅ 괄호 제거
-                elementType = ElementType.Fire;
+                elementEffectType = ElementEffectType.Fire;
                 break;
-            case SpellType.Ice:
+            case SpellElementType.Ice:
                 damage = data.damage * playerStats.frozenEnhancementAmount / 100;  // ✅ 괄호 제거
-                elementType = ElementType.Ice;
+                elementEffectType = ElementEffectType.Ice;
                 break;
-            case SpellType.Wet:
+            case SpellElementType.Wet:
                 damage = data.damage * playerStats.wetEnhancementAmount / 100;     // ✅ 괄호 제거
-                elementType = ElementType.Water;
+                elementEffectType = ElementEffectType.Water;
                 break;
             default:
                 damage = data.damage;
-                elementType = ElementType.Normal;
+                elementEffectType = ElementEffectType.Normal;
                 break;
         }
 
@@ -87,45 +88,83 @@ public class SpellInstance
                 var targetStats = target.GetComponent<Stats>();
                 if (targetStats == null) continue;
 
-                targetStats.TakeDamage(damage, elementType);
+                targetStats.TakeDamage(damage, elementEffectType);
             }
         }
-
-        currentCooldown = Mathf.Max(0, data.cooldown);
+    }
+    
+    private void HandleUtilitySpell()
+    {
+        switch (data.spellType)
+        {
+            case SpellType.Enhance:
+            {
+                if (playerStats != null)
+                {
+                    switch (data.elementType)
+                    {
+                        case SpellElementType.Fire:
+                            playerStats.ApplyEnhance(ElementEffectType.Fire,  data.utilityPercent, data.utilityTurns);
+                            break;
+                        case SpellElementType.Ice:
+                            playerStats.ApplyEnhance(ElementEffectType.Ice,   data.utilityPercent, data.utilityTurns);
+                            break;
+                        case SpellElementType.Wet:
+                            playerStats.ApplyEnhance(ElementEffectType.Water, data.utilityPercent, data.utilityTurns);
+                            break;
+                    }
+                }
+                break;
+            }
+            case SpellType.Recollection:
+            {
+                playerController.AddCooldownsToAll();
+                break;
+            }
+            case SpellType.Heal:
+            {
+                playerStats.Heal(playerStats.maxHp * 10 / 100);
+                break;
+            }
+            case SpellType.ExtraTurn:
+            {
+                TurnManager.Instance.SetExtraTurn();
+                break;
+            }
+            case SpellType.Distortion:
+            {
+                // TODO:
+                break;
+            }
+            case SpellType.UpMaxHp:
+            {
+                playerStats.IncreaseMaxHp();
+                break;
+            }
+        }
+        
+        DeleteSpell();
     }
 
+    public void Seal()
+    {
+        isSealed = true;
+    }
 
     public void TickCooldown(int amount = 1)
     {
-        if (currentCooldown > 0)
-        {
-            currentCooldown = Mathf.Max(0, currentCooldown - amount);
-
-            // 유틸 스펠: 쿨다운이 0이 되면 인벤토리에서 삭제
-            if (data.isUtility && currentCooldown == 0)
-            {
-                Init(GameObject.FindWithTag("Player"));
-                playerController?.DeleteSpell(this);
-            }
-        }
+        forgettableTurn = Mathf.Max(0, forgettableTurn - amount);
+        
+        
     }
     
     public void AddCooldown(int amount)
     {
-        currentCooldown = Mathf.Max(0, currentCooldown + amount);
-
-        // 유틸 스펠: 쿨다운이 0이 되면 인벤토리에서 삭제
-        if (data.isUtility && currentCooldown == 0)
-        {
-            Init(GameObject.FindWithTag("Player"));
-            playerController?.DeleteSpell(this);
-        }
+        forgettableTurn = Mathf.Max(0, forgettableTurn + amount); // 최소 1턴 증가, 자신 턴 보정 1
     }
-    
-    public void Init(GameObject player)
+
+    public void DeleteSpell()
     {
-        this.player = player;
-        playerStats = player.GetComponent<Stats>();
-        playerController = player.GetComponent<PlayerController>();
+        PlayerController.Instance.DeleteSpell(inventroyIndex);
     }
 }

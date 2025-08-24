@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: FloorData_5
   m_EditorClassIdentifier: 
   floorIndex: 5
+  killsToAdvance: 5
   enemyCount: 3
   enemyTable: []
-  scrollCount: 3
+  scrollCount: 7
   scrollPrefabTable: []
   scrollSpellTable: []

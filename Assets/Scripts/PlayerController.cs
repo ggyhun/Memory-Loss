@@ -64,6 +64,33 @@ public class PlayerController : MonoBehaviour
         }
     }
     
+    private bool isMoving = false;
+    private void Update()
+    {
+        if (!TurnManager.Instance.IsPlayerTurn()) return;
+
+        foreach (var kvp in spellKeyMap)
+        {
+            if (Input.GetKeyDown(kvp.Key))
+            {
+                HandleSpellInput(kvp.Value);
+            }
+        }
+
+        if (mover.IsMoving)
+        {
+            isMoving = true;
+            PlayerAnimator.Instance.PlayerMoveAnimation();
+        }
+        if (!mover.IsMoving && isMoving)
+        {
+            isMoving = false;
+            TurnManager.Instance.NotifyPlayerAnimationComplete(); // 애니 끝 신호
+        }
+        
+        rend.flipX = !isTowardsRight;
+    }
+    
     public void OnMapChanged()
     {
         Debug.Log("OnMapChanged: PlayerController.cs");
@@ -80,6 +107,7 @@ public class PlayerController : MonoBehaviour
         // 3) 플레이어 턴 시작(여기서 Move 하이라이트를 띄우게)
         TurnManager.Instance?.StartPlayerTurn();
     }
+    
     
     private void SetPlayerStartPosition()
     {
@@ -114,33 +142,7 @@ public class PlayerController : MonoBehaviour
         // ❌ 여기서 ShowMoveHighlighters() 호출하지 않음
         //    -> TurnManager.StartPlayerTurn()에서 호출되도록 유지
     }
-
-    private bool isMoving = false;
-    private void Update()
-    {
-        if (!TurnManager.Instance.IsPlayerTurn()) return;
-
-        foreach (var kvp in spellKeyMap)
-        {
-            if (Input.GetKeyDown(kvp.Key))
-            {
-                HandleSpellInput(kvp.Value);
-            }
-        }
-
-        if (mover.IsMoving)
-        {
-            isMoving = true;
-            PlayerAnimator.Instance.PlayerMoveAnimation();
-        }
-        if (!mover.IsMoving && isMoving)
-        {
-            isMoving = false;
-            TurnManager.Instance.NotifyPlayerAnimationComplete(); // 애니 끝 신호
-        }
-        
-        rend.flipX = !isTowardsRight;
-    }
+    
     
     private void HandleSpellInput(int index)
     {
@@ -152,6 +154,14 @@ public class PlayerController : MonoBehaviour
 
         var spell = spells[index];
 
+        // 봉인된 스킬은 선택 불가
+        if (spell.isSealed)
+        {
+            Debug.Log("Spell is sealed.");
+            return;
+        }
+
+        // 이미 스킬이 선택된 상태에서 같은 스킬을 다시 누르면 선택 취소
         if (isSpellSelected)
         {
             Debug.Log("Spell selection cancelled.");
@@ -160,12 +170,7 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if (!spell.CanCast())
-            {
-                Debug.Log($"{spell.data.spellName} is on cooldown ({spell.currentCooldown} turns left).");
-                return;
-            }
-            
+            if (!spell.CanCast()) return;
             isSpellSelected = true;
             Debug.Log($"{spell.data.spellName} selected.");
             highlightManager.ShowCastHighlighters(spell);
@@ -174,6 +179,12 @@ public class PlayerController : MonoBehaviour
 
     public void LearnSpell(SpellData newSpell)
     {
+        if (spells.Count >= 9)
+        {
+            Debug.Log("Cannot learn more spells: inventory full.");
+            return;
+        }
+        
         spells.Add(new SpellInstance(newSpell));
         Debug.Log($"Learned new spell: {newSpell.spellName}");
     }
@@ -204,16 +215,62 @@ public class PlayerController : MonoBehaviour
         highlightManager.ShowMoveHighlighters();
     }
 
-    public void DeleteSpell(SpellInstance spell)
+    public void AddCooldownsToAll(int amount = 1)
     {
-        if (spells.Contains(spell))
+        foreach (var spell in spells)
         {
-            spells.Remove(spell);
-            Debug.Log($"Spell {spell.data.spellName} removed.");
+            spell.AddCooldown(amount);
         }
-        else
+    }
+
+    public void DeleteSpell(int index)
+    {
+        if (index < 0 || index >= spells.Count)
         {
-            Debug.LogWarning($"Spell {spell.data.spellName} not found in player's spell list.");
+            Debug.Log("Invalid spell index.");
+            return;
+        }
+
+        var spell = spells[index];
+        if (!spell.data.isForgettable)
+        {
+            Debug.Log("This spell cannot be forgotten.");
+            return;
+        }
+
+        spells.RemoveAt(index);
+        Debug.Log($"Forgotten spell: {spell.data.spellName}");
+        UpdateInventoryIndex();
+    }
+
+    public bool SealRandomSpell(int playerSpellsCount)
+    {
+        if (spells.Count < playerSpellsCount) return false;
+        
+        var availableSpells = spells.FindAll(s => !s.isSealed && s.data != normalAttackSpell);
+        if (availableSpells.Count == 0)
+        {
+            
+            Debug.Log("No available spells to seal.");
+            return false;
+        }
+
+        var randomIndex = Random.Range(0, availableSpells.Count);
+        var spellToSeal = availableSpells[randomIndex];
+        spellToSeal.Seal();
+
+        Debug.Log($"Spell {spellToSeal.data.spellName} has been sealed.");
+        
+        return true;
+    }
+
+    public void UpdateInventoryIndex()
+    {
+        int index = 0;
+        bool normalAttackSign = true;
+        foreach (var spell in spells)
+        {
+            spell.inventroyIndex = index;
         }
     }
 }
