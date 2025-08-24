@@ -81,13 +81,13 @@ public class SelfHatredBehavior : EnemyBehavior
         {
             currentPhase = updatedPhase;
             // 스킬 3 사용
-            UseSkill(3);
+            UseSkill(3, d);
         }
         else if (dist2 <= attackDecisionRange)
         {
             // 스킬 1과 2중 랜덤 하나 사용
             nextSkill = UnityEngine.Random.Range(1, 3); // 1 또는 2
-            UseSkill(nextSkill);
+            UseSkill(nextSkill, d);
         }
         else
         {
@@ -96,9 +96,8 @@ public class SelfHatredBehavior : EnemyBehavior
         }
     }
     
-    private void UseSkill(int skillNumber)
+    private void UseSkill(int skillNumber, Vector3Int direction = default)
     {
-        // TODO: 애니메이션   
         int damage = 0;
         switch (skillNumber)
         {
@@ -106,6 +105,7 @@ public class SelfHatredBehavior : EnemyBehavior
                 damage = skill1Damage * skill1amplification / 100;
                 if (skill1AttackArea != null && skill1AttackArea.CanAttack())
                 {
+                    skill1AttackArea.StartFlash();
                     playerStats.TakeDamage(damage, ElementEffectType.Ice);
                 }
                 break;
@@ -113,6 +113,7 @@ public class SelfHatredBehavior : EnemyBehavior
                 damage = skill2Damage * skill2amplification / 100;
                 if (skill2AttackArea != null && skill2AttackArea.CanAttack())
                 {
+                    skill2AttackArea.StartFlash();
                     playerStats.TakeDamage(damage, ElementEffectType.Water);
                 }
                 break;
@@ -124,10 +125,7 @@ public class SelfHatredBehavior : EnemyBehavior
                 Debug.LogWarning("Invalid skill number");
                 return;
         }
-        
-        // 공격 애니메이션 재생
-        mover.enemyAnimator.PlayAttack(Vector3Int.zero);
-        playerStats?.TakeDamage(damage);
+        mover.enemyAnimator.PlayAttack(direction);
         Debug.Log($"{name} used Skill {skillNumber} dealing {damage} damage!");
     }
 
