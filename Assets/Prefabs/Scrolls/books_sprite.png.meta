@@ -163,7 +163,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 128
+        y: 192
         width: 64
         height: 64
       alignment: 0
@@ -185,7 +185,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 128
+        y: 192
         width: 64
         height: 64
       alignment: 0
@@ -207,7 +207,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 128
-        y: 128
+        y: 192
         width: 64
         height: 64
       alignment: 0
@@ -228,7 +228,7 @@ TextureImporter:
       name: books_sprite_3
       rect:
         serializedVersion: 2
-        x: 192
+        x: 0
         y: 128
         width: 64
         height: 64
@@ -250,8 +250,8 @@ TextureImporter:
       name: books_sprite_4
       rect:
         serializedVersion: 2
-        x: 0
-        y: 64
+        x: 64
+        y: 128
         width: 64
         height: 64
       alignment: 0
@@ -272,8 +272,8 @@ TextureImporter:
       name: books_sprite_5
       rect:
         serializedVersion: 2
-        x: 64
-        y: 64
+        x: 128
+        y: 128
         width: 64
         height: 64
       alignment: 0
@@ -294,7 +294,7 @@ TextureImporter:
       name: books_sprite_6
       rect:
         serializedVersion: 2
-        x: 128
+        x: 0
         y: 64
         width: 64
         height: 64
@@ -316,7 +316,7 @@ TextureImporter:
       name: books_sprite_7
       rect:
         serializedVersion: 2
-        x: 192
+        x: 64
         y: 64
         width: 64
         height: 64
@@ -338,8 +338,8 @@ TextureImporter:
       name: books_sprite_8
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 128
+        y: 64
         width: 64
         height: 64
       alignment: 0
@@ -360,7 +360,7 @@ TextureImporter:
       name: books_sprite_9
       rect:
         serializedVersion: 2
-        x: 64
+        x: 0
         y: 0
         width: 64
         height: 64
@@ -382,7 +382,7 @@ TextureImporter:
       name: books_sprite_10
       rect:
         serializedVersion: 2
-        x: 128
+        x: 64
         y: 0
         width: 64
         height: 64
@@ -404,7 +404,7 @@ TextureImporter:
       name: books_sprite_11
       rect:
         serializedVersion: 2
-        x: 192
+        x: 128
         y: 0
         width: 64
         height: 64

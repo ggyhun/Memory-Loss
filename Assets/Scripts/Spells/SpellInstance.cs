@@ -133,7 +133,7 @@ public class SpellInstance
             }
             case SpellType.Distortion:
             {
-                // TODO:
+                playerController.LearnRecentForgottenSpell();
                 break;
             }
             case SpellType.UpMaxHp:
