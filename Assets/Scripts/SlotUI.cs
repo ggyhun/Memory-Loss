@@ -17,6 +17,6 @@ public class SlotUI : MonoBehaviour
         icon.enabled = true;
         icon.sprite = sprite;
         icon.preserveAspect = true;
-        if (count) count.text = (amount > 1) ? amount.ToString() : "";
+        if (count) count.text = (amount >= 1) ? amount.ToString() : "0";
     }
 }

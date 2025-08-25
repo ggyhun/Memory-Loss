@@ -151,11 +151,21 @@ public class SpellInstance
         isSealed = true;
     }
 
+    private bool _isPickedInThisTurn = true;
     public void TickCooldown(int amount = 1)
     {
+        if (_isPickedInThisTurn)
+        {
+            _isPickedInThisTurn = false;
+            Debug.Log(forgettableTurn);
+            return;
+        }
         forgettableTurn = Mathf.Max(0, forgettableTurn - amount);
-        
-        
+        Debug.Log("Inventory Index :" + inventroyIndex + " TickCooldown called. New forgettableTurn: " + forgettableTurn);
+        if (forgettableTurn == 0 && inventroyIndex != 0)
+        {
+            DeleteSpell();
+        }
     }
     
     public void AddCooldown(int amount)
@@ -165,6 +175,7 @@ public class SpellInstance
 
     public void DeleteSpell()
     {
+        Debug.Log("Spell Instance: DeleteSpell called.");
         PlayerController.Instance.DeleteSpell(inventroyIndex);
     }
 }

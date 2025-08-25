@@ -17,11 +17,11 @@ MonoBehaviour:
   damage: 0
   icon: {fileID: 1889606569, guid: 8306c62b08e4e964d8152c91546e1f69, type: 3}
   isForgettable: 1
-  forgettableCooldown: 3
+  forgettableCooldown: 1
   castPattern: 1
   areaPattern: 0
   isUtility: 1
   spellType: 3
-  utilityTurns: 3
+  utilityTurns: 1
   utilityPercent: 120
   effectPrefab: {fileID: 0}
