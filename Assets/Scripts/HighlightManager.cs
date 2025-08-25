@@ -60,6 +60,45 @@ public class HighlightManager : MonoBehaviour
     {
         if (gridManager == null) gridManager = FindFirstObjectByType<GridManager>();
     }
+    
+    public LayerMask highlighterMask; // 인스펙터에서 Highlighter 레이어만 체크
+    private CastHighlighter _hovered;
+
+    void Update()
+    {
+        // 캐스트 선택 중일 때만 동작
+        if (currentSpell == null || !TurnManager.Instance.IsPlayerTurn()) return;
+
+        // 마우스 → 월드
+        var mpos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 p = mpos;
+
+        // 오직 Highlighter 레이어만 레이캐스트
+        var hit = Physics2D.Raycast(p, Vector2.zero, 0f, highlighterMask);
+        var ch = hit.collider ? hit.collider.GetComponent<CastHighlighter>() : null;
+
+        // 호버 변경 처리(깜빡임 방지: 셀이 바뀔 때만 업데이트)
+        if (ch != _hovered)
+        {
+            if (_hovered)
+            {
+                _hovered.SetHover(false);
+                ClearSpellHighlights();
+            }
+            _hovered = ch;
+            if (_hovered)
+            {
+                _hovered.SetHover(true);
+                ShowSpellHighlights(_hovered.castCell);
+            }
+        }
+
+        // 클릭 처리
+        if (_hovered && Input.GetMouseButtonDown(0))
+        {
+            ConfirmCast(_hovered.castCell);
+        }
+    }
 
     private void ClearMoveHighlighters()
     {
@@ -120,8 +159,11 @@ public class HighlightManager : MonoBehaviour
 
         foreach (var cell in castPositions)
         {
-            Vector3 worldPos = gridManager.backgroundMap.GetCellCenterWorld(cell);
-            GameObject go = Instantiate(castHighlighterPrefab, worldPos, Quaternion.identity);
+            // HighlightManager.ShowCastHighlighters 안에서
+            var worldPos = gridManager.backgroundMap.GetCellCenterWorld(cell);
+            worldPos.z = -0.1f; // ← 카메라 쪽으로
+            var go = Instantiate(castHighlighterPrefab, worldPos, Quaternion.identity);
+            go.layer = LayerMask.NameToLayer("Highlighter");
             CastHighlighter cast = go.GetComponent<CastHighlighter>();
             cast.manager = this;
             cast.castCell = cell;
