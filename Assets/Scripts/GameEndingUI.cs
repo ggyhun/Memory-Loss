@@ -2,8 +2,6 @@ using System;
 using System.Collections;
 using UnityEngine;
 using TMPro;
-using Microsoft.Unity.VisualStudio.Editor;
-using Unity.VisualScripting;
 
 public class GameEndingUI : MonoBehaviour
 {
