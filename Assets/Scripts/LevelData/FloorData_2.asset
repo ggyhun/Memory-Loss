@@ -14,10 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floorIndex: 2
   killsToAdvance: 5
-  enemyCount: 3
+  enemyCount: 10
   enemyTable:
   - displayName: "\uC2AC\uB77C\uC784"
     enemyPrefab: {fileID: 5441253103644555324, guid: c368810063fc00744829dd34baf9bd63, type: 3}
+    weight: 2
+  - displayName: "\uACF5\uD5C8"
+    enemyPrefab: {fileID: 7055936638186804812, guid: c604fe624d6acb14ba4ff63fed91bba2, type: 3}
     weight: 1
   scrollCount: 4
   scrollPrefabTable:

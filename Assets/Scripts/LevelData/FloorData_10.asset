@@ -15,7 +15,10 @@ MonoBehaviour:
   floorIndex: 5
   killsToAdvance: 1
   enemyCount: 1
-  enemyTable: []
+  enemyTable:
+  - displayName: "\uC790\uAE30\uD610\uC624"
+    enemyPrefab: {fileID: 7046367690345133561, guid: 5eb4aefdd88707e43adc6523e1d3027e, type: 3}
+    weight: 1
   scrollCount: 7
   scrollPrefabTable: []
   scrollSpellTable: []
