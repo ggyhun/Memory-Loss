@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 72983101259725087}
   - component: {fileID: 5858610416494012064}
   - component: {fileID: 2712003036965860050}
+  - component: {fileID: 4379549520084198068}
   m_Layer: 0
   m_Name: Regret
   m_TagString: Untagged
@@ -61,9 +62,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a3b78af778e47adaa4de0ee4390413f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  spriteRenderer: {fileID: 0}
-  isTowardRight: 1
+  animator: {fileID: 3457905366449237682}
+  spriteRenderer: {fileID: 8069915150501461157}
+  isTowardRight: 0
   idleState: Idle
   moveState: Move
   attackState: Attack
@@ -84,7 +85,7 @@ MonoBehaviour:
   allowDiagonal: 0
   avoidExit: 1
   useClaims: 1
-  enemyAnimator: {fileID: 0}
+  enemyAnimator: {fileID: 72983101259725087}
   fakeStepDuration: 0.2
   ease:
     serializedVersion: 2
@@ -110,7 +111,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  defaultVisualRoot: {fileID: 0}
+  defaultVisualRoot: {fileID: 8266737746321941019}
 --- !u!114 &2712003036965860050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,9 +124,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4e0c52191fb7ae4e8079e1dd6ba003e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ownership: 0
-  maxHp: 100
-  currentHp: 0
+  ownership: 1
+  maxHp: 50
+  currentHp: 50
   isInvincible: 0
   shildTurns: 0
   shieldHp: 0
@@ -142,7 +143,21 @@ MonoBehaviour:
   frozenEnhancementAmount: 100
   burningEnhancementAmount: 100
   wetEnhancementAmount: 100
-  spriteRenderer: {fileID: 0}
+  spriteRenderer: {fileID: 8069915150501461157}
+--- !u!114 &4379549520084198068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2944917487120327583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 197624534b81847478e05bbabc179d54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  impliedDamagePercentage: 20
+  animator: {fileID: 3457905366449237682}
 --- !u!1 &7682076105988218598
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,7 +235,7 @@ SpriteRenderer:
   m_SortingLayerID: 951953921
   m_SortingLayer: 5
   m_SortingOrder: 10
-  m_Sprite: {fileID: 8456777460007596050, guid: 9685dc0ddec7f804f9d589aa188fb912, type: 3}
+  m_Sprite: {fileID: -1690017453, guid: f9991ab6ea16b314c93407223d0cbd6c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -241,7 +256,7 @@ Animator:
   m_GameObject: {fileID: 7682076105988218598}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 247058f5d010bba48803004ed281d45b, type: 2}
+  m_Controller: {fileID: 9100000, guid: e0315602bb3b32e47ad1d7c764d15cc7, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

@@ -22,12 +22,22 @@ public class PlayerController : MonoBehaviour
     public SpriteRenderer rend;
     public bool isTowardsRight = false; // 플레이어가 바라보는 방향
 
+    [Header("UI")]
+    public TMP_FontAsset tooltipFont;        // <- 여기 드래그해서 넣기
+    public Material tooltipFontMaterial;     // (선택) Material Preset도 쓰고 싶으면
+    
     private bool isSpellSelected;
 
-    // --- 인벤토리 UI 캐시 ---
+    // --- 인벤토리 UI 캐시 & 툴팁 ---
     private bool _invUiCached = false;
     private Image[] _slotIcons = new Image[9];
     private TextMeshProUGUI[] _slotCounts = new TextMeshProUGUI[9];
+    private RectTransform[] _slotRects = new RectTransform[9];
+    private Canvas _uiCanvas;
+
+    private RectTransform _tooltipRect;
+    private TextMeshProUGUI _tooltipText;
+    private int _hoveredIndex = -1;
 
     private Dictionary<KeyCode, int> spellKeyMap = new Dictionary<KeyCode, int>
     {
@@ -90,9 +100,12 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateInventoryUI()
     {
-        // 1) UI 캐시
+        // =========================
+        //  인벤토리 UI 업데이트
+        // =========================
         if (!_invUiCached)
         {
+            // 1) 슬롯 컨테이너 찾기: "Slots" (InventoryBase 하위라면 "InventoryBase/Slots")
             GameObject slotsGO = GameObject.Find("Slots");
             if (slotsGO == null)
             {
@@ -108,25 +121,32 @@ public class PlayerController : MonoBehaviour
 
             if (slotsGO != null)
             {
+                _uiCanvas = slotsGO.GetComponentInParent<Canvas>();
                 var root = slotsGO.transform;
-                int count = Mathf.Min(9, root.childCount);
-                for (int i = 0; i < count; i++)
+                int cnt = Mathf.Min(9, root.childCount);
+
+                for (int i = 0; i < cnt; i++)
                 {
                     var slot = root.GetChild(i);
-                    var iconTr  = slot.Find("Icon");
+                    _slotRects[i] = slot as RectTransform;
+
+                    var iconTr = slot.Find("Icon");
+                    if (iconTr) _slotIcons[i] = iconTr.GetComponent<Image>();
+
                     var countTr = slot.Find("Count");
-                    if (iconTr)  _slotIcons[i]  = iconTr.GetComponent<Image>();
                     if (countTr) _slotCounts[i] = countTr.GetComponent<TextMeshProUGUI>();
                 }
+
                 _invUiCached = true;
             }
             else
             {
-                return; // 이번 프레임은 스킵하고 다음 프레임에 재시도
+                // 못 찾으면 다음 프레임에 재시도
+                return;
             }
         }
 
-        // 2) 내용 반영
+        // 2) spells → 아이콘/카운트 반영 (icon = data.icon, count = forgettableTurn)
         for (int i = 0; i < 9; i++)
         {
             Image iconImg = _slotIcons[i];
@@ -135,24 +155,51 @@ public class PlayerController : MonoBehaviour
             if (i < spells.Count)
             {
                 var inst = spells[i];
+
                 if (iconImg)
                 {
                     iconImg.sprite = (inst != null && inst.data != null) ? inst.data.icon : null;
                     iconImg.enabled = (iconImg.sprite != null);
                     iconImg.preserveAspect = true;
+                    // 아이콘은 클릭 막지 않도록(슬롯이 이벤트 받게) 필요시 꺼두기
+                    // iconImg.raycastTarget = false;
                 }
+
                 if (countTxt)
                 {
                     int n = (inst != null) ? inst.forgettableTurn : 0;
-                    countTxt.text = (n >= 1) ? n.ToString() : "0";
+                    countTxt.text = (n > 1) ? n.ToString() : "";
                 }
             }
             else
             {
-                if (iconImg)  { iconImg.sprite = null; iconImg.enabled = false; }
+                if (iconImg) { iconImg.sprite = null; iconImg.enabled = false; }
                 if (countTxt) countTxt.text = "";
             }
         }
+
+        // 3) 마우스 호버한 슬롯 찾기 → 툴팁 표시/숨김
+        int newHover = -1;
+        for (int i = 0; i < 9; i++)
+        {
+            var rt = _slotRects[i];
+            if (!rt) continue;
+
+            Camera cam = (_uiCanvas && _uiCanvas.renderMode != RenderMode.ScreenSpaceOverlay) ? _uiCanvas.worldCamera : null;
+            if (RectTransformUtility.RectangleContainsScreenPoint(rt, Input.mousePosition, cam))
+            {
+                newHover = i;
+                break;
+            }
+        }
+
+        if (newHover != _hoveredIndex)
+        {
+            _hoveredIndex = newHover;
+            if (newHover >= 0) ShowTooltip(newHover);
+            else HideTooltip();
+        }
+
     }
 
     public void OnMapChanged()
@@ -338,5 +385,82 @@ public class PlayerController : MonoBehaviour
         spellHistory.RemoveAt(spellHistory.Count - 1);
         LearnSpell(recent);
         UpdateInventoryIndex();
+    }
+    
+    // 툴팁 오브젝트를 필요 시 자동 생성
+    private void EnsureTooltip()
+    {
+        if (_tooltipRect) return;
+
+        _uiCanvas = _uiCanvas ?? FindFirstObjectByType<Canvas>();
+
+        var go = new GameObject("SpellTooltip", typeof(RectTransform), typeof(Image));
+        _tooltipRect = go.GetComponent<RectTransform>();
+        _tooltipRect.SetParent(_uiCanvas.transform, false);
+        _tooltipRect.pivot = new Vector2(0.5f, 0f);
+        _tooltipRect.anchorMin = _tooltipRect.anchorMax = new Vector2(0.5f, 0.5f);
+
+        var bg = go.GetComponent<Image>();
+        bg.color = new Color(0f, 0f, 0f, 0.85f);
+        bg.raycastTarget = false;
+
+        var textGO = new GameObject("Text", typeof(RectTransform), typeof(TextMeshProUGUI));
+        var tr = textGO.GetComponent<RectTransform>();
+        tr.SetParent(_tooltipRect, false);
+        tr.anchorMin = tr.anchorMax = new Vector2(0.5f, 0.5f);
+        tr.pivot = new Vector2(0.5f, 0.5f);
+
+        _tooltipText = textGO.GetComponent<TextMeshProUGUI>();
+        _tooltipText.alignment = TextAlignmentOptions.Center;
+        _tooltipText.enableWordWrapping = false;
+        _tooltipText.fontSize = 18;
+        _tooltipText.raycastTarget = false;
+
+        // ── 핵심: 폰트/머티리얼 적용 ──
+        if (tooltipFont) _tooltipText.font = tooltipFont;
+        if (tooltipFontMaterial) _tooltipText.fontMaterial = tooltipFontMaterial;
+
+        _tooltipRect.gameObject.SetActive(false);
+    }
+
+    private void ShowTooltip(int index)
+    {
+        if (index < 0 || index >= spells.Count || spells[index] == null || spells[index].data == null)
+        {
+            HideTooltip();
+            return;
+        }
+
+        EnsureTooltip();
+
+        string name = spells[index].data.spellName ?? "";
+        if (string.IsNullOrEmpty(name)) { HideTooltip(); return; }
+
+        _tooltipText.text = name;
+
+        // 텍스트 길이에 맞게 툴팁 박스 크기 조정 (패딩 포함)
+        Vector2 pref = _tooltipText.GetPreferredValues(name);
+        float padX = 16f, padY = 10f;
+        _tooltipRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, pref.x + padX);
+        _tooltipRect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical,   pref.y + padY);
+
+        // 슬롯의 상단 중앙 좌표 바로 위(8px)에 배치
+        var rt = _slotRects[index];
+        if (!rt) { HideTooltip(); return; }
+
+        Vector3[] corners = new Vector3[4]; // 0:BL,1:TL,2:TR,3:BR
+        rt.GetWorldCorners(corners);
+        Vector3 topCenter = (corners[1] + corners[2]) * 0.5f + new Vector3(0f, 8f, 0f);
+
+        Camera cam = (_uiCanvas && _uiCanvas.renderMode != RenderMode.ScreenSpaceOverlay) ? _uiCanvas.worldCamera : null;
+        Vector2 screenPos = RectTransformUtility.WorldToScreenPoint(cam, topCenter);
+        _tooltipRect.position = screenPos;
+
+        _tooltipRect.gameObject.SetActive(true);
+    }
+
+    private void HideTooltip()
+    {
+        if (_tooltipRect) _tooltipRect.gameObject.SetActive(false);
     }
 }
