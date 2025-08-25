@@ -151,11 +151,17 @@ public class SpellInstance
         isSealed = true;
     }
 
+    private bool _isPickedInThisTurn = true;
     public void TickCooldown(int amount = 1)
     {
+        if (_isPickedInThisTurn)
+        {
+            _isPickedInThisTurn = false;
+            Debug.Log(forgettableTurn);
+            return;
+        }
         forgettableTurn = Mathf.Max(0, forgettableTurn - amount);
-        
-        
+        Debug.Log(forgettableTurn);
     }
     
     public void AddCooldown(int amount)

@@ -168,7 +168,7 @@ private void Update()
             if (countTxt)
             {
                 int n = (inst != null) ? inst.forgettableTurn : 0;
-                countTxt.text = (n > 1) ? n.ToString() : "0";
+                countTxt.text = (n >= 1) ? n.ToString() : "0";
             }
         }
         else
@@ -281,6 +281,7 @@ private void Update()
 
     public void ReduceCooldowns()
     {
+        Debug.Log("PC: Reducing cooldowns for all spells.");
         foreach (var spell in spells)
         {
             spell.TickCooldown();
@@ -292,7 +293,7 @@ private void Update()
         Debug.Log("Player's turn started.");
         isSpellSelected = false;
         
-        // 플레이어가 턴을 시작할 때 모든 스킬의 쿨타운을 감소시킴
+        // 턴 시작 시 모든 스킬의 잊혀지는 쿨타임 감소
         ReduceCooldowns();
 
         if (!GetComponent<Stats>().CanAct)
