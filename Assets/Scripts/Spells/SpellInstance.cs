@@ -161,7 +161,11 @@ public class SpellInstance
             return;
         }
         forgettableTurn = Mathf.Max(0, forgettableTurn - amount);
-        Debug.Log(forgettableTurn);
+        Debug.Log("Inventory Index :" + inventroyIndex + " TickCooldown called. New forgettableTurn: " + forgettableTurn);
+        if (forgettableTurn == 0 && inventroyIndex != 0)
+        {
+            DeleteSpell();
+        }
     }
     
     public void AddCooldown(int amount)
@@ -171,6 +175,7 @@ public class SpellInstance
 
     public void DeleteSpell()
     {
+        Debug.Log("Spell Instance: DeleteSpell called.");
         PlayerController.Instance.DeleteSpell(inventroyIndex);
     }
 }
