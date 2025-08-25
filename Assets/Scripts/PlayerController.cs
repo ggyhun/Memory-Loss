@@ -22,7 +22,9 @@ public class PlayerController : MonoBehaviour
     public SpriteRenderer rend;
     public bool isTowardsRight = false; // 플레이어가 바라보는 방향
 
-    
+    [Header("UI")]
+    public TMP_FontAsset tooltipFont;        // <- 여기 드래그해서 넣기
+    public Material tooltipFontMaterial;     // (선택) Material Preset도 쓰고 싶으면
     
     private bool isSpellSelected;
 
@@ -395,11 +397,11 @@ public class PlayerController : MonoBehaviour
         var go = new GameObject("SpellTooltip", typeof(RectTransform), typeof(Image));
         _tooltipRect = go.GetComponent<RectTransform>();
         _tooltipRect.SetParent(_uiCanvas.transform, false);
-        _tooltipRect.pivot = new Vector2(0.5f, 0f);                   // 아래쪽 가운데 기준
+        _tooltipRect.pivot = new Vector2(0.5f, 0f);
         _tooltipRect.anchorMin = _tooltipRect.anchorMax = new Vector2(0.5f, 0.5f);
 
         var bg = go.GetComponent<Image>();
-        bg.color = new Color(0f, 0f, 0f, 0.85f);                      // 반투명 검정
+        bg.color = new Color(0f, 0f, 0f, 0.85f);
         bg.raycastTarget = false;
 
         var textGO = new GameObject("Text", typeof(RectTransform), typeof(TextMeshProUGUI));
@@ -413,6 +415,10 @@ public class PlayerController : MonoBehaviour
         _tooltipText.enableWordWrapping = false;
         _tooltipText.fontSize = 18;
         _tooltipText.raycastTarget = false;
+
+        // ── 핵심: 폰트/머티리얼 적용 ──
+        if (tooltipFont) _tooltipText.font = tooltipFont;
+        if (tooltipFontMaterial) _tooltipText.fontMaterial = tooltipFontMaterial;
 
         _tooltipRect.gameObject.SetActive(false);
     }

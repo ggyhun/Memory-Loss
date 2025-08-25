@@ -180,6 +180,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2936914997086996499, guid: a75b40be69af0ae4f98df57fdd42ca3b, type: 3}
+      propertyPath: tooltipFont
+      value: 
+      objectReference: {fileID: 11400000, guid: 1545da24bb0cedc449f1466b73df3e1f, type: 2}
     - target: {fileID: 3227689798049786817, guid: a75b40be69af0ae4f98df57fdd42ca3b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
