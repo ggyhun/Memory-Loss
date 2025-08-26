@@ -196,7 +196,7 @@ MonoBehaviour:
   allowDiagonal: 0
   avoidExit: 1
   useClaims: 1
-  enemyAnimator: {fileID: 0}
+  enemyAnimator: {fileID: 6041697542864953494}
   fakeStepDuration: 0.2
   ease:
     serializedVersion: 2
@@ -222,7 +222,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  defaultVisualRoot: {fileID: 0}
+  defaultVisualRoot: {fileID: 1889048428086215339}
 --- !u!114 &8593165142711167340
 MonoBehaviour:
   m_ObjectHideFlags: 0

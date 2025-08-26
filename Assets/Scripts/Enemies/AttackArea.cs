@@ -7,13 +7,13 @@ public class EnemyAttackArea : MonoBehaviour
     public SpriteRenderer spriteRenderer;
 
     [Header("Editor Settings")]
-    public bool isVisible = true;
+    public bool isVisible = false;
 
     [Header("Flash Settings")]
     // RGBA (255, 81, 81, 38) → (1.0, 0.3176, 0.3176, 0.1490)
     public Color flashColor = new Color(1f, 81f/255f, 81f/255f, 38f/255f);
-    public float flashDuration = 0.3f;
-    public bool revertToTransparent = true; // 끝나면 완전 투명으로
+    public float flashDuration = 0.5f;
+    public bool revertToTransparent = false; // 끝나면 완전 투명으로
 
     private Color _originalColor;
     private Coroutine _flashRoutine;
@@ -29,12 +29,8 @@ public class EnemyAttackArea : MonoBehaviour
 
         _originalColor = spriteRenderer.color;
 
-        if (!isVisible)
-        {
-            // 시작 시 안보이게
-            var c = spriteRenderer.color;
-            spriteRenderer.color = new Color(c.r, c.g, c.b, 0f);
-        }
+        var c = spriteRenderer.color;
+        spriteRenderer.color = new Color(c.r, c.g, c.b, 0f);
     }
 
     private void OnDisable()
