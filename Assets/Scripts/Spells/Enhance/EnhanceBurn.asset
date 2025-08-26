@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09279fef62079e540a4daf7010ebb4a8, type: 3}
   m_Name: EnhanceBurn
   m_EditorClassIdentifier: 
-  spellName: "\uD654\uC5FC \uAC15\uD654"
+  spellName: Enhance Burn
   elementType: 0
   damage: 0
   icon: {fileID: 128103005, guid: 8306c62b08e4e964d8152c91546e1f69, type: 3}
@@ -21,7 +21,7 @@ MonoBehaviour:
   castPattern: 1
   areaPattern: 0
   isUtility: 1
-  spellType: 0
+  spellType: 1
   utilityTurns: 3
   utilityPercent: 120
   effectPrefab: {fileID: 0}

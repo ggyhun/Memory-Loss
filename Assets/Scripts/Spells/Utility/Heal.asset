@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09279fef62079e540a4daf7010ebb4a8, type: 3}
   m_Name: Heal
   m_EditorClassIdentifier: 
-  spellName: "\uC0DD\uBA85\uC758 \uC8FC\uBB38\uC11C"
+  spellName: Scroll of Heal
   elementType: 3
   damage: 0
   icon: {fileID: 1889606569, guid: 8306c62b08e4e964d8152c91546e1f69, type: 3}
