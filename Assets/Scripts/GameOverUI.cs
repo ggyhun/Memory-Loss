@@ -28,10 +28,10 @@ public class GameOverUI : MonoBehaviour
     }
     public void OnClickRetryButton()
     {
-
+        SceneLoader.Instance.LoadScene("PlayScene");
     }
     public void OnClickMainMenuButton()
     {
-        
+        SceneLoader.Instance.LoadScene("Start");
     }
 }

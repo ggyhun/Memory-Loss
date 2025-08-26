@@ -34,6 +34,16 @@ public class GameRecorder : MonoBehaviour
         return IsGameCleared;
     }
 
+    public void GameCleared()
+    {
+        IsGameCleared = true;
+    }
+
+    public void ResetGameCleared()
+    {
+        IsGameCleared = false;
+    }
+
     public void AddKillCount()
     {
         TotalKillCount++;

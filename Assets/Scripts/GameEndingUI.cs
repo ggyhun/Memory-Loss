@@ -78,7 +78,8 @@ public class GameEndingUI : MonoBehaviour
         "나는 그녀를 기억하려 몸을 꽉 껴안았다.",
         "",
         "4",
-        "END"
+        "END",
+        ""
     };
     string DisplayingText;
     bool IsAwaitingInput = false;
@@ -91,6 +92,12 @@ public class GameEndingUI : MonoBehaviour
         StartCoroutine(WalkingSFX());
         StartCoroutine(StartEndingScene());
     }
+
+    void Start()
+    {
+        StartCoroutine(FadeManager.Instance.FadeInOut(0, 1f));
+    }
+    
     IEnumerator WalkingSFX()
     {
         while (WalkingSFXPlaying)
@@ -124,6 +131,8 @@ public class GameEndingUI : MonoBehaviour
             }
             SceneUpdate();
         }
+        yield return new WaitUntil(() => Input.GetKeyUp(KeyCode.Space));
+        SceneLoader.Instance.LoadScene("GameOver");
         yield break;
     }
     IEnumerator BackgroundFadeIn()
