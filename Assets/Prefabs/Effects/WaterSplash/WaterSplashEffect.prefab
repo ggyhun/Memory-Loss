@@ -121,4 +121,6 @@ MonoBehaviour:
   destroyOnEnd: 1
   sortingLayer: Effects
   orderInLayer: 10
-  worldOffset: {x: 0, y: 0, z: 0}
+  worldOffset: {x: 0, y: 0.4, z: 0}
+  playOnEnable: 1
+  useUnscaledTime: 1
