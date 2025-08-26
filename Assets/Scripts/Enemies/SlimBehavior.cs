@@ -55,8 +55,7 @@ public class SlimBehavior : EnemyBehavior
             playerStats?.TakeDamage(attackDamage);
             return;
         }
-
-        // 시야 체크(맨해튼^2)
+        
         var enemyCell  = grid.WorldToCell(enemy.transform.position);
         var playerCell = grid.WorldToCell(player.position);
         var d = playerCell - enemyCell;
