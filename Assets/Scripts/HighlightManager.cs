@@ -107,6 +107,7 @@ public class HighlightManager : MonoBehaviour
 
     public void HandleMoveHighlighterClick(Vector3 position)
     {
+        // TODO: 사운드 연결
         Vector3Int startCell = gridManager.WorldToCell(player.transform.position);
         Vector3Int targetCell = gridManager.WorldToCell(position);
         PlayerMoveRecorder.Instance.RecordMove(startCell, targetCell);
@@ -222,6 +223,8 @@ public class HighlightManager : MonoBehaviour
         if (dir.x > 0)      pc.isTowardsRight = false;
         else if (dir.x < 0) pc.isTowardsRight = true;
 
+        // TODO : 사운드 연결
+        
         // 1) 공격 애니만 트리거
         PlayerAnimator.Instance.PlayAttackAnimation();
 
