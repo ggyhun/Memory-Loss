@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     private Image[] _slotIcons = new Image[9];
     private TextMeshProUGUI[] _slotCounts = new TextMeshProUGUI[9];
     private RectTransform[] _slotRects = new RectTransform[9];
+    private Image[] _slotSealdEffects = new Image[9];
     private Canvas _uiCanvas;
 
     private RectTransform _tooltipRect;
@@ -78,6 +79,11 @@ public class PlayerController : MonoBehaviour
         foreach (var kvp in spellKeyMap)
             if (Input.GetKeyDown(kvp.Key))
                 HandleSpellInput(kvp.Value);
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            SealRandomSpell(4);
+        }
 
         if (mover && mover.IsMoving)
         {
@@ -135,6 +141,9 @@ public class PlayerController : MonoBehaviour
 
                     var countTr = slot.Find("Count");
                     if (countTr) _slotCounts[i] = countTr.GetComponent<TextMeshProUGUI>();
+                    
+                    var sealedEffectTr = slot.Find("SealedEffect");
+                    if (sealedEffectTr) _slotSealdEffects[i] = sealedEffectTr.GetComponent<Image>();
                 }
 
                 _invUiCached = true;
@@ -151,6 +160,7 @@ public class PlayerController : MonoBehaviour
         {
             Image iconImg = _slotIcons[i];
             TextMeshProUGUI countTxt = _slotCounts[i];
+            Image sealedEffectImg = _slotSealdEffects[i];
 
             if (i < spells.Count)
             {
@@ -169,6 +179,12 @@ public class PlayerController : MonoBehaviour
                 {
                     int n = (inst != null) ? inst.forgettableTurn : 0;
                     countTxt.text = (n > 1) ? n.ToString() : "";
+                }
+                
+                if (sealedEffectImg)
+                {
+                    bool showSealed = (inst != null) ? inst.isSealed : false;
+                    sealedEffectImg.enabled = showSealed;
                 }
             }
             else
@@ -356,6 +372,7 @@ public class PlayerController : MonoBehaviour
 
     public bool SealRandomSpell(int playerSpellsCount)
     {
+        // 플레이어가 가진 주문서 개수보다 적으면 봉인 불가
         if (spells.Count < playerSpellsCount) return false;
 
         var available = spells.FindAll(s => !s.isSealed && s.data != normalAttackSpell);
