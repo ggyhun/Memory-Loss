@@ -26,5 +26,38 @@ MonoBehaviour:
     enemyPrefab: {fileID: 4042757771324772274, guid: 8a8b4ba17aa673a4faceff52f75ea75d, type: 3}
     weight: 3
   scrollCount: 8
-  scrollPrefabTable: []
+  scrollPrefabTable:
+  - displayName: "\uD654\uC5FC\uC758 \uC8FC\uBB38\uC11C"
+    prefab: {fileID: 3930026950421834218, guid: 0b174d7bd6607914dad2d7acba739177, type: 3}
+    weight: 20
+  - displayName: "\uBB3C\uC758 \uC8FC\uBB38\uC11C"
+    prefab: {fileID: 6498815992192333217, guid: 41a822029c6957f46810e25fb7fa6c1f, type: 3}
+    weight: 25
+  - displayName: "\uC5BC\uC74C\uC758 \uC8FC\uBB38\uC11C"
+    prefab: {fileID: 1732501041625537614, guid: e74fbbd01b523d345a7097aac948898e, type: 3}
+    weight: 13
+  - displayName: "\uD654\uC5FC \uAC15\uD654\uC758 \uC8FC\uBB38\uC11C"
+    prefab: {fileID: 316019393489329931, guid: 0e7d2617df3c1b34e9168a4ab27ba839, type: 3}
+    weight: 5
+  - displayName: "\uC816\uC74C \uAC15\uD654\uC758 \uC8FC\uBB38\uC11C"
+    prefab: {fileID: 3126522513758178954, guid: e8de66c8e37a9d046867b01a7f46bf58, type: 3}
+    weight: 5
+  - displayName: "\uBE59\uACB0 \uAC15\uD654\uC758 \uC8FC\uBB38\uC11C"
+    prefab: {fileID: 4042542892167865069, guid: 04235421355476146926d79783a92867, type: 3}
+    weight: 7
+  - displayName: "\uD68C\uC0C1\uC758 \uC8FC\uBB38\uC11C"
+    prefab: {fileID: 3308094371714828715, guid: c2094219328fea94d87673d67b1d8107, type: 3}
+    weight: 7
+  - displayName: "\uC0DD\uBA85\uC758 \uC8FC\uBB38\uC11C"
+    prefab: {fileID: 6969758323893945012, guid: 0ead6af343ca321479ea8a574a7e2052, type: 3}
+    weight: 5
+  - displayName: "\uB9DD\uAC01\uC758 \uC8FC\uBB38\uC11C"
+    prefab: {fileID: 5246267834984177828, guid: 8bd197ad5e61209498a00c1dae6c2699, type: 3}
+    weight: 3
+  - displayName: "\uC65C\uACE1\uC758 \uC8FC\uBB38\uC11C"
+    prefab: {fileID: 4607856899537514217, guid: a12a8d0a8ae4c084598e0cdcebf2173b, type: 3}
+    weight: 3
+  - displayName: "\uC778\uB0B4\uC758 \uC8FC\uBB38\uC11C"
+    prefab: {fileID: 4222588309501915759, guid: d1df114e978807c4dbdb9577dc89cd03, type: 3}
+    weight: 7
   scrollSpellTable: []

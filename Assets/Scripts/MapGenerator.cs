@@ -83,6 +83,7 @@ public class MapGenerator : MonoBehaviour
                 Debug.Log("MapGenerator: Changing map...");
                 SpawnBossMap();
                 GameRecorder.Instance.ReachedFloor++;
+                StartCoroutine(FadeManager.Instance.FadeInOut(0, 1.5f));
             }
             else
             {
@@ -90,6 +91,7 @@ public class MapGenerator : MonoBehaviour
                 Debug.Log("MapGenerator: Changing map...");
                 SpawnRandomMap();
                 GameRecorder.Instance.ReachedFloor++;
+                StartCoroutine(FadeManager.Instance.FadeInOut(0, 1.5f));
             }
             InGameUiManager.Instance.currentFloor = GameRecorder.Instance.ReachedFloor;
         }
