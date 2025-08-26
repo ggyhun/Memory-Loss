@@ -132,6 +132,7 @@ public class GameEndingUI : MonoBehaviour
             SceneUpdate();
         }
         yield return new WaitUntil(() => Input.GetKeyUp(KeyCode.Space));
+        yield return FadeManager.Instance.FadeInOut(1, 1f);
         SceneLoader.Instance.LoadScene("GameOver");
         yield break;
     }

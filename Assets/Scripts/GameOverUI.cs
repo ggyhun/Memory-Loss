@@ -9,6 +9,7 @@ public class GameOverUI : MonoBehaviour
     public TextMeshProUGUI UITitleText;
     void Awake()
     {
+        StartCoroutine(FadeManager.Instance.FadeInOut(0, 1f));
         UpdateTextUI();
     }
 

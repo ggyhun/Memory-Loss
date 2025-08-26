@@ -107,7 +107,7 @@ public class HighlightManager : MonoBehaviour
 
     public void HandleMoveHighlighterClick(Vector3 position)
     {
-        // TODO: 사운드 연결
+        AudioManager.Instance.PlaySFX(0);
         Vector3Int startCell = gridManager.WorldToCell(player.transform.position);
         Vector3Int targetCell = gridManager.WorldToCell(position);
         PlayerMoveRecorder.Instance.RecordMove(startCell, targetCell);
@@ -223,7 +223,18 @@ public class HighlightManager : MonoBehaviour
         if (dir.x > 0)      pc.isTowardsRight = false;
         else if (dir.x < 0) pc.isTowardsRight = true;
 
-        // TODO : 사운드 연결
+        if (currentSpell.data.elementType == SpellElementType.Fire)
+        {
+            AudioManager.Instance.PlaySFX(1);
+        }
+        else if (currentSpell.data.elementType == SpellElementType.Wet)
+        {
+            AudioManager.Instance.PlaySFX(2);
+        }
+        else if (currentSpell.data.elementType == SpellElementType.Ice)
+        {
+            AudioManager.Instance.PlaySFX(3);
+        }
         
         // 1) 공격 애니만 트리거
         PlayerAnimator.Instance.PlayAttackAnimation();

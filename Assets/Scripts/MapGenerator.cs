@@ -69,6 +69,14 @@ public class MapGenerator : MonoBehaviour
         {
             if (GameRecorder.Instance.GetReachedFloor() != 0)
                 yield return FadeManager.Instance.FadeInOut(1, 1.5f);
+
+            if (GameRecorder.Instance.GetReachedFloor() <= 3)
+                AudioManager.Instance.PlayBGM(1);
+            else if (GameRecorder.Instance.GetReachedFloor() <= 6)
+                AudioManager.Instance.PlayBGM(2);
+            else if (GameRecorder.Instance.GetReachedFloor() <= 9)
+                AudioManager.Instance.PlayBGM(3);
+
             if (GameRecorder.Instance.GetReachedFloor() == 9)
             {
                 if (mapInstance) Destroy(mapInstance);
