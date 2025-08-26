@@ -52,10 +52,10 @@ MonoBehaviour:
   - {fileID: 2221273635527524712, guid: b597a1c69832c084599ced77b3151ca0, type: 3}
   - {fileID: 3907377048625156574, guid: 0d9098712e2154d44a1406df867e1b51, type: 3}
   - {fileID: 6789076363798415371, guid: 74ffb56911c6a654997b4c58e8ef899f, type: 3}
-  - {fileID: 6789076363798415371, guid: 74ffb56911c6a654997b4c58e8ef899f, type: 3}
   - {fileID: 6905846414499493462, guid: 6616110c51c36c545b62f70588d5b5d7, type: 3}
   - {fileID: 8877365098275030806, guid: a390fd8f2eef2d24bbe6e0df5db9e3ef, type: 3}
   - {fileID: 8617080961315015463, guid: b078ce196d061844c84ff221f4512154, type: 3}
+  BossMapPrefabs: {fileID: 8617080961315015463, guid: b776088f24396a746bb078da85172f53, type: 3}
   mapInstance: {fileID: 0}
   levelDataList:
   - {fileID: 11400000, guid: f4308a97452976448a25623e26c1aed4, type: 2}
@@ -63,5 +63,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f79b6079b56e5ec4ea987d62aa27e21b, type: 2}
   - {fileID: 11400000, guid: fcf8f4f6aaacdfa43b8ae89dd1fcdf44, type: 2}
   - {fileID: 11400000, guid: b9e74fcb7e5f188469410835e6e6e0da, type: 2}
-  needEnemyCountsForNextLevel: 
+  - {fileID: 11400000, guid: b6c54978e51c36b4288fd9588bb39a30, type: 2}
+  - {fileID: 11400000, guid: 021093bb3950cbb4e82c19e447263ee5, type: 2}
+  - {fileID: 11400000, guid: 7717051fc8b368646b5803d2543c73af, type: 2}
+  - {fileID: 11400000, guid: 7dd7578408ef5644091cee9b371cbadc, type: 2}
+  - {fileID: 11400000, guid: a11d9c4afc4cbc346a45d992601fd3d8, type: 2}
   gridManagerPrefab: {fileID: 6295389440773565797, guid: 8952e0bef2b55714cb1496ff54fc0d03, type: 3}

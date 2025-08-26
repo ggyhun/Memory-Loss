@@ -1,9 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using System.Collections.Generic;
-using UnityEngine;
-
 public class EnemyManager : MonoBehaviour
 {
     private List<Enemy> enemies = new List<Enemy>();
@@ -75,13 +72,14 @@ public class EnemyManager : MonoBehaviour
     public void ReportEnemyKilled(Enemy enemy)
     {
         killsThisFloor++;
+        GameRecorder.Instance.AddKillCount();
         Debug.Log($"Kill {killsThisFloor}/{killsToAdvance}");
 
         if (killsThisFloor >= killsToAdvance)
         {
             killsThisFloor = 0;    // 다음 층에서 다시
             // 맵 교체 (Spawn/리빌드는 MapGenerator & Spawners가 처리)
-            MapGenerator.Instance.ChangeMap();
+            StartCoroutine(MapGenerator.Instance.ChangeMap());
         }
     }
 

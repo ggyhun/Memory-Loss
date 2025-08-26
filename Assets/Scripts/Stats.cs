@@ -127,7 +127,7 @@ public class Stats : MonoBehaviour
         {
             PlayerAnimator.Instance.PlayDeathAnimation();
             // 플레이어 사망 시 게임 오버 처리
-            GameManager.Instance.GameOver();
+            StartCoroutine(GameManager.Instance.GameOver());
         }
         else
         {

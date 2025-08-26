@@ -8,31 +8,45 @@ public class StartSceneManager : MonoBehaviour
     [SerializeField]
     private GameObject startButtons;
     private bool active = true;
+    private bool KeyPressed = false;
 
     void Start()
     {
         StartCoroutine(StartText());
+        StartCoroutine(AwaitFirstInput());
     }
 
     IEnumerator StartText()
     {
-        while (true)   // ���� �ݺ�
+        while (!KeyPressed)
         {
             active = !active;                  
             startText.SetActive(active);        
             yield return new WaitForSeconds(0.8f);
-            if (Input.anyKey)
-            {
-                startText.SetActive(false);
-                startButtons.SetActive(true);
-                yield break;
-            }
         }
+    }
+
+    IEnumerator AwaitFirstInput()
+    {
+        while (!Input.anyKey)
+        {
+            yield return null;
+        }
+        startText.SetActive(false);
+        startButtons.SetActive(true);
+        KeyPressed = true;
+    }
+
+    IEnumerator FadeOut()
+    {
+        yield return FadeManager.Instance.FadeInOut(1, 1.5f);
+        SceneLoader.Instance.LoadScene("PlayScene");
+        yield break;
     }
 
     public void StartGame()
     {
-        SceneLoader.Instance.LoadScene("PlayScene");
+        StartCoroutine(FadeOut());
     }
 
     public void OpenOption()

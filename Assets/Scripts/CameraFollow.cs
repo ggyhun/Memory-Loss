@@ -21,13 +21,12 @@ public class CameraFollow : MonoBehaviour
     private Camera cam;
     private Vector3 velocity;
 
-    public GameObject Fade;
-
     private void Awake()
     {
+        GameRecorder.Instance.ResetGameCleared();
         cam = GetComponent<Camera>();
     }
-
+    
     private void OnEnable()
     {
         if (MapGenerator.Instance != null)
@@ -68,6 +67,7 @@ public class CameraFollow : MonoBehaviour
 
     private void OnMapChanged(MapContext ctx)
     {
+        StartCoroutine(FadeManager.Instance.FadeInOut(0, 1.5f));
         boundsTilemap = ctx.background;        // 배경 타일맵을 경계로 사용
         ComputeBounds(boundsTilemap);
 
@@ -101,7 +101,7 @@ public class CameraFollow : MonoBehaviour
         hasBounds = true;
     }
 
-    IEnumerator InGameZoomInOut(float StartSize = 5, float EndSize = 5, float t = 3)
+    public IEnumerator InGameZoomInOut(float StartSize = 5, float EndSize = 5, float t = 3)
     {
         cam.orthographicSize = StartSize;
         float timecount = 0;
@@ -112,35 +112,6 @@ public class CameraFollow : MonoBehaviour
             yield return null;
         }
         cam.orthographicSize = EndSize;
-        yield break;
-    }
-
-    IEnumerator IngameFadeInOut(int type, float t)
-    {
-        CanvasRenderer fade = Fade.GetComponent<CanvasRenderer>();
-        float timecount = 0f;
-        if (type == 0) // Fade in
-        {
-            fade.SetAlpha(1f);
-            while (timecount <= t)
-            {
-                fade.SetAlpha(1f - timecount / t);
-                timecount += Time.deltaTime;
-                yield return null;
-            }
-            Fade.SetActive(false);
-        }
-        else if (type == 1) // Fade out
-        {
-            fade.SetAlpha(0f);
-            Fade.SetActive(true);
-            while (timecount <= t)
-            {
-                fade.SetAlpha(timecount / t);
-                timecount += Time.deltaTime;
-                yield return null;
-            }
-        }
         yield break;
     }
 
