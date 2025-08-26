@@ -67,7 +67,6 @@ public class CameraFollow : MonoBehaviour
 
     private void OnMapChanged(MapContext ctx)
     {
-        StartCoroutine(FadeManager.Instance.FadeInOut(0, 1.5f));
         boundsTilemap = ctx.background;        // 배경 타일맵을 경계로 사용
         ComputeBounds(boundsTilemap);
 
