@@ -3,7 +3,7 @@
 public class PlayerAnimator : MonoBehaviour
 {
     public static PlayerAnimator Instance { get; private set; }
-    
+
     [Header("References")]
     public Animator animator;
     public SpriteRenderer spriteRenderer;
@@ -13,42 +13,66 @@ public class PlayerAnimator : MonoBehaviour
         if (Instance && Instance != this) { Destroy(gameObject); return; }
         Instance = this;
 
-        if (!animator)        animator = GetComponent<Animator>();
-        if (!spriteRenderer)  spriteRenderer = GetComponent<SpriteRenderer>();
+        CacheRefs();
     }
 
-    public void SetDirection(Vector2 direction)
+    private void OnEnable()  => CacheRefs();
+    private void Start()     => CacheRefs();
+
+    private void CacheRefs()
     {
-        if      (direction.x > 0) spriteRenderer.flipX = false;
-        else if (direction.x < 0) spriteRenderer.flipX = true;
+        if (!animator)
+            animator = GetComponentInChildren<Animator>(true);          // ✅ 자식까지 검색
+        if (!spriteRenderer)
+            spriteRenderer = GetComponentInChildren<SpriteRenderer>(true);
+
+        // PlayerController에 할당된 Animator가 있다면 그것도 폴백으로 사용
+        if (!animator && PlayerController.Instance && PlayerController.Instance.animator)
+            animator = PlayerController.Instance.animator;
+
+        if (!animator)
+            Debug.LogError("PlayerAnimator: Animator not found in self or children.");
+        if (!spriteRenderer)
+            Debug.LogWarning("PlayerAnimator: SpriteRenderer not found in self or children.");
+    }
+
+    public void SetDirection(Vector2 dir)
+    {
+        if (!spriteRenderer) { CacheRefs(); if (!spriteRenderer) return; }
+        if      (dir.x > 0) spriteRenderer.flipX = false;
+        else if (dir.x < 0) spriteRenderer.flipX = true;
     }
 
     public void PlayAttackAnimation()
     {
-        // ✅ 애니 끝나면 턴 넘기도록 예약
         TurnManager.Instance.RequestEndAfterPlayerAnimation();
 
+        if (!animator) { CacheRefs(); if (!animator) return; }
+        animator.ResetTrigger("Move");
         animator.SetTrigger("Attack");
     }
-    
+
     public void PlayerMoveAnimation()
     {
-        // ✅ 애니 끝나면 턴 넘기도록 예약
-        // TurnManager.Instance.RequestEndAfterPlayerAnimation();
-
+        // 이동은 턴 넘김 예약 안함
+        if (!animator) { CacheRefs(); if (!animator) return; }
+        animator.ResetTrigger("Attack");
         animator.SetTrigger("Move");
     }
 
     public void PlayHitAnimation()
     {
-        animator.SetTrigger("Hurt");   
+        if (!animator) { CacheRefs(); if (!animator) return; }
+        animator.SetTrigger("Hurt");
     }
-    public void PlayDeathAnimation() => animator.SetTrigger("Die");
 
-    // ===============================
-    // ✅ Animation Event에서 호출될 함수
-    // (Attack 클립의 마지막 프레임에 이 함수명을 이벤트로 넣어줘)
-    // ===============================
+    public void PlayDeathAnimation()
+    {
+        if (!animator) { CacheRefs(); if (!animator) return; }
+        animator.SetTrigger("Die");
+    }
+
+    // Animation Event에서 호출
     public void AnimEvent_ActionEnd()
     {
         TurnManager.Instance.NotifyPlayerAnimationComplete();

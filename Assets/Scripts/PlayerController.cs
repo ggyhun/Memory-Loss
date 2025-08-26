@@ -90,7 +90,8 @@ public class PlayerController : MonoBehaviour
             if (!isMoving)
             {
                 isMoving = true;
-                PlayerAnimator.Instance.PlayerMoveAnimation();
+                var pa = PlayerAnimator.Instance;
+                if (pa) pa.PlayerMoveAnimation();   // ✅ null 체크
             }
         }
         else if (isMoving)
