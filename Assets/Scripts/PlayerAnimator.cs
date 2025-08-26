@@ -34,13 +34,16 @@ public class PlayerAnimator : MonoBehaviour
     public void PlayerMoveAnimation()
     {
         // ✅ 애니 끝나면 턴 넘기도록 예약
-        TurnManager.Instance.RequestEndAfterPlayerAnimation();
+        // TurnManager.Instance.RequestEndAfterPlayerAnimation();
 
         animator.SetTrigger("Move");
     }
 
-    public void PlayHitAnimation()   => animator.SetTrigger("Hit");
-    public void PlayDeathAnimation() => animator.SetTrigger("Death");
+    public void PlayHitAnimation()
+    {
+        animator.SetTrigger("Hurt");   
+    }
+    public void PlayDeathAnimation() => animator.SetTrigger("Die");
 
     // ===============================
     // ✅ Animation Event에서 호출될 함수

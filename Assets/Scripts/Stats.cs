@@ -91,8 +91,13 @@ public class Stats : MonoBehaviour
     // 피격 시 0.2초동안 빨간색 깜빡임 효과
     private IEnumerator FlashRed()
     {
-        Animator animator = GetComponent<Animator>();
-        if (animator != null)
+        Animator animator = GetComponentInChildren<Animator>();
+        if (ownership == StatusOwnership.Player)
+        {
+            
+            if (currentHp > 0) PlayerAnimator.Instance.PlayHitAnimation();
+        }
+        else if (animator != null)
         {
             animator.SetTrigger("Hurt");
         }
