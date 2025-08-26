@@ -195,7 +195,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allowDiagonal: 0
   avoidExit: 1
-  useClaims: 1
+  useClaims: 0
   enemyAnimator: {fileID: 6041697542864953494}
   fakeStepDuration: 0.2
   ease:
@@ -267,7 +267,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85c6eeda656be1049921ecb18790d02b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRange: 5
+  detectionRange: 25
   attackDamage: 8
   attackAreaPrefab: {fileID: 59584762157989146}
   stats: {fileID: 8593165142711167340}

@@ -104,6 +104,7 @@ public class EnemyMover : MonoBehaviour
 
         // 시각 이동 + 스냅
         StartCoroutine(Co_Move(actor, visual, targetCell));
+        Debug.Log($"EnemyMover: Moved to {targetCell}");
         return true;
     }
 

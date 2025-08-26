@@ -84,7 +84,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allowDiagonal: 0
   avoidExit: 1
-  useClaims: 1
+  useClaims: 0
   enemyAnimator: {fileID: 72983101259725087}
   fakeStepDuration: 0.2
   ease:

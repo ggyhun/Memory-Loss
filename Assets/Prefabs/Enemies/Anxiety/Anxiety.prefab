@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   allowDiagonal: 0
   avoidExit: 1
-  useClaims: 1
+  useClaims: 0
   enemyAnimator: {fileID: 1330249612176051339}
   fakeStepDuration: 0.2
   ease:
@@ -155,7 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 5440470523131466159}
   spriteRenderer: {fileID: 5770099397813583141}
-  isTowardRight: 1
+  isTowardRight: 0
   idleState: Idle
   moveState: Move
   attackState: Attack
