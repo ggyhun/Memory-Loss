@@ -103,7 +103,7 @@ public class GameEndingUI : MonoBehaviour
         while (WalkingSFXPlaying)
         {
             AudioManager.Instance.PlaySFX(0);
-            yield return new WaitForSeconds(3.5f);
+            yield return new WaitForSeconds(1.5f);
         }
         yield break;
     }
