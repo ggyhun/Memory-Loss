@@ -178,10 +178,13 @@ MonoBehaviour:
   highlightManager: {fileID: 0}
   spells: []
   normalAttackSpell: {fileID: 11400000, guid: 65a56ea8839421d49ad0d4d3ad8540af, type: 2}
+  spellHistory: []
   animator: {fileID: 309673278466595091}
   mover: {fileID: 7326357770432451439}
   rend: {fileID: 141998810403387284}
   isTowardsRight: 0
+  tooltipFont: {fileID: 11400000, guid: 1545da24bb0cedc449f1466b73df3e1f, type: 2}
+  tooltipFontMaterial: {fileID: 0}
 --- !u!50 &7426534512633443180
 Rigidbody2D:
   serializedVersion: 5
@@ -270,6 +273,9 @@ MonoBehaviour:
   ownership: 0
   maxHp: 100
   currentHp: 100
+  isInvincible: 0
+  shildTurns: 0
+  shieldHp: 0
   frozenTurns: 0
   burningTurns: 0
   wetTurns: 0
@@ -296,7 +302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfd417edbabca0a4fa5e4af1a1a7785f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visualRoot: {fileID: 0}
+  visualRoot: {fileID: 6499240080378539535}
   fakeDuration: 0.25
   ease:
     serializedVersion: 2
