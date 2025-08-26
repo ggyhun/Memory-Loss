@@ -15,7 +15,7 @@ public class GameOverUI : MonoBehaviour
 
     void UpdateTextUI()
     {
-        if (GameRecorder.Instance.GetIsGameCleared())
+        if (GameRecorder.Instance.IsGameCleared)
         {
             UITitleText.text = "GAME CLEAR";
         }
@@ -24,8 +24,8 @@ public class GameOverUI : MonoBehaviour
             UITitleText.text = "GAME OVER";
             AudioManager.Instance.PlayBGM(5);
         }
-        FloorText.text = GameRecorder.Instance.GetReachedFloor().ToString() + "층";
-        MonsterText.text = GameRecorder.Instance.GetTotalKillCount().ToString();
+        FloorText.text = GameRecorder.Instance.ReachedFloor.ToString() + "층";
+        MonsterText.text = GameRecorder.Instance.TotalKillCount.ToString();
     }
     public void OnClickRetryButton()
     {

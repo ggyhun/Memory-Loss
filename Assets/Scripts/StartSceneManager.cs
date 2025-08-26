@@ -12,6 +12,7 @@ public class StartSceneManager : MonoBehaviour
 
     void Start()
     {
+        AudioManager.Instance.PlayBGM(0);
         StartCoroutine(StartText());
         StartCoroutine(AwaitFirstInput());
     }

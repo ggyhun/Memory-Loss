@@ -18,39 +18,12 @@ public class GameRecorder : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    public int GetTotalKillCount()
+    
+    public void ResetAllRecorded()
     {
-        return TotalKillCount;
-    }
-
-    public int GetReachedFloor()
-    {
-        return ReachedFloor;
-    }
-
-    public bool GetIsGameCleared()
-    {
-        return IsGameCleared;
-    }
-
-    public void GameCleared()
-    {
-        IsGameCleared = true;
-    }
-
-    public void ResetGameCleared()
-    {
+        MapGenerator.Instance.currentLevelIndex = 0;
+        TotalKillCount = 0;
+        ReachedFloor = 0;
         IsGameCleared = false;
-    }
-
-    public void AddKillCount()
-    {
-        TotalKillCount++;
-    }
-
-    public void AddReachedFloor()
-    {
-        ReachedFloor++;
     }
 }

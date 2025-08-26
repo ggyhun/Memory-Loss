@@ -23,7 +23,7 @@ public class MapGenerator : MonoBehaviour
 
     [Header("Level Data")]
     public List<LevelData> levelDataList;
-    int currentLevelIndex = 0;  // 0-based로 권장
+    public int currentLevelIndex = 0;  // 0-based로 권장
     
     [Header("GridManager Prefab")]
     public GameObject gridManagerPrefab;
@@ -62,36 +62,36 @@ public class MapGenerator : MonoBehaviour
 
     public IEnumerator ChangeMap()
     {
-        if (GameRecorder.Instance.GetReachedFloor() >= 10)
+        if (GameRecorder.Instance.ReachedFloor >= 10)
         {
             StartCoroutine(GameManager.Instance.GameClear());
         } else
         {
-            if (GameRecorder.Instance.GetReachedFloor() != 0)
+            if (GameRecorder.Instance.ReachedFloor != 0)
                 yield return FadeManager.Instance.FadeInOut(1, 1.5f);
 
-            if (GameRecorder.Instance.GetReachedFloor() <= 3)
+            if (GameRecorder.Instance.ReachedFloor <= 3)
                 AudioManager.Instance.PlayBGM(1);
-            else if (GameRecorder.Instance.GetReachedFloor() <= 6)
+            else if (GameRecorder.Instance.ReachedFloor <= 6)
                 AudioManager.Instance.PlayBGM(2);
-            else if (GameRecorder.Instance.GetReachedFloor() <= 9)
+            else if (GameRecorder.Instance.ReachedFloor <= 9)
                 AudioManager.Instance.PlayBGM(3);
 
-            if (GameRecorder.Instance.GetReachedFloor() == 9)
+            if (GameRecorder.Instance.ReachedFloor == 9)
             {
                 if (mapInstance) Destroy(mapInstance);
                 Debug.Log("MapGenerator: Changing map...");
                 SpawnBossMap();
-                GameRecorder.Instance.AddReachedFloor();
+                GameRecorder.Instance.ReachedFloor++;
             }
             else
             {
                 if (mapInstance) Destroy(mapInstance);
                 Debug.Log("MapGenerator: Changing map...");
                 SpawnRandomMap();
-                GameRecorder.Instance.AddReachedFloor();
+                GameRecorder.Instance.ReachedFloor++;
             }
-            InGameUiManager.Instance.currentFloor = GameRecorder.Instance.GetReachedFloor();
+            InGameUiManager.Instance.currentFloor = GameRecorder.Instance.ReachedFloor;
         }
         yield break;
     }

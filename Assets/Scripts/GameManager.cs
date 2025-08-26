@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
         CameraFollow cameraFollow = GameObject.Find("Main Camera").AddComponent<CameraFollow>();
         yield return StartCoroutine(cameraFollow.InGameZoomInOut(5, 2, 3f));
         yield return FadeManager.Instance.FadeInOut(1, 2f);
-        GameRecorder.Instance.GameCleared();
+        GameRecorder.Instance.IsGameCleared = true;
         SceneLoader.Instance.LoadScene("GameEnding");
     }
 }

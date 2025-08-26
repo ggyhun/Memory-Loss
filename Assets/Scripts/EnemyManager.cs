@@ -72,7 +72,7 @@ public class EnemyManager : MonoBehaviour
     public void ReportEnemyKilled(Enemy enemy)
     {
         killsThisFloor++;
-        GameRecorder.Instance.AddKillCount();
+        GameRecorder.Instance.TotalKillCount++;
         Debug.Log($"Kill {killsThisFloor}/{killsToAdvance}");
 
         if (killsThisFloor >= killsToAdvance)
