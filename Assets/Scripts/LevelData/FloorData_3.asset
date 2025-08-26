@@ -13,9 +13,18 @@ MonoBehaviour:
   m_Name: FloorData_3
   m_EditorClassIdentifier: 
   floorIndex: 3
-  killsToAdvance: 5
-  enemyCount: 3
-  enemyTable: []
+  killsToAdvance: 7
+  enemyCount: 10
+  enemyTable:
+  - displayName: "\uC2AC\uB77C\uC784"
+    enemyPrefab: {fileID: 5441253103644555324, guid: c368810063fc00744829dd34baf9bd63, type: 3}
+    weight: 10
+  - displayName: "\uACF5\uD5C8"
+    enemyPrefab: {fileID: 7055936638186804812, guid: c604fe624d6acb14ba4ff63fed91bba2, type: 3}
+    weight: 3
+  - displayName: "\uD6C4\uD68C"
+    enemyPrefab: {fileID: 2944917487120327583, guid: 06946a53e9cc0d048ab93f262e06ba89, type: 3}
+    weight: 2
   scrollCount: 5
   scrollPrefabTable: []
   scrollSpellTable: []

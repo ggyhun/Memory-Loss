@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floorIndex: 1
   killsToAdvance: 5
-  enemyCount: 5
+  enemyCount: 7
   enemyTable:
   - displayName: "\uC2AC\uB77C\uC784"
     enemyPrefab: {fileID: 5441253103644555324, guid: c368810063fc00744829dd34baf9bd63, type: 3}
