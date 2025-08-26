@@ -154,6 +154,13 @@ public class SpellInstance
     private bool _isPickedInThisTurn = true;
     public void TickCooldown(int amount = 1)
     {
+        // 유틸 주문서는 쿨타임 감소 없음
+        if (data.isUtility)
+        {
+            return; // 유틸리티 스킬은 쿨타임 감소 없음
+        }
+        
+        // 주문서를 주운 턴일때 쿨타임 넘김
         if (_isPickedInThisTurn)
         {
             _isPickedInThisTurn = false;
@@ -161,7 +168,9 @@ public class SpellInstance
             return;
         }
         forgettableTurn = Mathf.Max(0, forgettableTurn - amount);
-        Debug.Log("Inventory Index :" + inventroyIndex + " TickCooldown called. New forgettableTurn: " + forgettableTurn);
+        
+        // Debug.Log("Inventory Index :" + inventroyIndex + " TickCooldown called. New forgettableTurn: " + forgettableTurn);
+        
         if (forgettableTurn == 0 && inventroyIndex != 0)
         {
             DeleteSpell();
@@ -175,7 +184,7 @@ public class SpellInstance
 
     public void DeleteSpell()
     {
-        Debug.Log("Spell Instance: DeleteSpell called.");
+        // Debug.Log("Spell Instance: DeleteSpell called.");
         PlayerController.Instance.DeleteSpell(inventroyIndex);
     }
 }

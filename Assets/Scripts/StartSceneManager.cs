@@ -8,38 +8,55 @@ public class StartSceneManager : MonoBehaviour
     [SerializeField]
     private GameObject startButtons;
     private bool active = true;
+    private bool KeyPressed = false;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         StartCoroutine(StartText());
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        StartCoroutine(AwaitFirstInput());
     }
 
     IEnumerator StartText()
     {
-        while (true)   // ¹«ÇÑ ¹Ýº¹
+        while (!KeyPressed)
         {
             active = !active;                  
             startText.SetActive(active);        
             yield return new WaitForSeconds(0.8f);
-            if (Input.anyKey)
-            {
-                startText.SetActive(false);
-                startButtons.SetActive(true);
-                yield break;
-            }
         }
+    }
+
+    IEnumerator AwaitFirstInput()
+    {
+        while (!Input.anyKey)
+        {
+            yield return null;
+        }
+        startText.SetActive(false);
+        startButtons.SetActive(true);
+        KeyPressed = true;
+    }
+
+    IEnumerator FadeOut()
+    {
+        yield return FadeManager.Instance.FadeInOut(1, 1.5f);
+        SceneLoader.Instance.LoadScene("PlayScene");
+        yield break;
+    }
+
+    public void StartGame()
+    {
+        StartCoroutine(FadeOut());
+    }
+
+    public void OpenOption()
+    {
+        
     }
 
     public void OffGame()
     {
         Application.Quit();
-        Debug.Log("°ÔÀÓÁ¾·á");
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
     }
 }
