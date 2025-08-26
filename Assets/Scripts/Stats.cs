@@ -112,10 +112,9 @@ public class Stats : MonoBehaviour
             }
         }
 
-        Color originalColor = spriteRenderer.color;
         spriteRenderer.color = Color.red;
         yield return new WaitForSeconds(0.2f);
-        spriteRenderer.color = originalColor;
+        spriteRenderer.color = new Color(1f, 1f, 1f,1f);;
     }
 
     public void Heal(int amount)
