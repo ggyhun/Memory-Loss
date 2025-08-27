@@ -877,7 +877,7 @@ GameObject:
   - component: {fileID: 803785655}
   - component: {fileID: 803785656}
   m_Layer: 0
-  m_Name: EnenmyManager
+  m_Name: EnemyManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -910,6 +910,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53fb4f579a1282c4c8ffb07126c328d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapGenerator: {fileID: 1756783308}
+  enemySpawner: {fileID: 1477910441}
   killsToAdvance: 5
 --- !u!1 &854739424
 GameObject:
@@ -1251,7 +1253,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cdb1968dc3251c43be16c16d168be22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridManager: {fileID: 0}
+  gridManager: {fileID: 1506128540}
+  mapGenerator: {fileID: 1756783308}
   scrollSpawnTile: {fileID: 11400000, guid: 6b89c385dcbcf404c970ee8c4a748cc8, type: 2}
   fallbackScrollPrefab: {fileID: 0}
   scrollCount: 3
@@ -1877,12 +1880,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24651a9c5b2173c41bfdaec2b2b61b7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridManager: {fileID: 0}
-  enemyManager: {fileID: 0}
+  gridManager: {fileID: 1506128540}
+  enemyManager: {fileID: 803785656}
   enemySpawnTile: {fileID: 11400000, guid: 81ea48314bb8cc447bdd5572c6e097cb, type: 2}
   defaultEnemyPrefab: {fileID: 0}
   enemyCount: 3
-  levelData: {fileID: 0}
 --- !u!114 &1506128540 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3768174459631927232, guid: 8952e0bef2b55714cb1496ff54fc0d03, type: 3}

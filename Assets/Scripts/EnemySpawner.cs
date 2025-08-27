@@ -8,6 +8,7 @@ public class EnemySpawner : MonoBehaviour
 {
     public static EnemySpawner Instance;
     
+    [Header("Other Managers")]
     public GridManager gridManager;
     public EnemyManager enemyManager;
 
@@ -15,9 +16,6 @@ public class EnemySpawner : MonoBehaviour
     [Header("Fallback (LevelData 없을 때만 사용)")]
     public GameObject defaultEnemyPrefab; // 폴백 프리팹
     public int enemyCount = 3;
-
-    [Header("Level Data")]
-    public LevelData levelData;
 
     private void Awake()
     {

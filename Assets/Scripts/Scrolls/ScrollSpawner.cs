@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -6,7 +5,9 @@ using UnityEngine.Tilemaps;
 
 public class ScrollSpawner : MonoBehaviour
 {
+    [Header("Other Managers")]
     public GridManager gridManager;
+    public MapGenerator mapGenerator;
 
     [Header("Spawn Markers")]
     public TileBase scrollSpawnTile;
@@ -19,17 +20,15 @@ public class ScrollSpawner : MonoBehaviour
 
     [Header("Level Data")]
     public LevelData levelData;
-
+    
     private void OnEnable()
     {
-        if (MapGenerator.Instance != null)
-            MapGenerator.Instance.OnMapChanged += OnMapChanged;
+        mapGenerator.OnMapChanged += OnMapChanged;
     }
 
     private void OnDisable()
     {
-        if (MapGenerator.Instance != null)
-            MapGenerator.Instance.OnMapChanged -= OnMapChanged;
+        mapGenerator.OnMapChanged -= OnMapChanged;
     }
 
     private void Start()

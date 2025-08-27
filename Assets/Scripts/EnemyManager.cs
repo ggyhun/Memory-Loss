@@ -5,6 +5,10 @@ public class EnemyManager : MonoBehaviour
 {
     private List<Enemy> enemies = new List<Enemy>();
     private int finishedCount = 0;
+    
+    [Header("References")]
+    public MapGenerator mapGenerator;
+    public EnemySpawner enemySpawner;
 
     [Header("Floor Progress")]
     [SerializeField] private int killsToAdvance = 5; // ✅ LevelData에서 주입받음 (기본값)
@@ -12,14 +16,12 @@ public class EnemyManager : MonoBehaviour
 
     private void OnEnable()
     {
-        if (MapGenerator.Instance != null)
-            MapGenerator.Instance.OnMapChanged += OnMapChanged;
+        mapGenerator.OnMapChanged += OnMapChanged;
     }
 
     private void OnDisable()
     {
-        if (MapGenerator.Instance != null)
-            MapGenerator.Instance.OnMapChanged -= OnMapChanged;
+        mapGenerator.OnMapChanged -= OnMapChanged;
     }
 
     private void OnMapChanged(MapContext _)
@@ -37,7 +39,7 @@ public class EnemyManager : MonoBehaviour
         // 필요 시 남은 적 정리: EnemySpawner에서 이미 ClearAllEnemies()를 호출한다면 생략 가능
         Debug.Log($"[EnemyManager] Floor changed. Goal: {killsToAdvance} kills");
 
-        EnemySpawner.Instance.RespawnEnemies(ld);
+        enemySpawner.RespawnEnemies(ld);
     }
 
     public void RegisterEnemy(Enemy enemy)   => enemies.Add(enemy);
