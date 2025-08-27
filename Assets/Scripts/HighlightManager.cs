@@ -4,9 +4,6 @@ using System.Collections;
 
 public class HighlightManager : MonoBehaviour
 {
-    public GridManager gridManager;
-    public TurnManager turnManager;
-
     [Header("Prefabs")]
     public GameObject castHighlighterPrefab;
     public GameObject spellHighlighterPrefab;
@@ -17,6 +14,12 @@ public class HighlightManager : MonoBehaviour
     public string attackStateName = "Attack"; // Animator의 공격 State 이름
     public int attackLayer = 0;               // 레이어 인덱스
     public float attackEndTimeout = 3f;       // 안전 타임아웃(초)
+    
+    [Header("Other Managers")]
+    public MapGenerator mapGenerator;
+    public GridManager gridManager;
+    public TurnManager turnManager;
+
 
     private List<CastHighlighter> castHighlighters = new List<CastHighlighter>();
     private List<SpellHighlighter> spellHighlighters = new List<SpellHighlighter>();
@@ -36,6 +39,7 @@ public class HighlightManager : MonoBehaviour
         if (player == null) player = FindFirstObjectByType<PlayerController>().gameObject;
         if (gridManager == null) gridManager = FindFirstObjectByType<GridManager>();
         if (turnManager == null) turnManager = FindFirstObjectByType<TurnManager>();
+        if (mapGenerator == null) mapGenerator = FindFirstObjectByType<MapGenerator>();
 
         for (int i = 0; i < 4; i++)
         {
@@ -48,12 +52,12 @@ public class HighlightManager : MonoBehaviour
     
     private void OnEnable()
     {
-        MapGenerator.Instance.OnMapChanged += OnMapChanged;
+        mapGenerator.OnMapChanged += OnMapChanged;
     }
     
     private void OnDisable()
     {
-        MapGenerator.Instance.OnMapChanged -= OnMapChanged;
+        mapGenerator.OnMapChanged -= OnMapChanged;
     }
 
     private void Start()
@@ -192,6 +196,9 @@ public class HighlightManager : MonoBehaviour
 
     public void ClearCastHighlighters()
     {
+        // 안전 가드
+        
+        
         foreach (var c in castHighlighters) Destroy(c.gameObject);
         castHighlighters.Clear();
     }

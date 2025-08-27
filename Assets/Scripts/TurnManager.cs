@@ -131,9 +131,11 @@ public class TurnManager : MonoBehaviour
 
         // 추가 턴이 아니면 정상적으로 적 턴으로 전환
         CurrentTurn = TurnState.SystemTurn;
+        Debug.Log("[TurnManager] Switching to System Turn.");
 
         yield return DelaySwap();
 
+        Debug.Log("[TurnManager] EnemyManager starting enemy turn.");
         enemyManager.StartEnemyTurn();
 
         isSwapping = false;

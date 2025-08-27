@@ -1821,14 +1821,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 025501afd8b327f4bbd8c24b8b50a5dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridManager: {fileID: 0}
-  TurnManager: {fileID: 0}
   castHighlighterPrefab: {fileID: 5046815808455119461, guid: 70ae912dc0efc0141ad1e3019bff93a0, type: 3}
   spellHighlighterPrefab: {fileID: 1691704943275528287, guid: 39f535eea74080e45b1c5cf40e4ef8d3, type: 3}
   moveHighlighterPrefab: {fileID: 5951805236649006774, guid: 889c837ea129b094a96639e63f544465, type: 3}
   attackStateName: Attack
   attackLayer: 0
   attackEndTimeout: 3
+  mapGenerator: {fileID: 1756783308}
+  gridManager: {fileID: 1506128540}
+  turnManager: {fileID: 40935855}
   highlighterMask:
     serializedVersion: 2
     m_Bits: 64
@@ -1882,6 +1883,17 @@ MonoBehaviour:
   defaultEnemyPrefab: {fileID: 0}
   enemyCount: 3
   levelData: {fileID: 0}
+--- !u!114 &1506128540 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3768174459631927232, guid: 8952e0bef2b55714cb1496ff54fc0d03, type: 3}
+  m_PrefabInstance: {fileID: 3751548620426459090}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07e2fb9d85b774f42acbf6880ed6b4f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1506477868
 GameObject:
   m_ObjectHideFlags: 0
@@ -2299,6 +2311,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1699991441}
   m_CullTransparentMesh: 1
+--- !u!114 &1756783308 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7892729368132557778, guid: d532bcae4f506b04890d97f4be6184d4, type: 3}
+  m_PrefabInstance: {fileID: 1977104350}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76b8b261a78d1754fad76a21d324b6d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1850948290
 PrefabInstance:
   m_ObjectHideFlags: 0
