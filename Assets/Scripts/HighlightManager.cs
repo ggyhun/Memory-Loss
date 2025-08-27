@@ -5,7 +5,7 @@ using System.Collections;
 public class HighlightManager : MonoBehaviour
 {
     public GridManager gridManager;
-    public TurnManager TurnManager;
+    public TurnManager turnManager;
 
     [Header("Prefabs")]
     public GameObject castHighlighterPrefab;
@@ -35,7 +35,7 @@ public class HighlightManager : MonoBehaviour
     {
         if (player == null) player = FindFirstObjectByType<PlayerController>().gameObject;
         if (gridManager == null) gridManager = FindFirstObjectByType<GridManager>();
-        if (TurnManager == null) TurnManager = FindFirstObjectByType<TurnManager>();
+        if (turnManager == null) turnManager = FindFirstObjectByType<TurnManager>();
 
         for (int i = 0; i < 4; i++)
         {

@@ -38,8 +38,6 @@ public class MapGenerator : MonoBehaviour
             Debug.LogError("Map prefabs are not assigned in the MapGenerator.");
             return;
         }
-        // Awake 단계에서 다른 객체가 구독이 안되어있어 주석처리
-        // StartCoroutine(ChangeMap());
     }
     
     private void Start()
