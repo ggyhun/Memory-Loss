@@ -69,6 +69,9 @@ public class PlayerController : MonoBehaviour
         // 기본 공격 스펠 학습(슬롯 0을 의도)
         if (normalAttackSpell != null)
             LearnSpell(normalAttackSpell);
+        
+        var sr = GetComponentInChildren<SpriteRenderer>(true);
+        Debug.Log($"[BuildCheck] SR: {(sr? "ok":"null")}, enabled={sr?.enabled}, color={sr?.color}, mat={sr?.sharedMaterial?.name}, layer={sr?.sortingLayerName}, order={sr?.sortingOrder}");
     }
 
     private bool isMoving = false;

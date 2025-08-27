@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Scripting;
 
 public class PlayerAnimator : MonoBehaviour
 {
@@ -73,6 +74,7 @@ public class PlayerAnimator : MonoBehaviour
     }
 
     // Animation Event에서 호출
+    [Preserve]
     public void AnimEvent_ActionEnd()
     {
         TurnManager.Instance.NotifyPlayerAnimationComplete();

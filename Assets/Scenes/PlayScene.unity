@@ -228,6 +228,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4450133465781268055, guid: a75b40be69af0ae4f98df57fdd42ca3b, type: 3}
+      propertyPath: m_TagString
+      value: Sprite
+      objectReference: {fileID: 0}
     - target: {fileID: 7178147870297439484, guid: a75b40be69af0ae4f98df57fdd42ca3b, type: 3}
       propertyPath: m_Name
       value: Oivil

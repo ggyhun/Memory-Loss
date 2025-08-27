@@ -87,6 +87,7 @@ public class TurnManager : MonoBehaviour
     // ===== 플레이어 → 시스템 (혹은 추가 턴으로 바로 회귀) =====
     public void EndPlayerTurn()
     {
+        Debug.Log($"[TurnManager] EndPlayerTurn called. CurrentTurn: {CurrentTurn}");
         if (waitPlayerAnimToEndTurn) return;      // 애니 끝날 때까지 보류
         if (!isSwapping) StartCoroutine(CoEndPlayerTurn());
     }

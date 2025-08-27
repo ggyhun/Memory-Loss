@@ -35,7 +35,6 @@ public class ScrollSpawner : MonoBehaviour
     private void Start()
     {
         if (gridManager == null) gridManager = FindFirstObjectByType<GridManager>();
-        SpawnScrolls();
     }
 
     private void SpawnScrolls()

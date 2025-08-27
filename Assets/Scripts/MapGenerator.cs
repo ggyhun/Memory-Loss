@@ -59,44 +59,68 @@ public class MapGenerator : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
             StartCoroutine(ChangeMap());
     }
+    
+    private IEnumerator WaitForManagersReady(float timeout = 3f)
+    {
+        float t = 0f;
+        // 필요 매니저를 전부 나열
+        while (GameRecorder.Instance == null
+               || (GameRecorder.Instance != null && GameRecorder.Instance.ReachedFloor < 0) // 선택: 내부 준비 확인
+               || AudioManager.Instance == null
+               || FadeManager.Instance == null
+               || InGameUiManager.Instance == null
+               || GameManager.Instance == null)
+        {
+            t += Time.unscaledDeltaTime;
+            if (t > timeout) break; // 너무 오래 걸리면 탈출
+            yield return null;
+        }
+    }
 
     public IEnumerator ChangeMap()
     {
-        if (GameRecorder.Instance.ReachedFloor >= 10)
+        // ✅ 먼저 매니저들 준비될 때까지 잠깐 대기
+        yield return WaitForManagersReady();
+
+        if (GameRecorder.Instance != null && GameRecorder.Instance.ReachedFloor >= 10)
         {
-            StartCoroutine(GameManager.Instance.GameClear());
-        } else
-        {
-            if (GameRecorder.Instance.ReachedFloor != 0)
+            if (GameManager.Instance != null)
+                StartCoroutine(GameManager.Instance.GameClear());
+            yield break;
+        }
+
+        // 페이드인(첫 층이면 스킵)
+        if (GameRecorder.Instance != null && GameRecorder.Instance.ReachedFloor != 0)
+            if (FadeManager.Instance != null)
                 yield return FadeManager.Instance.FadeInOut(1, 1.5f);
 
-            if (GameRecorder.Instance.ReachedFloor <= 3)
-                AudioManager.Instance.PlayBGM(1);
-            else if (GameRecorder.Instance.ReachedFloor <= 6)
-                AudioManager.Instance.PlayBGM(2);
-            else if (GameRecorder.Instance.ReachedFloor <= 9)
-                AudioManager.Instance.PlayBGM(3);
-
-            if (GameRecorder.Instance.ReachedFloor == 9)
-            {
-                if (mapInstance) Destroy(mapInstance);
-                Debug.Log("MapGenerator: Changing map...");
-                SpawnBossMap();
-                GameRecorder.Instance.ReachedFloor++;
-                StartCoroutine(FadeManager.Instance.FadeInOut(0, 1.5f));
-            }
-            else
-            {
-                if (mapInstance) Destroy(mapInstance);
-                Debug.Log("MapGenerator: Changing map...");
-                SpawnRandomMap();
-                GameRecorder.Instance.ReachedFloor++;
-                StartCoroutine(FadeManager.Instance.FadeInOut(0, 1.5f));
-            }
-            InGameUiManager.Instance.currentFloor = GameRecorder.Instance.ReachedFloor;
+        // BGM
+        if (GameRecorder.Instance != null && AudioManager.Instance != null)
+        {
+            int f = GameRecorder.Instance.ReachedFloor;
+            if      (f <= 3) AudioManager.Instance.PlayBGM(1);
+            else if (f <= 6) AudioManager.Instance.PlayBGM(2);
+            else if (f <= 9) AudioManager.Instance.PlayBGM(3);
         }
-        yield break;
+
+        // 맵 스폰
+        if (mapInstance) Destroy(mapInstance);
+        Debug.Log("MapGenerator: Changing map...");
+
+        if (GameRecorder.Instance != null && GameRecorder.Instance.ReachedFloor == 9)
+            SpawnBossMap();
+        else
+            SpawnRandomMap();
+
+        if (GameRecorder.Instance != null) GameRecorder.Instance.ReachedFloor++;
+
+        if (FadeManager.Instance != null)
+            StartCoroutine(FadeManager.Instance.FadeInOut(0, 1.5f));
+
+        if (InGameUiManager.Instance != null && GameRecorder.Instance != null)
+            InGameUiManager.Instance.currentFloor = GameRecorder.Instance.ReachedFloor;
     }
+
 
     private void SpawnRandomMap()
     {

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Scroll
   - Enemy
+  - Sprite
   layers:
   - Default
   - TransparentFX
