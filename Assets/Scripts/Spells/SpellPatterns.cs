@@ -60,6 +60,26 @@ public static class SpellPatterns
                 }
                 break;
             }
+
+            case CastPattern.Around8:
+            {
+                Vector3Int[] dirs =
+                {
+                    Vector3Int.up,
+                    Vector3Int.down,
+                    Vector3Int.left,
+                    Vector3Int.right,
+                    Vector3Int.up + Vector3Int.left,
+                    Vector3Int.up + Vector3Int.right,
+                    Vector3Int.down + Vector3Int.right,
+                    Vector3Int.down + Vector3Int.left
+                };
+                foreach (var d in dirs)
+                {
+                    AddUnique(playerCell + d);
+                }
+                break;
+            }
         }
         return result;
 

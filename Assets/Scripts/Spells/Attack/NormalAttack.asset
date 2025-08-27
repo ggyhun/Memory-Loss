@@ -18,7 +18,7 @@ MonoBehaviour:
   icon: {fileID: 1794289465, guid: 8306c62b08e4e964d8152c91546e1f69, type: 3}
   isForgettable: 0
   forgettableCooldown: 0
-  castPattern: 0
+  castPattern: 4
   areaPattern: 0
   isUtility: 0
   spellType: 0
