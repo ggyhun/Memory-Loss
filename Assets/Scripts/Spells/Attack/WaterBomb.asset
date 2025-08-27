@@ -17,7 +17,7 @@ MonoBehaviour:
   damage: 10
   icon: {fileID: 78956130, guid: 8306c62b08e4e964d8152c91546e1f69, type: 3}
   isForgettable: 1
-  forgettableCooldown: 3
+  forgettableCooldown: 9
   castPattern: 3
   areaPattern: 7
   isUtility: 0

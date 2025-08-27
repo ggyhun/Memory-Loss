@@ -226,9 +226,11 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("OnMapChanged: PlayerController.cs");
 
-        if (gridManager == null)      gridManager = FindFirstObjectByType<GridManager>();
+        if (gridManager == null) gridManager = FindFirstObjectByType<GridManager>();
         if (highlightManager == null) highlightManager = FindFirstObjectByType<HighlightManager>();
 
+        Stats stats = GetComponent<Stats>();
+        stats.currentHp = stats.maxHp;
         highlightManager?.Init(gameObject, gridManager);
         SetPlayerStartPosition();
         TurnManager.Instance?.StartPlayerTurn();

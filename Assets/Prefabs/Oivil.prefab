@@ -271,8 +271,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ownership: 0
-  maxHp: 100
-  currentHp: 100
+  maxHp: 200
+  currentHp: 200
   isInvincible: 0
   shildTurns: 0
   shieldHp: 0

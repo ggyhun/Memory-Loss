@@ -9,6 +9,7 @@ public class GameEndingUI : MonoBehaviour
     public GameObject Fade;
     public GameObject TextPanelUI;
     public GameObject LetterUI;
+    public GameObject SpaceTextUI;
     string[] TextData = {
         "1",
         "끝없는 동굴을 헤맨 기억이 있다.",
@@ -84,6 +85,7 @@ public class GameEndingUI : MonoBehaviour
     string DisplayingText;
     bool IsAwaitingInput = false;
     bool WalkingSFXPlaying = true;
+    bool ShowSpaceTextUI = false;
     int TextDataLine = 0;
     int TextDataColumn = 0;
     void Awake()
@@ -91,6 +93,7 @@ public class GameEndingUI : MonoBehaviour
         AudioManager.Instance.PlayBGM(0);
         StartCoroutine(WalkingSFX());
         StartCoroutine(StartEndingScene());
+        StartCoroutine(SpaceTextUIBlink());
     }
 
     void Start()
@@ -107,11 +110,38 @@ public class GameEndingUI : MonoBehaviour
         }
         yield break;
     }
+
+    IEnumerator SpaceTextUIBlink()
+    {
+        while (TextDataLine < TextData.Length)
+        {
+            bool active = false;
+            yield return new WaitUntil(() => IsAwaitingInput);
+            ShowSpaceTextUI = true;
+            yield return new WaitForSeconds(2f);
+            while (ShowSpaceTextUI)
+            {
+                active = !active;
+                SpaceTextUI.SetActive(active);
+                yield return new WaitForSeconds(0.8f);
+            }
+            yield return null;
+        }
+        yield break;
+    }
+
+    IEnumerator AwaitSpaceInput()
+    {
+        yield return new WaitUntil(() => !IsAwaitingInput);
+        SpaceTextUI.SetActive(false);
+        ShowSpaceTextUI = false;
+    }
+
     IEnumerator StartEndingScene()
     {
         while (TextDataLine < TextData.Length)
         {
-            if (IsAwaitingInput == false)
+            if (!IsAwaitingInput)
             {
                 if (!Input.GetKey(KeyCode.Space))
                 {
@@ -120,8 +150,7 @@ public class GameEndingUI : MonoBehaviour
             }
             else if (Input.GetKeyDown(KeyCode.Space))
             {
-                while (!Input.GetKeyUp(KeyCode.Space))
-                    yield return null;
+                yield return new WaitUntil(() => Input.GetKeyUp(KeyCode.Space));
                 IsAwaitingInput = false;
             }
             else
@@ -161,6 +190,7 @@ public class GameEndingUI : MonoBehaviour
             EndingText.rectTransform.anchoredPosition = new Vector3(50, 500, 0);
             EndingText.fontSize = 64;
             EndingText.color = new Color(0xff, 0xff, 0xff);
+            SpaceTextUI.GetComponent<TextMeshProUGUI>().color = new Color(0xff, 0xff, 0xff);
         }
         else if (mode == 2)
         {
@@ -173,6 +203,7 @@ public class GameEndingUI : MonoBehaviour
             EndingText.rectTransform.anchoredPosition = new Vector3(150, 400, 0);
             EndingText.fontSize = 58;
             EndingText.color = new Color(0x00, 0x00, 0x00);
+            SpaceTextUI.GetComponent<TextMeshProUGUI>().color = new Color(0x00, 0x00, 0x00);
         }
         else if (mode == 3)
         {
@@ -181,6 +212,7 @@ public class GameEndingUI : MonoBehaviour
             EndingText.rectTransform.anchoredPosition = new Vector3(650, 350, 0);
             EndingText.fontSize = 42;
             EndingText.color = new Color(0x00, 0x00, 0x00);
+            SpaceTextUI.GetComponent<TextMeshProUGUI>().color = new Color(0x00, 0x00, 0x00);
         }
         else if (mode == 4)
         {
@@ -191,6 +223,7 @@ public class GameEndingUI : MonoBehaviour
             EndingText.rectTransform.anchoredPosition = new Vector3(900, 0, 0);
             EndingText.fontSize = 108;
             EndingText.color = new Color(0xff, 0xff, 0xff);
+            SpaceTextUI.GetComponent<TextMeshProUGUI>().color = new Color(0x00, 0x00, 0x00);
         }
     }
     int TextUpdate()
@@ -200,6 +233,7 @@ public class GameEndingUI : MonoBehaviour
             TextDataLine++;
             DisplayingText += "\n";
             IsAwaitingInput = true;
+            StartCoroutine(AwaitSpaceInput());
         }
         else if (TextData[TextDataLine].Length == 1)
         {

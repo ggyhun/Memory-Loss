@@ -29,10 +29,7 @@ public class StartSceneManager : MonoBehaviour
 
     IEnumerator AwaitFirstInput()
     {
-        while (!Input.anyKey)
-        {
-            yield return null;
-        }
+        yield return new WaitUntil(() => Input.anyKey);
         startText.SetActive(false);
         startButtons.SetActive(true);
         KeyPressed = true;
