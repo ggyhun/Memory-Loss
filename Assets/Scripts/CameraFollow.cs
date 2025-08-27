@@ -23,7 +23,6 @@ public class CameraFollow : MonoBehaviour
 
     private void Awake()
     {
-        GameRecorder.Instance.ResetAllRecorded();
         cam = GetComponent<Camera>();
     }
     
@@ -41,6 +40,7 @@ public class CameraFollow : MonoBehaviour
 
     private void Start()
     {
+        GameRecorder.Instance.ResetAllRecorded();
         if (!target)
         {
             var p = GameObject.FindGameObjectWithTag("Player");
