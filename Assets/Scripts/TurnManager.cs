@@ -27,7 +27,7 @@ public class TurnManager : MonoBehaviour
     private bool waitPlayerAnimToEndTurn = false;
 
     // 전환 중복 방지
-    private bool isSwapping = false;
+    [SerializeField]    private bool isSwapping = false;
 
     private void Awake()
     {
@@ -136,9 +136,9 @@ public class TurnManager : MonoBehaviour
         yield return DelaySwap();
 
         Debug.Log("[TurnManager] EnemyManager starting enemy turn.");
-        enemyManager.StartEnemyTurn();
-
         isSwapping = false;
+        
+        enemyManager.StartEnemyTurn();
     }
 
     // ===== 시스템 → 플레이어 =====
