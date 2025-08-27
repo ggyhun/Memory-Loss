@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections.Generic;
 
 public enum CastPattern { Around4, Single, Diagonal, Around4Plus, Around8 }
 public enum AreaPattern { Single, LineForward2, Around4, Front1, Front2, Front3, Circle3, Splash }
