@@ -6,6 +6,9 @@
 
 - **장르:** 로그라이크, 액션 RPG
 
+- **최신 빌드:**
+  - Google Drive: https://drive.google.com/file/d/1mE-7XvKCkEg3p0iTHhXeOOTA-2eCUcfA/view?usp=drive_link
+
 ---
 
 ## 게임 특징
