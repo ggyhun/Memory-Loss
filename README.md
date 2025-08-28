@@ -1,4 +1,4 @@
-![Title](./assets/README_img/Intro_bg_title.png)
+![Title Background Image](Assets/README_img/intro_bg_title.png)
 
 # Memory Loss
 
@@ -93,4 +93,4 @@
 - 플랫폼 : Windows
 - 플레이어 수 : 1인
 
-![Title](./assets/README_img/Memoryloss_title.png)
+![Title](Assets/README_img/Memoryloss_title.png)
